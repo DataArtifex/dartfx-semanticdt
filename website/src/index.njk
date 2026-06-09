@@ -1,0 +1,177 @@
+---
+layout: layouts/base.njk
+title: Semantic Data Types Registry
+description: Establishing a formal bridge between conceptual representations and physical storage or programming data types. Curated registry for standard identifiers, classifications, and scopes.
+---
+
+<!-- Hero Section -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <h1>Semantic Data Type</h1>
+  <p>
+    The Semantic Data Type (SDT) specification establishes a formal bridge between conceptual representations and physical storage or programming data types. By capturing key aspects—including meaning and purpose, usage, formatting, and validation rules—it enables both humans and machines to gain a deep, actionable understanding of the underlying data.
+  </p>
+  <div class="hero-actions">
+    <a href="/library/" class="btn btn-primary">Browse SDT Library</a>
+    <a href="/playground/" class="btn btn-secondary">Try Validator Playground</a>
+  </div>
+</section>
+
+<!-- Core Pillars -->
+<h2 style="justify-content: center; margin-top: 4rem;">Core Pillars of Semantic Types</h2>
+<div class="grid pillars-grid" style="margin-bottom: 4rem;">
+  <div class="card">
+    <div class="badge badge-violet" style="align-self: flex-start; margin-bottom: 1rem;">Modeling</div>
+    <h3 style="margin-bottom: 0.5rem;">Conceptual Alignment</h3>
+    <p class="card-description" style="margin-bottom: 0;">
+      Semantic types are aligned to standard ontologies like SKOS, Wikidata, and LCSH. They represent discrete real-world concepts, not just raw primitive data types.
+    </p>
+  </div>
+
+  <div class="card">
+    <div class="badge badge-cyan" style="align-self: flex-start; margin-bottom: 1rem;">Bindings</div>
+    <h3 style="margin-bottom: 0.5rem;">Physical Storage Mappings</h3>
+    <p class="card-description" style="margin-bottom: 0;">
+      Mappings defined across multiple environments, detailing how a type is stored in databases (SQL, PostgreSQL, BigQuery), represented in programming (Python, Rust, TypeScript), or exchanged (XSD).
+    </p>
+  </div>
+
+  <div class="card">
+    <div class="badge badge-violet" style="align-self: flex-start; margin-bottom: 1rem;">Actionability</div>
+    <h3 style="margin-bottom: 0.5rem;">Agentic Skills & Instructions</h3>
+    <p class="card-description" style="margin-bottom: 0;">
+      Built-in instructions and system prompt snippets designed for LLMs to interpret, parse, normalize, and reason with variables matching the semantic data type.
+    </p>
+  </div>
+
+  <div class="card">
+    <div class="badge badge-cyan" style="align-self: flex-start; margin-bottom: 1rem;">Reliability</div>
+    <h3 style="margin-bottom: 0.5rem;">Algorithmic Checksums</h3>
+    <p class="card-description" style="margin-bottom: 0;">
+      Multi-layered validation combining structure-matching regular expressions with complex algorithmic check validations (such as Luhn, Modulo-11, and Modulo-97).
+    </p>
+  </div>
+</div>
+
+<!-- Illustrative Examples Section -->
+<h2 style="justify-content: center; margin-top: 4rem; border-bottom: none;">Illustrative Examples</h2>
+<p style="text-align: center; max-width: 700px; margin: 0 auto 2.5rem; font-size: 1.05rem;">
+  Explore how Semantic Data Types elevate primitive data representations into self-documenting, validated, and agent-actionable assets.
+</p>
+<div class="grid" style="margin-bottom: 4rem;">
+  <!-- US SSN Card -->
+  <div class="card" style="display: flex; flex-direction: column;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+      <span class="badge badge-violet">Demographic</span>
+      <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 500;">Scope: US</span>
+    </div>
+    <h3 style="margin-bottom: 0.75rem; font-size: 1.3rem;">US Social Security Number</h3>
+    <p class="card-description" style="font-size: 0.9rem; line-height: 1.5; margin-bottom: 1.5rem;">
+      A sensitive national identifier allocated for taxation and social security administration.
+    </p>
+
+    <div style="margin-top: auto; display: flex; flex-direction: column; gap: 0.85rem; font-size: 0.85rem; border-top: 1px solid var(--border-color); padding-top: 1.25rem; margin-bottom: 1.25rem;">
+      <div>
+        <span style="display: block; font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.15rem;">Conceptual Alignment</span>
+        <a href="https://www.wikidata.org/wiki/Q1411516" target="_blank" style="color: var(--accent-secondary); font-weight: 500; font-size: 0.85rem; word-break: break-all;">Wikidata: Q1411516</a>
+      </div>
+      <div>
+        <span style="display: block; font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.15rem;">Physical Storage</span>
+        <code style="font-size: 0.8rem; color: var(--accent-tertiary);">VARCHAR(11)</code> / <code style="font-size: 0.8rem; color: var(--accent-tertiary);">str</code>
+      </div>
+      <div>
+        <span style="display: block; font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.15rem;">Validation Rules</span>
+        <span style="color: var(--text-secondary);">Pattern structure + exclusion of invalid ranges (e.g. 000, 666)</span>
+      </div>
+      <div>
+        <span style="display: block; font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.15rem;">Agent Instructions</span>
+        <span style="color: var(--text-secondary); font-style: italic; display: block; background: rgba(255,255,255,0.02); border-left: 2px solid var(--accent-primary); padding: 0.4rem 0.6rem; border-radius: 0 4px 4px 0;">"Treat as PII. Redact or mask first 5 digits in logs and displays."</span>
+      </div>
+    </div>
+
+    <div style="border-top: 1px solid var(--border-color); padding-top: 1rem; display: flex; justify-content: flex-end;">
+      <a href="/library/us-ssn/" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.85rem; width: 100%; text-align: center;">View Specification &rarr;</a>
+    </div>
+  </div>
+
+  <!-- IBAN Card -->
+  <div class="card" style="display: flex; flex-direction: column;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+      <span class="badge badge-cyan">Financial</span>
+      <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 500;">Scope: Global</span>
+    </div>
+    <h3 style="margin-bottom: 0.75rem; font-size: 1.3rem;">International Bank Account</h3>
+    <p class="card-description" style="font-size: 0.9rem; line-height: 1.5; margin-bottom: 1.5rem;">
+      A standardized global system for identifying financial accounts across national borders.
+    </p>
+
+    <div style="margin-top: auto; display: flex; flex-direction: column; gap: 0.85rem; font-size: 0.85rem; border-top: 1px solid var(--border-color); padding-top: 1.25rem; margin-bottom: 1.25rem;">
+      <div>
+        <span style="display: block; font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.15rem;">Conceptual Alignment</span>
+        <a href="https://www.wikidata.org/wiki/Q166827" target="_blank" style="color: var(--accent-secondary); font-weight: 500; font-size: 0.85rem; word-break: break-all;">Wikidata: Q166827</a>
+      </div>
+      <div>
+        <span style="display: block; font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.15rem;">Physical Storage</span>
+        <code style="font-size: 0.8rem; color: var(--accent-tertiary);">VARCHAR(34)</code> / <code style="font-size: 0.8rem; color: var(--accent-tertiary);">str</code>
+      </div>
+      <div>
+        <span style="display: block; font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.15rem;">Validation Rules</span>
+        <span style="color: var(--text-secondary);">Country code prefix matching + Modulo-97 checksum validation</span>
+      </div>
+      <div>
+        <span style="display: block; font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.15rem;">Agent Instructions</span>
+        <span style="color: var(--text-secondary); font-style: italic; display: block; background: rgba(255,255,255,0.02); border-left: 2px solid var(--accent-secondary); padding: 0.4rem 0.6rem; border-radius: 0 4px 4px 0;">"Normalize spaces and capitalization before validating or processing."</span>
+      </div>
+    </div>
+
+    <div style="border-top: 1px solid var(--border-color); padding-top: 1rem; display: flex; justify-content: flex-end;">
+      <a href="/library/global-iban/" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.85rem; width: 100%; text-align: center;">View Specification &rarr;</a>
+    </div>
+  </div>
+
+  <!-- Canadian Postal Code Card -->
+  <div class="card" style="display: flex; flex-direction: column;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+      <span class="badge badge-violet">Geographic</span>
+      <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 500;">Scope: Canada</span>
+    </div>
+    <h3 style="margin-bottom: 0.75rem; font-size: 1.3rem;">Canadian Postal Code</h3>
+    <p class="card-description" style="font-size: 0.9rem; line-height: 1.5; margin-bottom: 1.5rem;">
+      A six-character alphanumeric string that forms part of a postal address in Canada.
+    </p>
+
+    <div style="margin-top: auto; display: flex; flex-direction: column; gap: 0.85rem; font-size: 0.85rem; border-top: 1px solid var(--border-color); padding-top: 1.25rem; margin-bottom: 1.25rem;">
+      <div>
+        <span style="display: block; font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.15rem;">Conceptual Alignment</span>
+        <a href="https://www.wikidata.org/wiki/Q1478124" target="_blank" style="color: var(--accent-secondary); font-weight: 500; font-size: 0.85rem; word-break: break-all;">Wikidata: Q1478124</a>
+      </div>
+      <div>
+        <span style="display: block; font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.15rem;">Physical Storage</span>
+        <code style="font-size: 0.8rem; color: var(--accent-tertiary);">VARCHAR(7)</code> / <code style="font-size: 0.8rem; color: var(--accent-tertiary);">str</code>
+      </div>
+      <div>
+        <span style="display: block; font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.15rem;">Validation Rules</span>
+        <span style="color: var(--text-secondary);">Alternating letter/digit regex + forbidden character exclusions (D, F, I, O, Q, U)</span>
+      </div>
+      <div>
+        <span style="display: block; font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.15rem;">Agent Instructions</span>
+        <span style="color: var(--text-secondary); font-style: italic; display: block; background: rgba(255,255,255,0.02); border-left: 2px solid var(--accent-primary); padding: 0.4rem 0.6rem; border-radius: 0 4px 4px 0;">"Normalize to uppercase and ensure a single separating space (e.g. 'K1A 0B1')."</span>
+      </div>
+    </div>
+
+    <div style="border-top: 1px solid var(--border-color); padding-top: 1rem; display: flex; justify-content: flex-end;">
+      <a href="/library/ca-postal_code/" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.85rem; width: 100%; text-align: center;">View Specification &rarr;</a>
+    </div>
+  </div>
+</div>
+
+<!-- Quick Overview / Specs -->
+<div style="background: var(--bg-surface); backdrop-filter: var(--glass-blur); border: 1px solid var(--border-color); border-radius: 12px; padding: 2rem; margin-bottom: 4rem; position: relative;">
+  <h2 style="margin-top: 0; margin-bottom: 1rem; border-bottom: none;">Explore the Open Specification</h2>
+  <p style="font-size: 1.05rem;">
+    The structure and properties of Semantic Data Types are formally modeled in <strong>LinkML (Linked Data Modeling Language)</strong>, providing absolute machine-readability, automated compilation to Python/Rust/TypeScript, and rigorous metadata schema compliance.
+  </p>
+  <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem;">
+    <a href="/spec/" class="btn btn-secondary" style="background-color: rgba(255,255,255,0.03);">View LinkML Spec Explorer &rarr;</a>
+  </div>
+</div>

@@ -1,0 +1,87 @@
+id: https://w3id.org/dartfx/semanticdt/library/global/isbn
+name: International Standard Book Number (ISBN-13)
+description: >-
+  A 13-digit unique numeric commercial book identifier, standardized under ISO 2108.
+  Validated using a weighted modulo-10 algorithm.
+version: 0.1.0
+concepts:
+  - uri: https://www.wikidata.org/wiki/Q33057
+    vocabulary: Wikidata
+    pref_label: International Standard Book Number
+    match_type: exactMatch
+storage_types:
+  - target_environment: generic
+    data_type: string
+  - target_environment: python
+    data_type: str
+  - target_environment: sql
+    data_type: VARCHAR
+    format_modifier: 17
+  - target_environment: xsd
+    data_type: string
+validation_rules:
+  - rule_type: regex
+    pattern: ^(978|979)[- ]?\d{1,5}[- ]?\d{1,7}[- ]?\d{1,7}[- ]?\d$
+    message: ISBN-13 must start with 978 or 979, followed by 10 digits separated by hyphens or spaces.
+  - rule_type: custom
+    message: ISBN-13 failed weighted modulo-10 checksum validation.
+    code_snippets:
+      - target_environment: python
+        code: |
+          def validate_isbn13(val: str) -> bool:
+              clean = val.replace("-", "").replace(" ", "")
+              if len(clean) != 13 or not clean.isdigit():
+                  return False
+              digits = [int(c) for c in clean]
+              total = 0
+              for i, d in enumerate(digits):
+                  weight = 3 if i % 2 == 1 else 1
+                  total += d * weight
+              return total % 10 == 0
+generation_rules:
+  - generator_type: custom
+    template: python generation code
+    code_snippets:
+      - target_environment: python
+        code: |
+          import random
+          def generate_isbn13() -> str:
+              prefix = [9, 7, 8] if random.random() < 0.5 else [9, 7, 9]
+              # Generate next 9 digits
+              digits = prefix + [random.randint(0, 9) for _ in range(9)]
+              total = sum(d * (3 if i % 2 == 1 else 1) for i, d in enumerate(digits))
+              check_digit = (10 - (total % 10)) % 10
+              digits.append(check_digit)
+              isbn_str = "".join(map(str, digits))
+              return f"{isbn_str[:3]}-{isbn_str[3]}-{isbn_str[4:8]}-{isbn_str[8:12]}-{isbn_str[12]}"
+agent_instructions:
+  guidelines: >-
+    ISBN-13 is a public book identifier and is not sensitive.
+    Normalize values by removing hyphens or spaces if stored, but keep them for display formats.
+  system_prompt_snippet: >-
+    Parse and validate ISBN-13 strings using weighted mod-10 checks.
+scope:
+  geospatial_coverage:
+    description: Global
+    codes:
+      - Global
+  domain: Publishing / Metadata
+  governing_institution: International ISBN Agency
+display_format:
+  display_template: "{{ value }}"
+examples:
+  - value: 978-3-16-148410-0
+    is_valid: true
+    description: A valid standard ISBN-13.
+  - value: 9783161484100
+    is_valid: true
+    description: A valid ISBN-13 without separators.
+  - value: 979 0 2600 0043 8
+    is_valid: true
+    description: A valid ISBN-13 with spaces.
+  - value: 978-3-16-148410-1
+    is_valid: false
+    description: Invalid because the check digit (1) does not match the computed checksum.
+  - value: 123-4-56-789012-3
+    is_valid: false
+    description: Invalid because it does not start with 978 or 979.

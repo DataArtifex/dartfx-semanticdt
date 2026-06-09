@@ -1,0 +1,927 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix linkml: <https://w3id.org/linkml/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix pav: <http://purl.org/pav/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sdt: <https://w3id.org/dartfx/semanticdt/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://w3id.org/dartfx/semanticdt.owl.ttl> a owl:Ontology ;
+    rdfs:label "semantic-data-type" ;
+    dcterms:license "https://creativecommons.org/publicdomain/zero/1.0/" ;
+    dcterms:title "Semantic Data Type Schema" ;
+    pav:version "0.1.0-dev" ;
+    skos:definition "A schema defining Semantic Data Types (SDT) situated above physical database or programming types. Encompasses metadata, mappings, validation, generation, and agentic instructions." .
+
+sdt:SemanticDataType a owl:Class ;
+    rdfs:label "SemanticDataType" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom sdt:ConceptReference ;
+            owl:onProperty sdt:concepts ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sdt:version ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty sdt:name ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sdt:display_format ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty sdt:classification ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty sdt:storage_types ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sdt:scope ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty sdt:agent_skills ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty sdt:generation_rules ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sdt:ScopeContext ;
+            owl:onProperty sdt:scope ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sdt:agent_instructions ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty sdt:description ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sdt:GenerationRule ;
+            owl:onProperty sdt:generation_rules ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sdt:StorageType ;
+            owl:onProperty sdt:storage_types ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty sdt:agent_instructions ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty sdt:validation_rules ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sdt:DisplayFormat ;
+            owl:onProperty sdt:display_format ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sdt:classification ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty sdt:examples ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sdt:description ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty sdt:id ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sdt:AgentInstruction ;
+            owl:onProperty sdt:agent_instructions ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sdt:Example ;
+            owl:onProperty sdt:examples ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty sdt:display_format ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty sdt:id ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty sdt:concepts ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sdt:ValidationRule ;
+            owl:onProperty sdt:validation_rules ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sdt:id ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty sdt:version ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sdt:AgentSkill ;
+            owl:onProperty sdt:agent_skills ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sdt:ClassificationSystem ;
+            owl:onProperty sdt:classification ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty sdt:version ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty sdt:name ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty sdt:description ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sdt:name ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty sdt:scope ] ;
+    skos:definition "A high-level data type associated with a distinct concept, validation/generation rules, and metadata." ;
+    skos:inScheme <https://w3id.org/dartfx/semanticdt> .
+
+sdt:iso_date a owl:DatatypeProperty ;
+    rdfs:label "iso_date" ;
+    rdfs:range [ a rdfs:Datatype ;
+            owl:intersectionOf ( xsd:string [ a rdfs:Datatype ;
+                        owl:onDatatype xsd:string ;
+                        owl:withRestrictions ( [ xsd:pattern "^\\d{4}-\\d{2}-\\d{2}$" ] ) ] ) ] ;
+    skos:definition "A date string formatted strictly according to ISO 8601 (YYYY-MM-DD)." ;
+    skos:inScheme <https://w3id.org/dartfx/semanticdt> .
+
+sdt:AgentInstruction a owl:Class ;
+    rdfs:label "AgentInstruction" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty sdt:guidelines ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty sdt:guidelines ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty sdt:system_prompt_snippet ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty sdt:system_prompt_snippet ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sdt:system_prompt_snippet ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sdt:guidelines ] ;
+    skos:definition "Machine and agentic parsing, transformation, or reasoning guidelines." ;
+    skos:inScheme <https://w3id.org/dartfx/semanticdt> .
+
+sdt:AgentSkill a owl:Class ;
+    rdfs:label "AgentSkill" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty sdt:tool_name ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sdt:tool_name ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty sdt:tool_name ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sdt:api_definition ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty sdt:description ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sdt:description ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty sdt:description ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty sdt:api_definition ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty sdt:api_definition ] ;
+    skos:definition "Executable tools, functions, or workflows related to the semantic type." ;
+    skos:inScheme <https://w3id.org/dartfx/semanticdt> .
+
+sdt:ClassificationSystem a owl:Class ;
+    rdfs:label "ClassificationSystem" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sdt:uri ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty sdt:version ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty sdt:name ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty sdt:version ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty sdt:uri ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sdt:version ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty sdt:name ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sdt:name ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty sdt:uri ] ;
+    skos:definition "Controlled vocabulary or coding scheme (making this a categorical variable)." ;
+    skos:inScheme <https://w3id.org/dartfx/semanticdt> .
+
+sdt:ConceptReference a owl:Class ;
+    rdfs:label "ConceptReference" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty sdt:uri ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty sdt:vocabulary ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sdt:match_type ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty sdt:vocabulary ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sdt:vocabulary ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sdt:pref_label ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sdt:uri ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty sdt:match_type ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty sdt:pref_label ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty sdt:uri ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty sdt:pref_label ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty sdt:match_type ] ;
+    skos:definition "Reference to a concept in an external ontology or vocabulary." ;
+    skos:inScheme <https://w3id.org/dartfx/semanticdt> .
+
+sdt:DisplayFormat a owl:Class ;
+    rdfs:label "DisplayFormat" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sdt:formatting_regex ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty sdt:input_mask ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty sdt:formatting_regex ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty sdt:formatting_regex ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sdt:display_template ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty sdt:input_mask ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty sdt:display_template ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sdt:input_mask ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty sdt:display_template ] ;
+    skos:definition "Guidelines for displaying and masking data." ;
+    skos:inScheme <https://w3id.org/dartfx/semanticdt> .
+
+sdt:Example a owl:Class ;
+    rdfs:label "Example" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty sdt:value ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty sdt:is_valid ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty sdt:description ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty sdt:description ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sdt:is_valid ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty sdt:is_valid ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sdt:description ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sdt:value ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty sdt:value ] ;
+    skos:definition "Concrete instance of values." ;
+    skos:inScheme <https://w3id.org/dartfx/semanticdt> .
+
+sdt:GenerationRule a owl:Class ;
+    rdfs:label "GenerationRule" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sdt:generator_type ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty sdt:template ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty sdt:code_snippets ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty sdt:template ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sdt:CodeSnippet ;
+            owl:onProperty sdt:code_snippets ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty sdt:generator_type ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty sdt:generator_type ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sdt:template ] ;
+    skos:definition "Directive for synthetic data generation." ;
+    skos:inScheme <https://w3id.org/dartfx/semanticdt> .
+
+sdt:GeospatialCoverage a owl:Class ;
+    rdfs:label "GeospatialCoverage" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty sdt:codes ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty sdt:codes ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty sdt:description ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sdt:description ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty sdt:description ] ;
+    skos:definition "Geospatial coverage boundaries represented by description and/or formal codes or URIs." ;
+    skos:inScheme <https://w3id.org/dartfx/semanticdt> .
+
+sdt:ScopeContext a owl:Class ;
+    rdfs:label "ScopeContext" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sdt:temporal_coverage ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sdt:domain ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sdt:GeospatialCoverage ;
+            owl:onProperty sdt:geospatial_coverage ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sdt:geospatial_coverage ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sdt:TemporalCoverage ;
+            owl:onProperty sdt:temporal_coverage ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty sdt:domain ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty sdt:geospatial_coverage ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty sdt:governing_institution ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty sdt:governing_institution ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sdt:governing_institution ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty sdt:temporal_coverage ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty sdt:domain ] ;
+    skos:definition "Contextual boundaries of the data type." ;
+    skos:inScheme <https://w3id.org/dartfx/semanticdt> .
+
+sdt:StorageType a owl:Class ;
+    rdfs:label "StorageType" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty sdt:format_modifier ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sdt:format_modifier ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty sdt:target_environment ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty sdt:target_environment ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty sdt:data_type ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sdt:data_type ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty sdt:format_modifier ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sdt:target_environment ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty sdt:data_type ] ;
+    skos:definition "Physical or logical storage data type binding." ;
+    skos:inScheme <https://w3id.org/dartfx/semanticdt> .
+
+sdt:TemporalCoverage a owl:Class ;
+    rdfs:label "TemporalCoverage" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom [ a rdfs:Datatype ;
+                    owl:onDatatype xsd:string ;
+                    owl:withRestrictions ( [ xsd:pattern "^\\d{4}-\\d{2}-\\d{2}$" ] ) ] ;
+            owl:onProperty sdt:start_date ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty sdt:description ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sdt:end_date ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty sdt:description ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom [ a rdfs:Datatype ;
+                    owl:onDatatype xsd:string ;
+                    owl:withRestrictions ( [ xsd:pattern "^\\d{4}-\\d{2}-\\d{2}$" ] ) ] ;
+            owl:onProperty sdt:end_date ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty sdt:end_date ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sdt:iso_period ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty sdt:iso_period ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty sdt:iso_period ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sdt:description ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty sdt:start_date ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sdt:start_date ] ;
+    skos:definition "Temporal coverage boundaries represented by description, start/end dates, or ISO 8601 periods/durations." ;
+    skos:inScheme <https://w3id.org/dartfx/semanticdt> .
+
+sdt:ValidationRule a owl:Class ;
+    rdfs:label "ValidationRule" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sdt:pattern ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom sdt:CodeSnippet ;
+            owl:onProperty sdt:code_snippets ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty sdt:algorithm ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty sdt:code_snippets ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sdt:rule_type ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty sdt:algorithm ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty sdt:rule_type ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty sdt:pattern ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty sdt:message ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty sdt:rule_type ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sdt:message ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty sdt:pattern ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty sdt:message ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sdt:algorithm ] ;
+    skos:definition "A rule defining syntactical or logical validation of values." ;
+    skos:inScheme <https://w3id.org/dartfx/semanticdt> .
+
+sdt:CodeSnippet a owl:Class ;
+    rdfs:label "CodeSnippet" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sdt:code ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty sdt:target_environment ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty sdt:code ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty sdt:code ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty sdt:target_environment ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty sdt:target_environment ] ;
+    skos:definition "A concrete piece of code or expression implementing logic (e.g., validation, generation) in a specific environment." ;
+    skos:inScheme <https://w3id.org/dartfx/semanticdt> .
+
+<https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum#csharp> a owl:Class ;
+    rdfs:label "csharp" ;
+    rdfs:subClassOf sdt:TargetEnvironmentEnum ;
+    skos:definition "C# programming environment." .
+
+<https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum#generic> a owl:Class ;
+    rdfs:label "generic" ;
+    rdfs:subClassOf sdt:TargetEnvironmentEnum ;
+    skos:definition "Platform-independent representation." .
+
+<https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum#go> a owl:Class ;
+    rdfs:label "go" ;
+    rdfs:subClassOf sdt:TargetEnvironmentEnum ;
+    skos:definition "Go programming environment." .
+
+<https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum#java> a owl:Class ;
+    rdfs:label "java" ;
+    rdfs:subClassOf sdt:TargetEnvironmentEnum ;
+    skos:definition "Java programming environment." .
+
+<https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum#javascript> a owl:Class ;
+    rdfs:label "javascript" ;
+    rdfs:subClassOf sdt:TargetEnvironmentEnum ;
+    skos:definition "JavaScript programming environment." .
+
+<https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum#python> a owl:Class ;
+    rdfs:label "python" ;
+    rdfs:subClassOf sdt:TargetEnvironmentEnum ;
+    skos:definition "Python programming environment." .
+
+<https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum#r> a owl:Class ;
+    rdfs:label "r" ;
+    rdfs:subClassOf sdt:TargetEnvironmentEnum ;
+    skos:definition "R statistical computing environment." .
+
+<https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum#rust> a owl:Class ;
+    rdfs:label "rust" ;
+    rdfs:subClassOf sdt:TargetEnvironmentEnum ;
+    skos:definition "Rust programming environment." .
+
+<https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum#sas> a owl:Class ;
+    rdfs:label "sas" ;
+    rdfs:subClassOf sdt:TargetEnvironmentEnum ;
+    skos:definition "SAS statistical computing environment." .
+
+<https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum#spss> a owl:Class ;
+    rdfs:label "spss" ;
+    rdfs:subClassOf sdt:TargetEnvironmentEnum ;
+    skos:definition "SPSS statistical computing environment." .
+
+<https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum#sql> a owl:Class ;
+    rdfs:label "sql" ;
+    rdfs:subClassOf sdt:TargetEnvironmentEnum ;
+    skos:definition "Standard Structured Query Language (ANSI)." .
+
+<https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum#sql-bigquery> a owl:Class ;
+    rdfs:label "sql-bigquery" ;
+    rdfs:subClassOf sdt:TargetEnvironmentEnum ;
+    skos:definition "Google BigQuery database environment." .
+
+<https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum#sql-clickhouse> a owl:Class ;
+    rdfs:label "sql-clickhouse" ;
+    rdfs:subClassOf sdt:TargetEnvironmentEnum ;
+    skos:definition "ClickHouse database environment." .
+
+<https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum#sql-mssql> a owl:Class ;
+    rdfs:label "sql-mssql" ;
+    rdfs:subClassOf sdt:TargetEnvironmentEnum ;
+    skos:definition "Microsoft SQL Server database environment." .
+
+<https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum#sql-mysql> a owl:Class ;
+    rdfs:label "sql-mysql" ;
+    rdfs:subClassOf sdt:TargetEnvironmentEnum ;
+    skos:definition "MySQL database environment." .
+
+<https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum#sql-oracle> a owl:Class ;
+    rdfs:label "sql-oracle" ;
+    rdfs:subClassOf sdt:TargetEnvironmentEnum ;
+    skos:definition "Oracle database environment." .
+
+<https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum#sql-postgresql> a owl:Class ;
+    rdfs:label "sql-postgresql" ;
+    rdfs:subClassOf sdt:TargetEnvironmentEnum ;
+    skos:definition "PostgreSQL database environment." .
+
+<https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum#sql-redshift> a owl:Class ;
+    rdfs:label "sql-redshift" ;
+    rdfs:subClassOf sdt:TargetEnvironmentEnum ;
+    skos:definition "Amazon Redshift database environment." .
+
+<https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum#sql-snowflake> a owl:Class ;
+    rdfs:label "sql-snowflake" ;
+    rdfs:subClassOf sdt:TargetEnvironmentEnum ;
+    skos:definition "Snowflake database environment." .
+
+<https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum#sql-sqlite> a owl:Class ;
+    rdfs:label "sql-sqlite" ;
+    rdfs:subClassOf sdt:TargetEnvironmentEnum ;
+    skos:definition "SQLite database environment." .
+
+<https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum#stata> a owl:Class ;
+    rdfs:label "stata" ;
+    rdfs:subClassOf sdt:TargetEnvironmentEnum ;
+    skos:definition "Stata statistical software environment." .
+
+<https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum#typescript> a owl:Class ;
+    rdfs:label "typescript" ;
+    rdfs:subClassOf sdt:TargetEnvironmentEnum ;
+    skos:definition "TypeScript programming environment." .
+
+<https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum#xsd> a owl:Class ;
+    rdfs:label "xsd" ;
+    rdfs:subClassOf sdt:TargetEnvironmentEnum ;
+    skos:definition "XML Schema Definition." .
+
+sdt:agent_skills a owl:ObjectProperty ;
+    rdfs:label "agent_skills" ;
+    skos:definition "Tools, functions, or prompts associated with this data type." ;
+    skos:inScheme <https://w3id.org/dartfx/semanticdt> .
+
+sdt:codes a owl:DatatypeProperty ;
+    rdfs:label "codes" ;
+    skos:definition "A list of formal codes or URIs (e.g., ISO country/subdivision codes, GeoNames URIs, Wikidata URIs)." ;
+    skos:inScheme <https://w3id.org/dartfx/semanticdt> .
+
+sdt:concepts a owl:ObjectProperty ;
+    rdfs:label "concepts" ;
+    skos:definition "A list of conceptual ontology alignments or mapping references representing this data type in external systems (e.g., SKOS concepts, Wikidata items, or vocabularies like DDI-CDI and schema.org). This should list multiple representations of the same underlying semantic concept, not distinct concepts." ;
+    skos:inScheme <https://w3id.org/dartfx/semanticdt> .
+
+sdt:examples a owl:ObjectProperty ;
+    rdfs:label "examples" ;
+    skos:definition "Curated valid and invalid examples for documentation and testing." ;
+    skos:inScheme <https://w3id.org/dartfx/semanticdt> .
+
+sdt:generation_rules a owl:ObjectProperty ;
+    rdfs:label "generation_rules" ;
+    skos:definition "Templates or directives for generating synthetic valid data." ;
+    skos:inScheme <https://w3id.org/dartfx/semanticdt> .
+
+sdt:storage_types a owl:ObjectProperty ;
+    rdfs:label "storage_types" ;
+    skos:definition "Mappings to physical storage types across different environments. A mapping for the 'generic' environment is required to define the platform-independent base type." ;
+    skos:inScheme <https://w3id.org/dartfx/semanticdt> .
+
+sdt:validation_rules a owl:ObjectProperty ;
+    rdfs:label "validation_rules" ;
+    skos:definition "Rules to validate physical representations of the data type." ;
+    skos:inScheme <https://w3id.org/dartfx/semanticdt> .
+
+sdt:agent_instructions a owl:ObjectProperty ;
+    rdfs:label "agent_instructions" ;
+    skos:definition "Specific guidelines and instructions for AI agents handling this data type." ;
+    skos:inScheme <https://w3id.org/dartfx/semanticdt> .
+
+sdt:algorithm a owl:DatatypeProperty ;
+    rdfs:label "algorithm" ;
+    skos:definition "Algorithmic checker name (e.g., luhn, modulo-11, isbn13)." ;
+    skos:inScheme <https://w3id.org/dartfx/semanticdt> .
+
+sdt:api_definition a owl:DatatypeProperty ;
+    rdfs:label "api_definition" ;
+    skos:definition "API endpoint or function signature." ;
+    skos:inScheme <https://w3id.org/dartfx/semanticdt> .
+
+sdt:classification a owl:ObjectProperty ;
+    rdfs:label "classification" ;
+    skos:definition "Code lists or classification schemes that categorize this variable." ;
+    skos:inScheme <https://w3id.org/dartfx/semanticdt> .
+
+sdt:code a owl:DatatypeProperty ;
+    rdfs:label "code" ;
+    skos:definition "The actual code snippet or expression (e.g., Python function/lambda, SQL expression)." ;
+    skos:inScheme <https://w3id.org/dartfx/semanticdt> .
+
+sdt:data_type a owl:DatatypeProperty ;
+    rdfs:label "data_type" ;
+    skos:definition "Data type identifier in the target environment (e.g., string, varchar, integer, str)." ;
+    skos:inScheme <https://w3id.org/dartfx/semanticdt> .
+
+sdt:display_format a owl:ObjectProperty ;
+    rdfs:label "display_format" ;
+    skos:definition "Formatting rules for displaying values of this type." ;
+    skos:inScheme <https://w3id.org/dartfx/semanticdt> .
+
+sdt:display_template a owl:DatatypeProperty ;
+    rdfs:label "display_template" ;
+    skos:definition "Output representation template." ;
+    skos:inScheme <https://w3id.org/dartfx/semanticdt> .
+
+sdt:domain a owl:DatatypeProperty ;
+    rdfs:label "domain" ;
+    skos:definition "Specific field or subject domain (e.g., Healthcare, Finance)." ;
+    skos:inScheme <https://w3id.org/dartfx/semanticdt> .
+
+sdt:end_date a owl:DatatypeProperty ;
+    rdfs:label "end_date" ;
+    skos:definition "End date of the coverage formatted strictly according to ISO 8601 (YYYY-MM-DD)." ;
+    skos:inScheme <https://w3id.org/dartfx/semanticdt> .
+
+sdt:format_modifier a owl:DatatypeProperty ;
+    rdfs:label "format_modifier" ;
+    skos:definition "Optional modifiers (e.g., length, precision)." ;
+    skos:inScheme <https://w3id.org/dartfx/semanticdt> .
+
+sdt:formatting_regex a owl:DatatypeProperty ;
+    rdfs:label "formatting_regex" ;
+    skos:definition "Regex used to transform raw data to formatted data." ;
+    skos:inScheme <https://w3id.org/dartfx/semanticdt> .
+
+sdt:generator_type a owl:DatatypeProperty ;
+    rdfs:label "generator_type" ;
+    skos:definition "Type of generator (e.g., regex_fuzzer, template, faker_provider, custom)." ;
+    skos:inScheme <https://w3id.org/dartfx/semanticdt> .
+
+sdt:geospatial_coverage a owl:ObjectProperty ;
+    rdfs:label "geospatial_coverage" ;
+    skos:definition "Geospatial region or country coverage details." ;
+    skos:inScheme <https://w3id.org/dartfx/semanticdt> .
+
+sdt:governing_institution a owl:DatatypeProperty ;
+    rdfs:label "governing_institution" ;
+    skos:definition "Governing body (e.g., ISO, W3C, IRS)." ;
+    skos:inScheme <https://w3id.org/dartfx/semanticdt> .
+
+sdt:guidelines a owl:DatatypeProperty ;
+    rdfs:label "guidelines" ;
+    skos:definition "Text instructions for agents." ;
+    skos:inScheme <https://w3id.org/dartfx/semanticdt> .
+
+sdt:id a owl:DatatypeProperty ;
+    rdfs:label "id" ;
+    skos:definition "Unique identifier/URI for the Semantic Data Type." ;
+    skos:inScheme <https://w3id.org/dartfx/semanticdt> .
+
+sdt:input_mask a owl:DatatypeProperty ;
+    rdfs:label "input_mask" ;
+    skos:definition "Mask for input forms (e.g., 999-99-9999)." ;
+    skos:inScheme <https://w3id.org/dartfx/semanticdt> .
+
+sdt:is_valid a owl:DatatypeProperty ;
+    rdfs:label "is_valid" ;
+    skos:definition "Indication of whether the example value is valid under the SDT." ;
+    skos:inScheme <https://w3id.org/dartfx/semanticdt> .
+
+sdt:iso_period a owl:DatatypeProperty ;
+    rdfs:label "iso_period" ;
+    skos:definition "ISO 8601 time interval or period representation (e.g., '2020-01-01/2020-12-31', 'P1Y')." ;
+    skos:inScheme <https://w3id.org/dartfx/semanticdt> .
+
+sdt:match_type a owl:DatatypeProperty ;
+    rdfs:label "match_type" ;
+    skos:definition "Relationship to the concept (e.g., exactMatch, closeMatch, broadMatch, narrowMatch)." ;
+    skos:inScheme <https://w3id.org/dartfx/semanticdt> .
+
+sdt:message a owl:DatatypeProperty ;
+    rdfs:label "message" ;
+    skos:definition "Error message when validation fails." ;
+    skos:inScheme <https://w3id.org/dartfx/semanticdt> .
+
+sdt:pattern a owl:DatatypeProperty ;
+    rdfs:label "pattern" ;
+    skos:definition "Regular expression pattern for validation." ;
+    skos:inScheme <https://w3id.org/dartfx/semanticdt> .
+
+sdt:pref_label a owl:DatatypeProperty ;
+    rdfs:label "pref_label" ;
+    skos:definition "Preferred label of the concept in the ontology." ;
+    skos:inScheme <https://w3id.org/dartfx/semanticdt> .
+
+sdt:rule_type a owl:DatatypeProperty ;
+    rdfs:label "rule_type" ;
+    skos:definition "Type of validation (e.g., regex, checksum, range)." ;
+    skos:inScheme <https://w3id.org/dartfx/semanticdt> .
+
+sdt:scope a owl:ObjectProperty ;
+    rdfs:label "scope" ;
+    skos:definition "Contextual scope of the data type (temporal, geographic, etc.)." ;
+    skos:inScheme <https://w3id.org/dartfx/semanticdt> .
+
+sdt:start_date a owl:DatatypeProperty ;
+    rdfs:label "start_date" ;
+    skos:definition "Start date of the coverage formatted strictly according to ISO 8601 (YYYY-MM-DD)." ;
+    skos:inScheme <https://w3id.org/dartfx/semanticdt> .
+
+sdt:system_prompt_snippet a owl:DatatypeProperty ;
+    rdfs:label "system_prompt_snippet" ;
+    skos:definition "System prompt instructions for configuring agents with this data type." ;
+    skos:inScheme <https://w3id.org/dartfx/semanticdt> .
+
+sdt:template a owl:DatatypeProperty ;
+    rdfs:label "template" ;
+    skos:definition "Seed template or expression." ;
+    skos:inScheme <https://w3id.org/dartfx/semanticdt> .
+
+sdt:temporal_coverage a owl:ObjectProperty ;
+    rdfs:label "temporal_coverage" ;
+    skos:definition "Temporal coverage details." ;
+    skos:inScheme <https://w3id.org/dartfx/semanticdt> .
+
+sdt:tool_name a owl:DatatypeProperty ;
+    rdfs:label "tool_name" ;
+    skos:definition "Name of the tool or function." ;
+    skos:inScheme <https://w3id.org/dartfx/semanticdt> .
+
+sdt:value a owl:DatatypeProperty ;
+    rdfs:label "value" ;
+    skos:definition "Example value representation." ;
+    skos:inScheme <https://w3id.org/dartfx/semanticdt> .
+
+sdt:vocabulary a owl:DatatypeProperty ;
+    rdfs:label "vocabulary" ;
+    skos:definition "Name of the vocabulary or ontology (e.g., SKOS, DDI-CDI, Wikidata, LCSH)." ;
+    skos:inScheme <https://w3id.org/dartfx/semanticdt> .
+
+sdt:code_snippets a owl:ObjectProperty .
+
+sdt:name a owl:DatatypeProperty .
+
+sdt:target_environment a owl:DatatypeProperty ;
+    rdfs:label "target_environment" ;
+    rdfs:range xsd:string ;
+    skos:definition "Target platform, framework, database, or language. Prefer using values from the TargetEnvironmentEnum controlled vocabulary where applicable. Custom values not in the enum are permitted since this slot is of type string." ;
+    skos:inScheme <https://w3id.org/dartfx/semanticdt> .
+
+sdt:uri a owl:DatatypeProperty .
+
+sdt:version a owl:DatatypeProperty .
+
+sdt:description a owl:DatatypeProperty .
+
+sdt:TargetEnvironmentEnum a owl:Class ;
+    rdfs:label "TargetEnvironmentEnum" ;
+    owl:unionOf ( <https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum#csharp> <https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum#generic> <https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum#go> <https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum#java> <https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum#javascript> <https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum#python> <https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum#r> <https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum#rust> <https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum#sas> <https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum#spss> <https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum#sql> <https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum#sql-bigquery> <https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum#sql-clickhouse> <https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum#sql-mssql> <https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum#sql-mysql> <https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum#sql-oracle> <https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum#sql-postgresql> <https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum#sql-redshift> <https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum#sql-snowflake> <https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum#sql-sqlite> <https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum#stata> <https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum#typescript> <https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum#xsd> ) ;
+    skos:definition "Recommended vocabulary of target systems and development environments." ;
+    skos:inScheme <https://w3id.org/dartfx/semanticdt> ;
+    linkml:permissible_values <https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum#csharp>,
+        <https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum#generic>,
+        <https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum#go>,
+        <https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum#java>,
+        <https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum#javascript>,
+        <https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum#python>,
+        <https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum#r>,
+        <https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum#rust>,
+        <https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum#sas>,
+        <https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum#spss>,
+        <https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum#sql>,
+        <https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum#sql-bigquery>,
+        <https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum#sql-clickhouse>,
+        <https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum#sql-mssql>,
+        <https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum#sql-mysql>,
+        <https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum#sql-oracle>,
+        <https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum#sql-postgresql>,
+        <https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum#sql-redshift>,
+        <https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum#sql-snowflake>,
+        <https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum#sql-sqlite>,
+        <https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum#stata>,
+        <https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum#typescript>,
+        <https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum#xsd> .

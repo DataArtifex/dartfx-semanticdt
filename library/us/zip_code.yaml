@@ -1,0 +1,80 @@
+id: https://w3id.org/dartfx/semanticdt/library/us/zip_code
+name: US ZIP Code
+description: >-
+  A ZIP Code is a postal code used by the United States Postal Service (USPS).
+  It can be either the basic 5-digit format or the extended 9-digit ZIP+4 format.
+version: 0.1.0
+concepts:
+  - uri: http://id.loc.gov/authorities/subjects/sh85149887
+    vocabulary: LCSH
+    pref_label: ZIP code
+    match_type: exactMatch
+  - uri: https://www.wikidata.org/wiki/Q3401569
+    vocabulary: Wikidata
+    pref_label: ZIP Code
+    match_type: exactMatch
+storage_types:
+  - target_environment: generic
+    data_type: string
+  - target_environment: python
+    data_type: str
+  - target_environment: sql
+    data_type: VARCHAR
+    format_modifier: 10
+  - target_environment: xsd
+    data_type: string
+validation_rules:
+  - rule_type: regex
+    pattern: ^\d{5}(-\d{4})?$
+    message: US ZIP Code must be formatted as 99999 or 99999-9999.
+  - rule_type: custom
+    message: US ZIP Code failed format check.
+    code_snippets:
+      - target_environment: python
+        code: |
+          import re
+          def validate_zip(val: str) -> bool:
+              return bool(re.match(r"^\d{5}(-\d{4})?$", val))
+      - target_environment: sql
+        code: val ~ '^\d{5}(-\d{4})?$'
+generation_rules:
+  - generator_type: regex_fuzzer
+    template: ^[0-9]{5}(-[0-9]{4})?$
+agent_instructions:
+  guidelines: >-
+    U.S. ZIP Codes contain leading zeros which are significant (e.g., '02138').
+    Always preserve the type as string. Do not convert to numerical/integer representation.
+  system_prompt_snippet: >-
+    Treat US ZIP Code variables as strings to prevent loss of leading zeros.
+    Validate against standard 5-digit or 9-digit ZIP+4 patterns.
+scope:
+  geospatial_coverage:
+    description: United States of America
+    codes:
+      - US
+      - ISO-3166-1:US
+      - https://www.wikidata.org/wiki/Q30
+  domain: Geographic
+  governing_institution: United States Postal Service
+display_format:
+  input_mask: 99999-9999
+  display_template: "{{ value }}"
+examples:
+  - value: "90210"
+    is_valid: true
+    description: A standard 5-digit valid ZIP code.
+  - value: "12345-6789"
+    is_valid: true
+    description: A standard 9-digit valid ZIP+4 code.
+  - value: "02138"
+    is_valid: true
+    description: A valid 5-digit ZIP code with a leading zero.
+  - value: "1234"
+    is_valid: false
+    description: Invalid because it is too short.
+  - value: "123456"
+    is_valid: false
+    description: Invalid because it has too many digits.
+  - value: "abcde"
+    is_valid: false
+    description: Invalid because it contains alphabetic characters.

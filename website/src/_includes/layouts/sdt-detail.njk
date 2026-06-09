@@ -1,0 +1,321 @@
+---
+layout: layouts/base.njk
+---
+
+<div class="detail-header" style="margin-bottom: 2rem; position: relative;">
+  <div style="display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 0.5rem;">
+    <a href="/library/" style="font-size: 0.9rem; color: var(--accent-secondary); font-weight: 500;">&larr; Back to Library</a>
+    <span style="color: var(--text-muted);">/</span>
+    <span class="badge badge-violet">{{ sdt.meta.category }}</span>
+  </div>
+
+  <h1 style="margin-bottom: 0.5rem; background: linear-gradient(135deg, #ffffff 40%, var(--accent-secondary) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">{{ sdt.name }}</h1>
+
+  <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem;">
+    <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
+      <code>{{ sdt.id }}</code>
+      <span class="badge">Version {{ sdt.version }}</span>
+    </div>
+    <div style="display: flex; align-items: center; gap: 0.5rem;">
+      <a href="/definitions/{{ sdt.meta.relativePath }}" target="_blank" class="btn btn-secondary" style="padding: 0.35rem 0.75rem; font-size: 0.8rem; display: inline-flex; align-items: center; gap: 0.25rem;">
+        View YAML
+      </a>
+      <a href="/definitions/{{ sdt.meta.relativePath }}" download class="btn btn-primary" style="padding: 0.35rem 0.75rem; font-size: 0.8rem; display: inline-flex; align-items: center; gap: 0.25rem;">
+        Download YAML
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="detail-grid">
+  <!-- Sidebar Metadata Panel -->
+  <aside class="sidebar">
+    <!-- Scope & Coverage Section -->
+    <div class="sidebar-section">
+      <h3>Scope & Context</h3>
+      <ul class="sidebar-meta-list">
+        {% if sdt.scope.domain %}
+        <li>
+          <span class="label">Domain</span>
+          <span class="value">{{ sdt.scope.domain }}</span>
+        </li>
+        {% endif %}
+        {% if sdt.scope.governing_institution %}
+        <li>
+          <span class="label">Governing Body</span>
+          <span class="value">{{ sdt.scope.governing_institution }}</span>
+        </li>
+        {% endif %}
+        {% if sdt.scope.geospatial_coverage %}
+        <li>
+          <span class="label">Geospatial Scope</span>
+          <span class="value">{{ sdt.scope.geospatial_coverage.description }}</span>
+          {% if sdt.scope.geospatial_coverage.codes %}
+            <div style="display: flex; gap: 0.25rem; flex-wrap: wrap; margin-top: 0.25rem;">
+              {% for code in sdt.scope.geospatial_coverage.codes %}
+                <span class="badge" style="font-size: 0.65rem; padding: 0.05rem 0.25rem;">{{ code }}</span>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </li>
+        {% endif %}
+      </ul>
+    </div>
+
+    <!-- Mappings Section -->
+    <div class="sidebar-section">
+      <h3>Storage Bindings</h3>
+      <ul class="sidebar-meta-list" style="gap: 1rem;">
+        {% for storage in sdt.storage_types %}
+        <li style="border-bottom: 1px solid rgba(255,255,255,0.03); padding-bottom: 0.5rem;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span class="badge badge-cyan" style="font-size:0.65rem;">{{ storage.target_environment }}</span>
+            <span style="font-family: var(--font-mono); font-size: 0.85rem; font-weight:600; color: var(--text-primary);">
+              {{ storage.data_type }}{% if storage.format_modifier %}({{ storage.format_modifier }}){% endif %}
+            </span>
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <!-- Alignments Section -->
+    {% if sdt.concepts and sdt.concepts.length > 0 %}
+    <div class="sidebar-section">
+      <h3>Conceptual Alignments</h3>
+      <ul class="sidebar-meta-list" style="gap: 0.75rem;">
+        {% for concept in sdt.concepts %}
+        <li>
+          <span class="label">{{ concept.vocabulary }} ({{ concept.match_type }})</span>
+          <a href="{{ concept.uri }}" target="_blank" rel="noopener" class="value" style="font-size: 0.825rem; display: flex; align-items: center; gap: 0.25rem;">
+            {{ concept.pref_label or concept.uri }}
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+
+    <!-- Classification System -->
+    {% if sdt.classification %}
+    <div class="sidebar-section">
+      <h3>Classification</h3>
+      <ul class="sidebar-meta-list">
+        <li>
+          <span class="label">System</span>
+          {% if sdt.classification.uri %}
+            <a href="{{ sdt.classification.uri }}" target="_blank" rel="noopener" class="value" style="display: flex; align-items: center; gap: 0.25rem;">
+              {{ sdt.classification.name }}
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          {% else %}
+            <span class="value">{{ sdt.classification.name }}</span>
+          {% endif %}
+        </li>
+        {% if sdt.classification.version %}
+        <li>
+          <span class="label">Version</span>
+          <span class="value">{{ sdt.classification.version }}</span>
+        </li>
+        {% endif %}
+      </ul>
+    </div>
+    {% endif %}
+  </aside>
+
+  <!-- Main Details Content -->
+  <section class="main-content">
+    <div class="card" style="margin-bottom: 2rem;">
+      <h3 style="margin-bottom: 0.5rem; font-size: 1.1rem; color: var(--text-primary);">Description</h3>
+      <p style="margin: 0; font-size: 1rem; color: var(--text-secondary); white-space: pre-wrap;">{{ sdt.description }}</p>
+    </div>
+
+    <!-- Validation Rules Section -->
+    <h2>Validation Rules</h2>
+    {% for rule in sdt.validation_rules %}
+      {% set parentLoopIndex = loop.index %}
+      <div class="card" style="margin-bottom: 1.5rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+          <h3 style="font-size: 1rem; color: var(--text-primary);">Rule Type: <span class="badge badge-violet" style="font-family: var(--font-mono);">{{ rule.rule_type }}</span></h3>
+          {% if rule.algorithm %}
+            <span class="badge badge-cyan" style="font-family: var(--font-mono);">Algorithm: {{ rule.algorithm }}</span>
+          {% endif %}
+        </div>
+
+        {% if rule.message %}
+          <p style="font-style: italic; color: var(--text-secondary); background: rgba(255,255,255,0.02); padding: 0.5rem 0.75rem; border-left: 3px solid var(--accent-primary); border-radius: 4px; margin-bottom: 1rem;">
+            &ldquo;{{ rule.message }}&rdquo;
+          </p>
+        {% endif %}
+
+        {% if rule.pattern %}
+          <div style="margin-bottom: 1.25rem; position: relative;">
+            <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.25rem;">Regular Expression</div>
+            <pre style="margin:0;"><code id="val-regex-{{ loop.index }}">{{ rule.pattern }}</code><button class="copy-btn" onclick="copyToClipboard(this, 'val-regex-{{ loop.index }}')">Copy</button></pre>
+          </div>
+        {% endif %}
+
+        {% if rule.code_snippets and rule.code_snippets.length > 0 %}
+          <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.5rem;">Implementation Code</div>
+          <div class="code-section" style="margin: 0; padding: 1rem; background: rgba(0,0,0,0.2);">
+            <div class="code-tabs">
+              {% for snippet in rule.code_snippets %}
+                <button class="code-tab-btn {% if loop.first %}active{% endif %}" onclick="switchTab(this, 'val-code-{{ parentLoopIndex }}-{{ loop.index }}')">
+                  {{ snippet.target_environment }}
+                </button>
+              {% endfor %}
+            </div>
+            {% for snippet in rule.code_snippets %}
+              <div id="val-code-{{ parentLoopIndex }}-{{ loop.index }}" class="code-panel {% if loop.first %}active{% endif %}" style="position: relative;">
+                <pre style="margin: 0; background: none; border: none; padding: 0.5rem 0 0;"><code id="val-code-text-{{ parentLoopIndex }}-{{ loop.index }}">{{ snippet.code | trim }}</code><button class="copy-btn" onclick="copyToClipboard(this, 'val-code-text-{{ parentLoopIndex }}-{{ loop.index }}')">Copy Code</button></pre>
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+    {% endfor %}
+
+    <!-- Generation Rules Section -->
+    {% if sdt.generation_rules and sdt.generation_rules.length > 0 %}
+    <h2>Data Generation</h2>
+    {% for rule in sdt.generation_rules %}
+      {% set parentLoopIndex = loop.index %}
+      <div class="card" style="margin-bottom: 1.5rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+          <h3 style="font-size: 1rem; color: var(--text-primary);">Generator Type: <span class="badge badge-cyan" style="font-family: var(--font-mono);">{{ rule.generator_type }}</span></h3>
+        </div>
+
+        {% if rule.template %}
+          <div style="margin-bottom: 1.25rem; position: relative;">
+            <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.25rem;">Template/Seed Pattern</div>
+            <pre style="margin:0;"><code id="gen-temp-{{ loop.index }}">{{ rule.template }}</code><button class="copy-btn" onclick="copyToClipboard(this, 'gen-temp-{{ loop.index }}')">Copy</button></pre>
+          </div>
+        {% endif %}
+
+        {% if rule.code_snippets and rule.code_snippets.length > 0 %}
+          <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.5rem;">Generator Snippet</div>
+          <div class="code-section" style="margin: 0; padding: 1rem; background: rgba(0,0,0,0.2);">
+            <div class="code-tabs">
+              {% for snippet in rule.code_snippets %}
+                <button class="code-tab-btn {% if loop.first %}active{% endif %}" onclick="switchTab(this, 'gen-code-{{ parentLoopIndex }}-{{ loop.index }}')">
+                  {{ snippet.target_environment }}
+                </button>
+              {% endfor %}
+            </div>
+            {% for snippet in rule.code_snippets %}
+              <div id="gen-code-{{ parentLoopIndex }}-{{ loop.index }}" class="code-panel {% if loop.first %}active{% endif %}" style="position: relative;">
+                <pre style="margin: 0; background: none; border: none; padding: 0.5rem 0 0;"><code id="gen-code-text-{{ parentLoopIndex }}-{{ loop.index }}">{{ snippet.code | trim }}</code><button class="copy-btn" onclick="copyToClipboard(this, 'gen-code-text-{{ parentLoopIndex }}-{{ loop.index }}')">Copy Code</button></pre>
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+    {% endfor %}
+    {% endif %}
+
+    <!-- Agent Instructions Section -->
+    {% if sdt.agent_instructions %}
+    <h2>Agent Actionability</h2>
+    <div class="card" style="margin-bottom: 1.5rem;">
+      <h3 style="font-size: 1rem; color: var(--text-primary); margin-bottom: 0.5rem;">Guidelines for AI Agents</h3>
+      <p style="font-size: 0.95rem; color: var(--text-secondary); margin-bottom: 1.5rem; white-space: pre-wrap;">{{ sdt.agent_instructions.guidelines }}</p>
+
+      {% if sdt.agent_instructions.system_prompt_snippet %}
+        <div style="position: relative;">
+          <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.25rem;">System Prompt Injection Snippet</div>
+          <pre style="margin:0; background-color: rgba(9, 12, 21, 0.9);"><code id="agent-prompt-snippet" style="color: var(--accent-secondary);">{{ sdt.agent_instructions.system_prompt_snippet | trim }}</code><button class="copy-btn" onclick="copyToClipboard(this, 'agent-prompt-snippet')">Copy Snippet</button></pre>
+        </div>
+      {% endif %}
+    </div>
+    {% endif %}
+
+    <!-- Display Formats -->
+    {% if sdt.display_format %}
+    <h2>Display & Forms</h2>
+    <div class="card" style="margin-bottom: 2rem;">
+      <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); margin: 0; gap: 1rem;">
+        {% if sdt.display_format.input_mask %}
+        <div class="sidebar-section" style="background: rgba(255,255,255,0.02);">
+          <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.25rem;">Input Mask</div>
+          <code style="font-size: 1rem; font-weight: 600;">{{ sdt.display_format.input_mask }}</code>
+        </div>
+        {% endif %}
+
+        {% if sdt.display_format.display_template %}
+        <div class="sidebar-section" style="background: rgba(255,255,255,0.02);">
+          <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.25rem;">Display Template</div>
+          <code style="font-size: 1rem; font-weight: 600; color: var(--text-primary);">{{ sdt.display_format.display_template }}</code>
+        </div>
+        {% endif %}
+
+        {% if sdt.display_format.formatting_regex %}
+        <div class="sidebar-section" style="background: rgba(255,255,255,0.02);">
+          <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.25rem;">Formatting Regex</div>
+          <code style="font-size: 0.85rem; font-weight: 600;">{{ sdt.display_format.formatting_regex }}</code>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- Examples / Test Cases -->
+    <h2>Test Cases & Examples</h2>
+    <div class="example-list" style="margin-bottom: 2.5rem;">
+      {% for example in sdt.examples %}
+        <div class="example-item" onclick="window.location.href='/playground/?sdt={{ sdt.meta.slug }}&val=' + encodeURIComponent('{{ example.value }}')">
+          {% if example.is_valid %}
+            <span class="badge badge-success">Valid</span>
+          {% else %}
+            <span class="badge badge-error">Invalid</span>
+          {% endif %}
+          <div style="display: flex; flex-direction: column; gap: 0.15rem; flex-grow: 1;">
+            <span class="value-text">{{ example.value }}</span>
+            {% if example.description %}
+              <span class="desc-text">{{ example.description }}</span>
+            {% endif %}
+          </div>
+          <span style="font-size: 0.75rem; color: var(--text-muted); text-decoration: underline;">Test in Playground &rarr;</span>
+        </div>
+      {% endfor %}
+    </div>
+
+    <!-- Source YAML Toggle -->
+    <details class="card" style="padding: 1.5rem; background-color: rgba(10, 15, 30, 0.4); border-color: rgba(255, 255, 255, 0.04);">
+      <summary style="font-weight: 700; color: var(--text-secondary); cursor: pointer; user-select: none;">
+        View Raw Source Definition (YAML)
+      </summary>
+      <div style="margin-top: 1rem; position: relative;">
+        <!-- In 11ty, we render the raw string representation of the SDT object -->
+        <pre style="margin: 0; background: rgba(5, 7, 12, 0.95);"><code id="raw-yaml">{{ sdt | stringify }}</code></pre>
+        <div style="margin-top: 0.75rem; font-size: 0.85rem; display: flex; justify-content: space-between; align-items: center;">
+          <span style="color: var(--text-muted);">Source file: <code>{{ sdt.meta.filePath }}</code></span>
+          <a href="https://github.com/DataArtifex/dartfx-semanticdt/blob/main/{{ sdt.meta.filePath }}" target="_blank" rel="noopener" style="font-weight: 600; display: inline-flex; align-items: center; gap: 0.25rem;">
+            View on GitHub
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+          </a>
+        </div>
+      </div>
+    </details>
+  </section>
+</div>
+
+<script>
+  // Script to handle switching sub-tabs inside details (like Python/SQL tabs)
+  function switchTab(btn, panelId) {
+    const tabsContainer = btn.parentElement;
+    const section = tabsContainer.parentElement;
+
+    // deactivate all tabs in this container
+    tabsContainer.querySelectorAll('.code-tab-btn').forEach(t => t.classList.remove('active'));
+    // deactivate all panels in this container
+    section.querySelectorAll('.code-panel').forEach(p => p.classList.remove('active'));
+
+    // activate selected tab and panel
+    btn.classList.add('active');
+    const panel = section.querySelector('#' + panelId);
+    if (panel) {
+      panel.classList.add('active');
+    }
+  }
+</script>

@@ -1,0 +1,74 @@
+id: https://w3id.org/dartfx/semanticdt/library/global/orcid
+name: ORCID iD
+description: >-
+  A unique persistent identifier for academic and other scholarly authors, conforming to ISO 27729.
+  Validated using the ISO 7064 MOD 11-2 algorithm.
+version: 0.1.0
+concepts:
+  - uri: https://www.wikidata.org/wiki/Q51044
+    vocabulary: Wikidata
+    pref_label: ORCID
+    match_type: exactMatch
+storage_types:
+  - target_environment: generic
+    data_type: string
+  - target_environment: python
+    data_type: str
+  - target_environment: sql
+    data_type: VARCHAR
+    format_modifier: 19
+  - target_environment: xsd
+    data_type: string
+validation_rules:
+  - rule_type: regex
+    pattern: ^\d{4}-\d{4}-\d{4}-\d{3}[\dX]$
+    message: ORCID iD must consist of four blocks of four digits separated by hyphens (e.g., 0000-0002-1825-0097).
+  - rule_type: custom
+    message: ORCID iD failed MOD 11-2 checksum validation.
+    code_snippets:
+      - target_environment: python
+        code: |
+          def validate_orcid(val: str) -> bool:
+              clean = val.replace("-", "").upper()
+              if len(clean) != 16:
+                  return False
+              total = 0
+              for i in range(15):
+                  if not clean[i].isdigit():
+                      return False
+                  total = (total + int(clean[i])) * 2
+              check_val = (12 - (total % 11)) % 11
+              expected_check = 'X' if check_val == 10 else str(check_val)
+              return clean[15] == expected_check
+agent_instructions:
+  guidelines: >-
+    ORCID iDs are public scholarly contributor identifiers. No special security is needed.
+    Convert to standard hyphenated format (xxxx-xxxx-xxxx-xxxx) with uppercase 'X' check digit.
+  system_prompt_snippet: >-
+    Verify ORCID contributor identifiers using the ISO MOD 11-2 checksum algorithm.
+scope:
+  geospatial_coverage:
+    description: Global
+    codes:
+      - Global
+  domain: Academia / Scholarly Publishing
+  governing_institution: ORCID, Inc.
+display_format:
+  input_mask: 9999-9999-9999-9999
+  display_template: https://orcid.org/{{ value }}
+examples:
+  - value: 0000-0002-1825-0097
+    is_valid: true
+    description: A valid ORCID iD (normal format).
+  - value: 0000-0001-5109-3700
+    is_valid: true
+    description: A valid ORCID iD (standard numerical check digit).
+  - value: 0000-0003-3853-281X
+    is_valid: true
+    description: A valid ORCID iD with 'X' check digit.
+  - value: 0000-0002-1825-0098
+    is_valid: false
+    description: Invalid because it fails the MOD 11-2 check.
+  - value: 0000-0002-1825-009
+    is_valid: false
+    description: Invalid because it is too short.

@@ -1,0 +1,245 @@
+---
+layout: layouts/base.njk
+title: Semantic Data Type Library
+description: Browse and search the curated registry of Semantic Data Types, filtering by geospatial scope, domain, or environment.
+---
+
+<div style="margin-bottom: 2rem;">
+  <h1 style="background: linear-gradient(135deg, #ffffff 40%, var(--accent-secondary) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Curated SDT Library</h1>
+  <p style="font-size: 1.1rem; max-width: 800px; margin-bottom: 0;">
+    Explore our open library of standardized Semantic Data Types. Search and filter by category to locate the specification you need.
+  </p>
+</div>
+
+<!-- Search & Filtering Bar -->
+<div class="search-filter-bar">
+  <div class="search-input-wrapper">
+    <input type="text" id="search-input" class="search-input" placeholder="Search SDT by name, description, identifier...">
+  </div>
+  <div class="filter-select-wrapper">
+    <!-- Category Filter -->
+    <select id="category-filter" class="filter-select">
+      <option value="">All Categories</option>
+      <option value="global">Global</option>
+      <option value="us">United States (us)</option>
+      <option value="us-identifiers">US Identifiers</option>
+      <option value="ca">Canada (ca)</option>
+    </select>
+
+  </div>
+</div>
+
+<!-- Results Counter -->
+<div id="results-count" style="margin-bottom: 1.5rem; font-size: 0.9rem; color: var(--text-muted);">
+  Showing all {{ sdt_library.length }} semantic data types.
+</div>
+
+<!-- SDT Grid -->
+<div class="grid" id="sdt-grid">
+  {% for sdt in sdt_library %}
+    {% set envs = [] %}
+    {% for st in sdt.storage_types %}
+      {% set envs = (envs.push(st.target_environment), envs) %}
+    {% endfor %}
+
+    <div class="card sdt-card"
+         data-name="{{ sdt.name | lower }}"
+         data-desc="{{ sdt.description | lower }}"
+         data-id="{{ sdt.id | lower }}"
+         data-category="{{ sdt.meta.category }}"
+         data-envs="{{ envs | join(',') | lower }}">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.5rem; flex-wrap: wrap; gap: 0.5rem;">
+        <span class="badge badge-violet" style="font-size: 0.65rem;">{{ sdt.meta.category }}</span>
+        <span class="badge" style="font-size: 0.65rem;">v{{ sdt.version }}</span>
+      </div>
+
+      <h3 class="card-title">
+        <a href="/library/{{ sdt.meta.slug }}/" style="color: inherit;">{{ sdt.name }}</a>
+      </h3>
+
+      <p class="card-description">
+        {{ sdt.description | truncate(110) }}
+      </p>
+
+      <div style="display: flex; gap: 0.25rem; flex-wrap: wrap; margin-bottom: 1rem; flex-grow: 1; align-content: flex-end;">
+        {% for env in envs %}
+          <span class="badge badge-cyan" style="font-size: 0.65rem; padding: 0.05rem 0.35rem;">{{ env }}</span>
+        {% endfor %}
+      </div>
+
+      <div class="card-footer">
+        <code style="background: none; border: none; padding: 0; font-size: 0.725rem; color: var(--text-muted); text-transform: none; word-break: break-all;">
+          {{ sdt.meta.key }}
+        </code>
+        <div style="display: flex; gap: 0.75rem; align-items: center;">
+          <a href="/definitions/{{ sdt.meta.relativePath }}" target="_blank" download style="font-size: 0.8rem; color: var(--text-muted); font-weight: 500;">YAML</a>
+          <a href="/library/{{ sdt.meta.slug }}/" style="font-weight: 600; font-size: 0.8rem;">Details &rarr;</a>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
+<!-- Empty Search State -->
+<div id="empty-state" style="display: none; text-align: center; padding: 4rem 2rem; background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: 12px; margin: 2rem 0;">
+  <h3 style="margin-bottom: 0.5rem; color: var(--text-primary);">No Semantic Types Found</h3>
+  <p style="color: var(--text-secondary); max-width: 500px; margin: 0 auto;">
+    We couldn't find any data types matching your search term. Try adjusting your filters or search terms.
+  </p>
+</div>
+
+<!-- Pagination Controls -->
+<div id="pagination-controls" style="display: flex; justify-content: center; gap: 0.5rem; margin-top: 3rem; align-items: center; flex-wrap: wrap;"></div>
+
+<!-- Client-side Filtering & Pagination Script -->
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const searchInput = document.getElementById("search-input");
+    const categoryFilter = document.getElementById("category-filter");
+    const cards = document.querySelectorAll(".sdt-card");
+    const resultsCount = document.getElementById("results-count");
+    const emptyState = document.getElementById("empty-state");
+    const grid = document.getElementById("sdt-grid");
+    const paginationControls = document.getElementById("pagination-controls");
+
+    const PAGE_SIZE = 6; // Configured to 6 to demonstrate pagination controls with the 8 default items. Can be scaled as needed.
+    let currentPage = 1;
+
+    function filterCards() {
+      const query = searchInput.value.toLowerCase().trim();
+      const selectedCat = categoryFilter.value;
+
+      let matchingCards = [];
+
+      cards.forEach(card => {
+        const name = card.getAttribute("data-name");
+        const desc = card.getAttribute("data-desc");
+        const id = card.getAttribute("data-id");
+        const cat = card.getAttribute("data-category");
+
+        const matchesQuery = !query || name.includes(query) || desc.includes(query) || id.includes(query);
+
+        // Match category hierarchy (e.g., "us" filter matches "us" and "us/identifiers")
+        const matchesCat = !selectedCat || cat === selectedCat || cat.startsWith(selectedCat + "/");
+
+        if (matchesQuery && matchesCat) {
+          matchingCards.push(card);
+        } else {
+          card.style.display = "none";
+        }
+      });
+
+      const totalItems = matchingCards.length;
+      const totalPages = Math.ceil(totalItems / PAGE_SIZE) || 1;
+
+      // Adjust page if current is out of range
+      if (currentPage > totalPages) currentPage = totalPages;
+      if (currentPage < 1) currentPage = 1;
+
+      // Show elements of current page
+      const startIndex = (currentPage - 1) * PAGE_SIZE;
+      const endIndex = startIndex + PAGE_SIZE;
+
+      matchingCards.forEach((card, index) => {
+        if (index >= startIndex && index < endIndex) {
+          card.style.display = "flex";
+        } else {
+          card.style.display = "none";
+        }
+      });
+
+      // Update count text
+      if (totalItems === cards.length) {
+        resultsCount.innerText = `Showing all ${totalItems} semantic data types.`;
+      } else {
+        resultsCount.innerText = `Found ${totalItems} matching semantic data types.`;
+      }
+
+      // Render Pagination Buttons
+      renderPagination(totalPages);
+
+      // Toggle Empty State & Pagination visibility
+      if (totalItems === 0) {
+        grid.style.display = "none";
+        emptyState.style.display = "block";
+        paginationControls.style.display = "none";
+      } else {
+        grid.style.display = "grid";
+        emptyState.style.display = "none";
+        paginationControls.style.display = totalPages > 1 ? "flex" : "none";
+      }
+    }
+
+    function renderPagination(totalPages) {
+      paginationControls.innerHTML = "";
+      if (totalPages <= 1) return;
+
+      // Prev Button
+      const prevBtn = document.createElement("button");
+      prevBtn.className = "btn btn-secondary";
+      prevBtn.style.padding = "0.4rem 0.8rem";
+      prevBtn.style.fontSize = "0.85rem";
+      prevBtn.innerText = "← Prev";
+      prevBtn.disabled = currentPage === 1;
+      prevBtn.onclick = () => {
+        if (currentPage > 1) {
+          currentPage--;
+          filterCards();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      };
+      paginationControls.appendChild(prevBtn);
+
+      // Page numbers
+      for (let i = 1; i <= totalPages; i++) {
+        const pageBtn = document.createElement("button");
+        pageBtn.className = "btn";
+        pageBtn.style.padding = "0.4rem 0.8rem";
+        pageBtn.style.fontSize = "0.85rem";
+        pageBtn.innerText = i;
+
+        if (i === currentPage) {
+          pageBtn.className = "btn btn-primary";
+        } else {
+          pageBtn.className = "btn btn-secondary";
+        }
+
+        pageBtn.onclick = () => {
+          currentPage = i;
+          filterCards();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+        paginationControls.appendChild(pageBtn);
+      }
+
+      // Next Button
+      const nextBtn = document.createElement("button");
+      nextBtn.className = "btn btn-secondary";
+      nextBtn.style.padding = "0.4rem 0.8rem";
+      nextBtn.style.fontSize = "0.85rem";
+      nextBtn.innerText = "Next →";
+      nextBtn.disabled = currentPage === totalPages;
+      nextBtn.onclick = () => {
+        if (currentPage < totalPages) {
+          currentPage++;
+          filterCards();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      };
+      paginationControls.appendChild(nextBtn);
+    }
+
+    // Reset page on filter changes
+    function onFilterChange() {
+      currentPage = 1;
+      filterCards();
+    }
+
+    // Bind event listeners
+    searchInput.addEventListener("input", onFilterChange);
+    categoryFilter.addEventListener("change", onFilterChange);
+
+    // Initial render
+    filterCards();
+  });
+</script>

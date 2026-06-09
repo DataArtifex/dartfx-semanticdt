@@ -1,0 +1,579 @@
+{
+    "$defs": {
+        "AgentInstruction": {
+            "additionalProperties": false,
+            "description": "Machine and agentic parsing, transformation, or reasoning guidelines.",
+            "properties": {
+                "guidelines": {
+                    "description": "Text instructions for agents.",
+                    "type": "string"
+                },
+                "system_prompt_snippet": {
+                    "description": "System prompt instructions for configuring agents with this data type.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "guidelines"
+            ],
+            "title": "AgentInstruction",
+            "type": "object"
+        },
+        "AgentSkill": {
+            "additionalProperties": false,
+            "description": "Executable tools, functions, or workflows related to the semantic type.",
+            "properties": {
+                "api_definition": {
+                    "description": "API endpoint or function signature.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "description": {
+                    "description": "What this skill does.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "tool_name": {
+                    "description": "Name of the tool or function.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "tool_name"
+            ],
+            "title": "AgentSkill",
+            "type": "object"
+        },
+        "ClassificationSystem": {
+            "additionalProperties": false,
+            "description": "Controlled vocabulary or coding scheme (making this a categorical variable).",
+            "properties": {
+                "name": {
+                    "description": "Name of the classification (e.g., ISO-3166-1, ICD-10).",
+                    "type": "string"
+                },
+                "uri": {
+                    "description": "URI to the standard classification.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "version": {
+                    "description": "Version of the classification scheme.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "name"
+            ],
+            "title": "ClassificationSystem",
+            "type": "object"
+        },
+        "CodeSnippet": {
+            "additionalProperties": false,
+            "description": "A concrete piece of code or expression implementing logic (e.g., validation, generation) in a specific environment.",
+            "properties": {
+                "code": {
+                    "description": "The actual code snippet or expression (e.g., Python function/lambda, SQL expression).",
+                    "type": "string"
+                },
+                "target_environment": {
+                    "description": "Target platform, framework, database, or language. Prefer using values from the TargetEnvironmentEnum controlled vocabulary where applicable. Custom values not in the enum are permitted since this slot is of type string.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "target_environment",
+                "code"
+            ],
+            "title": "CodeSnippet",
+            "type": "object"
+        },
+        "ConceptReference": {
+            "additionalProperties": false,
+            "description": "Reference to a concept in an external ontology or vocabulary.",
+            "properties": {
+                "match_type": {
+                    "description": "Relationship to the concept (e.g., exactMatch, closeMatch, broadMatch, narrowMatch).",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "pref_label": {
+                    "description": "Preferred label of the concept in the ontology.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "uri": {
+                    "description": "URI of the concept (e.g., SKOS URI).",
+                    "type": "string"
+                },
+                "vocabulary": {
+                    "description": "Name of the vocabulary or ontology (e.g., SKOS, DDI-CDI, Wikidata, LCSH).",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "uri"
+            ],
+            "title": "ConceptReference",
+            "type": "object"
+        },
+        "DisplayFormat": {
+            "additionalProperties": false,
+            "description": "Guidelines for displaying and masking data.",
+            "properties": {
+                "display_template": {
+                    "description": "Output representation template.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "formatting_regex": {
+                    "description": "Regex used to transform raw data to formatted data.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "input_mask": {
+                    "description": "Mask for input forms (e.g., 999-99-9999).",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "title": "DisplayFormat",
+            "type": "object"
+        },
+        "Example": {
+            "additionalProperties": false,
+            "description": "Concrete instance of values.",
+            "properties": {
+                "description": {
+                    "description": "Description of the specific test case this example represents.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "is_valid": {
+                    "description": "Indication of whether the example value is valid under the SDT.",
+                    "type": "boolean"
+                },
+                "value": {
+                    "description": "Example value representation.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "value",
+                "is_valid"
+            ],
+            "title": "Example",
+            "type": "object"
+        },
+        "GenerationRule": {
+            "additionalProperties": false,
+            "description": "Directive for synthetic data generation.",
+            "properties": {
+                "code_snippets": {
+                    "description": "Environment-specific code snippets or expressions implementing the generator logic.",
+                    "items": {
+                        "$ref": "#/$defs/CodeSnippet"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "generator_type": {
+                    "description": "Type of generator (e.g., regex_fuzzer, template, faker_provider, custom).",
+                    "type": "string"
+                },
+                "template": {
+                    "description": "Seed template or expression.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "generator_type"
+            ],
+            "title": "GenerationRule",
+            "type": "object"
+        },
+        "GeospatialCoverage": {
+            "additionalProperties": false,
+            "description": "Geospatial coverage boundaries represented by description and/or formal codes or URIs.",
+            "properties": {
+                "codes": {
+                    "description": "A list of formal codes or URIs (e.g., ISO country/subdivision codes, GeoNames URIs, Wikidata URIs).",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "description": {
+                    "description": "Human-readable description of the geospatial coverage (e.g., United States, Canada, Global).",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "title": "GeospatialCoverage",
+            "type": "object"
+        },
+        "ScopeContext": {
+            "additionalProperties": false,
+            "description": "Contextual boundaries of the data type.",
+            "properties": {
+                "domain": {
+                    "description": "Specific field or subject domain (e.g., Healthcare, Finance).",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "geospatial_coverage": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/GeospatialCoverage"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Geospatial region or country coverage details."
+                },
+                "governing_institution": {
+                    "description": "Governing body (e.g., ISO, W3C, IRS).",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "temporal_coverage": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/TemporalCoverage"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Temporal coverage details."
+                }
+            },
+            "title": "ScopeContext",
+            "type": "object"
+        },
+        "SemanticDataType": {
+            "additionalProperties": false,
+            "description": "A high-level data type associated with a distinct concept, validation/generation rules, and metadata.",
+            "properties": {
+                "agent_instructions": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/AgentInstruction"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Specific guidelines and instructions for AI agents handling this data type."
+                },
+                "agent_skills": {
+                    "description": "Tools, functions, or prompts associated with this data type.",
+                    "items": {
+                        "$ref": "#/$defs/AgentSkill"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "classification": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/ClassificationSystem"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Code lists or classification schemes that categorize this variable."
+                },
+                "concepts": {
+                    "description": "A list of conceptual ontology alignments or mapping references representing this data type in external systems (e.g., SKOS concepts, Wikidata items, or vocabularies like DDI-CDI and schema.org). This should list multiple representations of the same underlying semantic concept, not distinct concepts.",
+                    "items": {
+                        "$ref": "#/$defs/ConceptReference"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "description": {
+                    "description": "A human-readable description of the Semantic Data Type.",
+                    "type": "string"
+                },
+                "display_format": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/DisplayFormat"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Formatting rules for displaying values of this type."
+                },
+                "examples": {
+                    "description": "Curated valid and invalid examples for documentation and testing.",
+                    "items": {
+                        "$ref": "#/$defs/Example"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "generation_rules": {
+                    "description": "Templates or directives for generating synthetic valid data.",
+                    "items": {
+                        "$ref": "#/$defs/GenerationRule"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "id": {
+                    "description": "Unique identifier/URI for the Semantic Data Type.",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "Human-readable name of the Semantic Data Type.",
+                    "type": "string"
+                },
+                "scope": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/ScopeContext"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Contextual scope of the data type (temporal, geographic, etc.)."
+                },
+                "storage_types": {
+                    "description": "Mappings to physical storage types across different environments. A mapping for the 'generic' environment is required to define the platform-independent base type.",
+                    "items": {
+                        "$ref": "#/$defs/StorageType"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "validation_rules": {
+                    "description": "Rules to validate physical representations of the data type.",
+                    "items": {
+                        "$ref": "#/$defs/ValidationRule"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "version": {
+                    "description": "The version of the Semantic Data Type instance definition (e.g., 1.0.0).",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "id",
+                "name",
+                "description",
+                "version"
+            ],
+            "title": "SemanticDataType",
+            "type": "object"
+        },
+        "StorageType": {
+            "additionalProperties": false,
+            "description": "Physical or logical storage data type binding.",
+            "properties": {
+                "data_type": {
+                    "description": "Data type identifier in the target environment (e.g., string, varchar, integer, str).",
+                    "type": "string"
+                },
+                "format_modifier": {
+                    "description": "Optional modifiers (e.g., length, precision).",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "target_environment": {
+                    "description": "Target platform, framework, database, or language. Prefer using values from the TargetEnvironmentEnum controlled vocabulary where applicable. Custom values not in the enum are permitted since this slot is of type string.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "target_environment",
+                "data_type"
+            ],
+            "title": "StorageType",
+            "type": "object"
+        },
+        "TargetEnvironmentEnum": {
+            "description": "Recommended vocabulary of target systems and development environments.",
+            "enum": [
+                "csharp",
+                "generic",
+                "go",
+                "java",
+                "javascript",
+                "python",
+                "r",
+                "rust",
+                "sas",
+                "spss",
+                "sql",
+                "sql-bigquery",
+                "sql-clickhouse",
+                "sql-mssql",
+                "sql-mysql",
+                "sql-oracle",
+                "sql-postgresql",
+                "sql-redshift",
+                "sql-snowflake",
+                "sql-sqlite",
+                "stata",
+                "typescript",
+                "xsd"
+            ],
+            "title": "TargetEnvironmentEnum",
+            "type": "string"
+        },
+        "TemporalCoverage": {
+            "additionalProperties": false,
+            "description": "Temporal coverage boundaries represented by description, start/end dates, or ISO 8601 periods/durations.",
+            "properties": {
+                "description": {
+                    "description": "Human-readable description of the temporal coverage (e.g., '21st Century', '2020 Census').",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "end_date": {
+                    "description": "End date of the coverage formatted strictly according to ISO 8601 (YYYY-MM-DD).",
+                    "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "iso_period": {
+                    "description": "ISO 8601 time interval or period representation (e.g., '2020-01-01/2020-12-31', 'P1Y').",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "start_date": {
+                    "description": "Start date of the coverage formatted strictly according to ISO 8601 (YYYY-MM-DD).",
+                    "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "title": "TemporalCoverage",
+            "type": "object"
+        },
+        "ValidationRule": {
+            "additionalProperties": false,
+            "description": "A rule defining syntactical or logical validation of values.",
+            "properties": {
+                "algorithm": {
+                    "description": "Algorithmic checker name (e.g., luhn, modulo-11, isbn13).",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "code_snippets": {
+                    "description": "Environment-specific code snippets or expressions implementing the validation logic.",
+                    "items": {
+                        "$ref": "#/$defs/CodeSnippet"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "message": {
+                    "description": "Error message when validation fails.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "pattern": {
+                    "description": "Regular expression pattern for validation.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "rule_type": {
+                    "description": "Type of validation (e.g., regex, checksum, range).",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "rule_type"
+            ],
+            "title": "ValidationRule",
+            "type": "object"
+        }
+    },
+    "$id": "https://w3id.org/dartfx/semanticdt",
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "additionalProperties": true,
+    "metamodel_version": "1.11.0",
+    "title": "semantic-data-type",
+    "type": "object",
+    "version": "0.1.0-dev"
+}

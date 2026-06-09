@@ -1,0 +1,84 @@
+id: https://w3id.org/dartfx/semanticdt/library/global/country_code
+name: ISO 3166-1 Alpha-2 Country Code
+description: >-
+  Two-letter country codes defined in ISO 3166-1, representing countries, dependent territories,
+  and special areas of geographical interest.
+version: 0.1.0
+concepts:
+  - uri: https://www.wikidata.org/wiki/Q191983
+    vocabulary: Wikidata
+    pref_label: ISO 3166-1 alpha-2
+    match_type: exactMatch
+storage_types:
+  - target_environment: generic
+    data_type: string
+  - target_environment: python
+    data_type: str
+  - target_environment: sql
+    data_type: CHAR
+    format_modifier: 2
+  - target_environment: xsd
+    data_type: string
+classification:
+  name: ISO-3166-1
+  uri: https://www.iso.org/iso-3166-country-codes.html
+  version: 3166-1:2020
+validation_rules:
+  - rule_type: regex
+    pattern: ^[A-Z]{2}$
+    message: Country Code must consist of exactly 2 uppercase letters.
+  - rule_type: custom
+    message: Invalid ISO 3166-1 alpha-2 country code.
+    code_snippets:
+      - target_environment: python
+        code: |
+          def validate_country_code(val: str) -> bool:
+              valid_codes = {
+                  "AD", "AE", "AF", "AG", "AI", "AL", "AM", "AO", "AQ", "AR", "AS", "AT", "AU", "AW", "AX", "AZ",
+                  "BA", "BB", "BD", "BE", "BF", "BG", "BH", "BI", "BJ", "BL", "BM", "BN", "BO", "BQ", "BR", "BS",
+                  "BT", "BV", "BW", "BY", "BZ", "CA", "CC", "CD", "CF", "CG", "CH", "CI", "CK", "CL", "CM", "CN",
+                  "CO", "CR", "CU", "CV", "CW", "CX", "CY", "CZ", "DE", "DJ", "DK", "DM", "DO", "DZ", "EC", "EE",
+                  "EG", "EH", "ER", "ES", "ET", "FI", "FJ", "FK", "FM", "FO", "FR", "GA", "GB", "GD", "GE", "GF",
+                  "GG", "GH", "GI", "GL", "GM", "GN", "GP", "GQ", "GR", "GS", "GT", "GU", "GW", "GY", "HK", "HM",
+                  "HN", "HR", "HT", "HU", "ID", "IE", "IL", "IM", "IN", "IO", "IQ", "IR", "IS", "IT", "JE", "JM",
+                  "JO", "JP", "KE", "KG", "KH", "KI", "KM", "KN", "KP", "KR", "KW", "KY", "KZ", "LA", "LB", "LC",
+                  "LI", "LK", "LR", "LS", "LT", "LU", "LV", "LY", "MA", "MC", "MD", "ME", "MF", "MG", "MH", "MK",
+                  "ML", "MM", "MN", "MO", "MP", "MQ", "MR", "MS", "MT", "MU", "MV", "MW", "MX", "MY", "MZ", "NA",
+                  "NC", "NE", "NF", "NG", "NI", "NL", "NO", "NP", "NR", "NU", "NZ", "OM", "PA", "PE", "PF", "PG",
+                  "PH", "PK", "PL", "PM", "PN", "PR", "PS", "PT", "PW", "PY", "QA", "RE", "RO", "RS", "RU", "RW",
+                  "SA", "SB", "SC", "SD", "SE", "SG", "SH", "SI", "SJ", "SK", "SL", "SM", "SN", "SO", "SR", "SS",
+                  "ST", "SV", "SX", "SY", "SZ", "TC", "TD", "TF", "TG", "TH", "TJ", "TK", "TL", "TM", "TN", "TO",
+                  "TR", "TT", "TV", "TW", "TZ", "UA", "UG", "UM", "US", "UY", "UZ", "VA", "VC", "VE", "VG", "VI",
+                  "VN", "VU", "WF", "WS", "YE", "YT", "ZA", "ZM", "ZW"
+              }
+              return val.upper() in valid_codes
+agent_instructions:
+  guidelines: >-
+    Country codes represent geospatial regions. Normalize by converting to uppercase.
+  system_prompt_snippet: >-
+    Ensure country codes are valid ISO-3166-1 Alpha-2 uppercase strings.
+scope:
+  geospatial_coverage:
+    description: Global
+    codes:
+      - Global
+  domain: Geographic / Classification
+  governing_institution: ISO
+display_format:
+  display_template: "{{ value.upper() }}"
+examples:
+  - value: US
+    is_valid: true
+    description: Valid country code for United States.
+  - value: CA
+    is_valid: true
+    description: Valid country code for Canada.
+  - value: ca
+    is_valid: true
+    description: Valid country code for Canada (needs conversion to uppercase).
+  - value: XX
+    is_valid: false
+    description: Invalid country code.
+  - value: USA
+    is_valid: false
+    description: Invalid because ISO 3166-1 alpha-2 codes consist of exactly two letters.

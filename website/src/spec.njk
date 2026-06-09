@@ -1,0 +1,375 @@
+---
+layout: layouts/base.njk
+title: LinkML Specification Explorer
+description: Detailed explorer for the Semantic Data Type LinkML schema, defining classes, slots, and enums.
+---
+
+<div style="margin-bottom: 2rem;">
+  <h1 style="background: linear-gradient(135deg, #ffffff 40%, var(--accent-secondary) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">LinkML Schema Explorer</h1>
+  <p style="font-size: 1.1rem; max-width: 800px; margin-bottom: 0;">
+    The Semantic Data Type (SDT) specification is defined using LinkML. Browse the schema's classes, attributes, and enums, and download target environment models.
+  </p>
+</div>
+
+<!-- Schema Metadata Header -->
+<div class="card" style="margin-bottom: 3rem; background: rgba(17, 24, 43, 0.4);">
+  <h2 style="margin-top: 0; border-bottom: none; padding-bottom: 0; font-size: 1.4rem; color: var(--text-primary);">
+    {{ sdt_schema.title }}
+  </h2>
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-top: 1rem; font-size: 0.9rem;">
+    <div>
+      <span style="color: var(--text-muted); display: block; font-size: 0.75rem; text-transform: uppercase;">Schema URI</span>
+      <code style="word-break: break-all; color: var(--accent-secondary);">{{ sdt_schema.id }}</code>
+    </div>
+    <div>
+      <span style="color: var(--text-muted); display: block; font-size: 0.75rem; text-transform: uppercase;">Version</span>
+      <span style="font-weight: 600;">{{ sdt_schema.version }}</span>
+    </div>
+    <div>
+      <span style="color: var(--text-muted); display: block; font-size: 0.75rem; text-transform: uppercase;">License</span>
+      <a href="{{ sdt_schema.license }}" target="_blank" rel="noopener" style="font-weight: 500;">Creative Commons CC0 1.0</a>
+    </div>
+  </div>
+  <p style="margin-top: 1.5rem; margin-bottom: 0; font-size: 0.95rem; color: var(--text-secondary);">
+    {{ sdt_schema.description }}
+  </p>
+</div>
+
+<!-- Class / Enum Navigation Grid -->
+<div class="code-tabs" style="margin-bottom: 1.5rem;">
+  <button id="tab-classes-btn" class="code-tab-btn active" onclick="switchSpecSection('classes')">Classes ({{ sdt_schema.classes | length }})</button>
+  <button id="tab-enums-btn" class="code-tab-btn" onclick="switchSpecSection('enums')">Enums ({{ sdt_schema.enums | length }})</button>
+  <button id="tab-assets-btn" class="code-tab-btn" onclick="switchSpecSection('assets')">Generated Developer Assets</button>
+</div>
+
+<!-- SECTION: CLASSES -->
+<div id="section-classes" class="spec-section-panel active">
+  <div class="spec-classes-list">
+    {% for className, classDetails in sdt_schema.classes %}
+      <div class="spec-class-card {% if loop.first %}active{% endif %}" id="card-{{ className }}" onclick="selectSpecClass('{{ className }}')">
+        <h3>{{ className }}</h3>
+        <p>{{ classDetails.description }}</p>
+      </div>
+    {% endfor %}
+  </div>
+
+  <!-- Detail Display Panel for Selected Class -->
+  {% for className, classDetails in sdt_schema.classes %}
+    <div class="card class-detail-panel {% if loop.first %}active{% endif %}" id="detail-{{ className }}" style="display: {% if loop.first %}block{% else %}none{% endif %}; border-top: 3px solid var(--accent-primary);">
+      <h2 style="margin-top: 0; font-size: 1.5rem; color: var(--text-primary); border-bottom: none; padding-bottom: 0;">
+        class <span style="color: var(--accent-primary);">{{ className }}</span>
+      </h2>
+      <p style="font-size: 1rem; color: var(--text-secondary); margin-bottom: 2rem;">
+        {{ classDetails.description }}
+      </p>
+
+      {% if classDetails.attributes or classDetails.slots %}
+        <h3 style="font-size: 1.1rem; color: var(--text-primary); margin-bottom: 1rem;">Attributes & Slots</h3>
+        <div style="overflow-x: auto;">
+          <table class="spec-table">
+            <thead>
+              <tr>
+                <th>Attribute</th>
+                <th>Range (Type)</th>
+                <th>Required</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for slotName in classDetails.slots or [] %}
+                {% set slotDetails = sdt_schema.slots[slotName] or {} %}
+                <tr>
+                  <td style="font-family: var(--font-mono); font-weight: 600; color: var(--accent-tertiary);">{{ slotName }}</td>
+                  <td style="font-family: var(--font-mono); font-size: 0.825rem; color: var(--accent-secondary);">
+                    {% if slotDetails.multivalued %}list of {% endif %}{{ slotDetails.range or 'string' }}
+                  </td>
+                  <td>
+                    {% if slotDetails.required %}
+                      <span class="badge badge-error">Yes</span>
+                    {% else %}
+                      <span class="badge">No</span>
+                    {% endif %}
+                  </td>
+                  <td style="color: var(--text-secondary); font-size: 0.85rem;">
+                    {{ slotDetails.description or 'No description provided.' }}
+                    {% if slotDetails.pattern %}
+                      <div style="margin-top: 0.25rem;">
+                        <span style="color: var(--text-muted); font-size: 0.75rem; font-weight: 600; text-transform: uppercase;">Pattern:</span>
+                        <code>{{ slotDetails.pattern }}</code>
+                      </div>
+                    {% endif %}
+                  </td>
+                </tr>
+              {% endfor %}
+              {% for attrName, attrDetails in classDetails.attributes %}
+                <tr>
+                  <td style="font-family: var(--font-mono); font-weight: 600; color: var(--accent-tertiary);">{{ attrName }}</td>
+                  <td style="font-family: var(--font-mono); font-size: 0.825rem; color: var(--accent-secondary);">
+                    {% if attrDetails.multivalued %}list of {% endif %}{{ attrDetails.range or 'string' }}
+                  </td>
+                  <td>
+                    {% if attrDetails.required %}
+                      <span class="badge badge-error">Yes</span>
+                    {% else %}
+                      <span class="badge">No</span>
+                    {% endif %}
+                  </td>
+                  <td style="color: var(--text-secondary); font-size: 0.85rem;">
+                    {{ attrDetails.description }}
+                    {% if attrDetails.pattern %}
+                      <div style="margin-top: 0.25rem;">
+                        <span style="color: var(--text-muted); font-size: 0.75rem; font-weight: 600; text-transform: uppercase;">Pattern:</span>
+                        <code>{{ attrDetails.pattern }}</code>
+                      </div>
+                    {% endif %}
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% endif %}
+    </div>
+  {% endfor %}
+</div>
+
+<!-- SECTION: ENUMS -->
+<div id="section-enums" class="spec-section-panel" style="display: none;">
+  <div class="spec-classes-list">
+    {% for enumName, enumDetails in sdt_schema.enums %}
+      <div class="spec-class-card {% if loop.first %}active{% endif %}" id="card-{{ enumName }}" onclick="selectSpecEnum('{{ enumName }}')">
+        <h3>{{ enumName }}</h3>
+        <p>{{ enumDetails.description }}</p>
+      </div>
+    {% endfor %}
+  </div>
+
+  <!-- Detail Display Panel for Selected Enum -->
+  {% for enumName, enumDetails in sdt_schema.enums %}
+    <div class="card enum-detail-panel {% if loop.first %}active{% endif %}" id="detail-{{ enumName }}" style="display: {% if loop.first %}block{% else %}none{% endif %}; border-top: 3px solid var(--accent-secondary);">
+      <h2 style="margin-top: 0; font-size: 1.5rem; color: var(--text-primary); border-bottom: none; padding-bottom: 0;">
+        enum <span style="color: var(--accent-secondary);">{{ enumName }}</span>
+      </h2>
+      <p style="font-size: 1rem; color: var(--text-secondary); margin-bottom: 2rem;">
+        {{ enumDetails.description }}
+      </p>
+
+      {% if enumDetails.permissible_values %}
+        <h3 style="font-size: 1.1rem; color: var(--text-primary); margin-bottom: 1rem;">Permissible Values</h3>
+        <div style="overflow-x: auto;">
+          <table class="spec-table">
+            <thead>
+              <tr>
+                <th>Value</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for valName, valDetails in enumDetails.permissible_values %}
+                <tr>
+                  <td style="font-family: var(--font-mono); font-weight: 600; color: var(--accent-secondary);">{{ valName }}</td>
+                  <td style="color: var(--text-secondary); font-size: 0.85rem;">{{ valDetails.description or 'No description provided.' }}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% endif %}
+    </div>
+  {% endfor %}
+</div>
+
+<!-- SECTION: DEVELOPER ASSETS -->
+<div id="section-assets" class="spec-section-panel" style="display: none;">
+  <a href="https://github.com/DataArtifex/dartfx-semanticdt/tree/main/linkml/dev" target="_blank" rel="noopener" class="card card-link" style="margin-bottom: 2rem; border-left: 4px solid var(--accent-secondary); text-decoration: none; color: inherit; display: block;">
+    <h3 style="margin-bottom: 0.5rem; color: var(--text-primary); display: flex; justify-content: space-between; align-items: center;">
+      <span>Pre-compiled Source Schemas</span>
+      <span style="font-size: 0.85rem; color: var(--accent-secondary); font-weight: 500;">Browse Directory &rarr;</span>
+    </h3>
+    <p style="margin-bottom: 0; color: var(--text-secondary);">
+      To allow developers and agents to consume Semantic Data Types natively, we auto-compile models from the LinkML schema into major programming ecosystems during CI builds. Click here to browse the generated schemas directly in the repository.
+    </p>
+  </a>
+
+  <div class="grid">
+    <div class="card">
+      <div class="badge badge-violet" style="align-self: flex-start; margin-bottom: 1rem;">Python</div>
+      <h3 style="margin-bottom: 0.5rem;">Pydantic Models</h3>
+      <p class="card-description">
+        Robust Pydantic v2 schemas generated from the LinkML specification, providing type hints and data validation natively in Python.
+      </p>
+      <div class="card-footer" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+        <code style="background: none; border: none; padding:0; word-break: break-all; font-size: 0.75rem;">linkml/dev/python/sdt.py</code>
+        <a href="https://github.com/DataArtifex/dartfx-semanticdt/blob/main/linkml/dev/python/sdt.py" target="_blank" rel="noopener" style="font-weight: 600; font-size: 0.8rem; flex-shrink: 0; margin-left: 0.5rem;">View &rarr;</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="badge badge-cyan" style="align-self: flex-start; margin-bottom: 1rem;">TypeScript</div>
+      <h3 style="margin-bottom: 0.5rem;">TS Interfaces</h3>
+      <p class="card-description">
+        Strict TypeScript typings and interfaces ready for use in web frontends, Node backends, or agent integrations.
+      </p>
+      <div class="card-footer" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+        <code style="background: none; border: none; padding:0; word-break: break-all; font-size: 0.75rem;">linkml/dev/typescript/sdt.ts</code>
+        <a href="https://github.com/DataArtifex/dartfx-semanticdt/blob/main/linkml/dev/typescript/sdt.ts" target="_blank" rel="noopener" style="font-weight: 600; font-size: 0.8rem; flex-shrink: 0; margin-left: 0.5rem;">View &rarr;</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="badge badge-violet" style="align-self: flex-start; margin-bottom: 1rem;">Rust</div>
+      <h3 style="margin-bottom: 0.5rem;">Rust Structs</h3>
+      <p class="card-description">
+        Cargo module bindings and structs containing the validated modeling layouts of SDTs for low-latency Rust environments.
+      </p>
+      <div class="card-footer" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+        <code style="background: none; border: none; padding:0; word-break: break-all; font-size: 0.75rem;">linkml/dev/rust/</code>
+        <a href="https://github.com/DataArtifex/dartfx-semanticdt/tree/main/linkml/dev/rust" target="_blank" rel="noopener" style="font-weight: 600; font-size: 0.8rem; flex-shrink: 0; margin-left: 0.5rem;">View &rarr;</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="badge badge-cyan" style="align-self: flex-start; margin-bottom: 1rem;">UML Diagram</div>
+      <h3 style="margin-bottom: 0.5rem;">PlantUML Spec</h3>
+      <p class="card-description">
+        PlantUML files illustrating the structural relationships, attributes, and inheritance patterns of the LinkML definitions.
+      </p>
+      <div class="card-footer" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+        <code style="background: none; border: none; padding:0; word-break: break-all; font-size: 0.75rem;">linkml/dev/plantuml/sdt.puml</code>
+        <a href="https://github.com/DataArtifex/dartfx-semanticdt/blob/main/linkml/dev/plantuml/sdt.puml" target="_blank" rel="noopener" style="font-weight: 600; font-size: 0.8rem; flex-shrink: 0; margin-left: 0.5rem;">View &rarr;</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="badge badge-violet" style="align-self: flex-start; margin-bottom: 1rem;">JSON Schema</div>
+      <h3 style="margin-bottom: 0.5rem;">JSON Schema</h3>
+      <p class="card-description">
+        Standard JSON Schema draft-07 definitions of the SDT modeling layouts, enabling native schema validation across languages.
+      </p>
+      <div class="card-footer" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+        <code style="background: none; border: none; padding:0; word-break: break-all; font-size: 0.75rem;">linkml/dev/jsonschema/sdt.schema.json</code>
+        <a href="https://github.com/DataArtifex/dartfx-semanticdt/blob/main/linkml/dev/jsonschema/sdt.schema.json" target="_blank" rel="noopener" style="font-weight: 600; font-size: 0.8rem; flex-shrink: 0; margin-left: 0.5rem;">View &rarr;</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="badge badge-cyan" style="align-self: flex-start; margin-bottom: 1rem;">Java</div>
+      <h3 style="margin-bottom: 0.5rem;">Java POJOs</h3>
+      <p class="card-description">
+        Plain Old Java Objects generated under the <code>org.dataartifex.sdt</code> package name, complete with Jackson annotations.
+      </p>
+      <div class="card-footer" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+        <code style="background: none; border: none; padding:0; word-break: break-all; font-size: 0.75rem;">linkml/dev/java/</code>
+        <a href="https://github.com/DataArtifex/dartfx-semanticdt/tree/main/linkml/dev/java" target="_blank" rel="noopener" style="font-weight: 600; font-size: 0.8rem; flex-shrink: 0; margin-left: 0.5rem;">View &rarr;</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="badge badge-violet" style="align-self: flex-start; margin-bottom: 1rem;">RDF</div>
+      <h3 style="margin-bottom: 0.5rem;">RDF Turtle Graph</h3>
+      <p class="card-description">
+        W3C standard Resource Description Framework graph Turtle serialization, enabling direct load into triplestores and graph databases.
+      </p>
+      <div class="card-footer" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+        <code style="background: none; border: none; padding:0; word-break: break-all; font-size: 0.75rem;">linkml/dev/rdf/sdt.ttl</code>
+        <a href="https://github.com/DataArtifex/dartfx-semanticdt/blob/main/linkml/dev/rdf/sdt.ttl" target="_blank" rel="noopener" style="font-weight: 600; font-size: 0.8rem; flex-shrink: 0; margin-left: 0.5rem;">View &rarr;</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="badge badge-cyan" style="align-self: flex-start; margin-bottom: 1rem;">SHACL</div>
+      <h3 style="margin-bottom: 0.5rem;">SHACL Shapes</h3>
+      <p class="card-description">
+        Shapes Constraint Language shapes (Turtle format) designed to validate RDF graph structures against Semantic Data Type boundaries.
+      </p>
+      <div class="card-footer" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+        <code style="background: none; border: none; padding:0; word-break: break-all; font-size: 0.75rem;">linkml/dev/shacl/sdt.shacl.ttl</code>
+        <a href="https://github.com/DataArtifex/dartfx-semanticdt/blob/main/linkml/dev/shacl/sdt.shacl.ttl" target="_blank" rel="noopener" style="font-weight: 600; font-size: 0.8rem; flex-shrink: 0; margin-left: 0.5rem;">View &rarr;</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="badge badge-violet" style="align-self: flex-start; margin-bottom: 1rem;">JSON-LD</div>
+      <h3 style="margin-bottom: 0.5rem;">JSON-LD Context</h3>
+      <p class="card-description">
+        JSON-LD @context mappings and schemas to seamlessly bridge raw JSON payloads into Linked Data and Semantic Web namespaces.
+      </p>
+      <div class="card-footer" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+        <code style="background: none; border: none; padding:0; word-break: break-all; font-size: 0.75rem;">linkml/dev/jsonld/</code>
+        <a href="https://github.com/DataArtifex/dartfx-semanticdt/tree/main/linkml/dev/jsonld" target="_blank" rel="noopener" style="font-weight: 600; font-size: 0.8rem; flex-shrink: 0; margin-left: 0.5rem;">View &rarr;</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="badge badge-cyan" style="align-self: flex-start; margin-bottom: 1rem;">OWL</div>
+      <h3 style="margin-bottom: 0.5rem;">OWL Ontology</h3>
+      <p class="card-description">
+        Web Ontology Language mapping of the schema structure, providing description logic axioms for reasoning engines.
+      </p>
+      <div class="card-footer" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+        <code style="background: none; border: none; padding:0; word-break: break-all; font-size: 0.75rem;">linkml/dev/owl/sdt.owl.ttl</code>
+        <a href="https://github.com/DataArtifex/dartfx-semanticdt/blob/main/linkml/dev/owl/sdt.owl.ttl" target="_blank" rel="noopener" style="font-weight: 600; font-size: 0.8rem; flex-shrink: 0; margin-left: 0.5rem;">View &rarr;</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top: 2rem;">
+    <h3 style="margin-bottom: 0.5rem;">Generating Assets Locally</h3>
+    <p>
+      You can recompile all dev artifacts locally from the root folder if you modify the schema layout file:
+    </p>
+    <pre><code id="build-command">uv run hatch run linkml:generate</code><button class="copy-btn" onclick="copyToClipboard(this, 'build-command')">Copy</button></pre>
+  </div>
+</div>
+
+<script>
+  // Toggles active section panel (Classes vs Enums vs Assets)
+  function switchSpecSection(sectionId) {
+    // Toggle active tab buttons
+    document.getElementById("tab-classes-btn").classList.remove("active");
+    document.getElementById("tab-enums-btn").classList.remove("active");
+    document.getElementById("tab-assets-btn").classList.remove("active");
+
+    document.getElementById("tab-" + sectionId + "-btn").classList.add("active");
+
+    // Toggle panel displays
+    document.querySelectorAll(".spec-section-panel").forEach(panel => {
+      panel.style.display = "none";
+    });
+    document.getElementById("section-" + sectionId).style.display = "block";
+  }
+
+  // Toggles selected LinkML class detail display
+  function selectSpecClass(className) {
+    // Remove active state on other cards
+    document.querySelectorAll("#section-classes .spec-class-card").forEach(c => {
+      c.classList.remove("active");
+    });
+    // Add active state to selected card
+    document.getElementById("card-" + className).classList.add("active");
+
+    // Hide other detail panels
+    document.querySelectorAll(".class-detail-panel").forEach(p => {
+      p.style.display = "none";
+    });
+    // Show selected panel
+    document.getElementById("detail-" + className).style.display = "block";
+  }
+
+  // Toggles selected LinkML enum detail display
+  function selectSpecEnum(enumName) {
+    // Remove active state on other cards
+    document.querySelectorAll("#section-enums .spec-class-card").forEach(c => {
+      c.classList.remove("active");
+    });
+    // Add active state to selected card
+    document.getElementById("card-" + enumName).classList.add("active");
+
+    // Hide other detail panels
+    document.querySelectorAll(".enum-detail-panel").forEach(p => {
+      p.style.display = "none";
+    });
+    // Show selected panel
+    document.getElementById("detail-" + enumName).style.display = "block";
+  }
+</script>

@@ -1,0 +1,96 @@
+---
+layout: layouts/base.njk
+title: About Semantic Data Types
+description: Understanding the concepts, architecture, and motivation behind Semantic Data Types (SDT) in agentic workflows.
+---
+
+<div style="margin-bottom: 2rem;">
+  <h1 style="background: linear-gradient(135deg, #ffffff 40%, var(--accent-secondary) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">About Semantic Data Types</h1>
+  <p style="font-size: 1.1rem; max-width: 800px; margin-bottom: 0;">
+    Discover the motivation, specifications, and architecture that make Semantic Data Types (SDT) a core building block for AI agents and clean software design.
+  </p>
+</div>
+
+<div class="card" style="margin-bottom: 2rem; padding: 2rem;">
+  <h2 style="margin-top: 0; border-bottom: none;">What is a Semantic Data Type?</h2>
+  <p>
+    Traditional programming languages and databases describe data in terms of its physical storage representation: <code>string</code>, <code>integer</code>, <code>float</code>, or <code>boolean</code>.
+  </p>
+  <p>
+    A <strong>Semantic Data Type (SDT)</strong> sits above these physical types, establishing a formal bridge between conceptual representations and physical storage or programming data types. By capturing key aspects—including meaning and purpose, usage, formatting, and validation rules—an SDT enables both humans and machines to gain a deep, actionable understanding of the associated data. For example, rather than representing a Social Security Number simply as a <code>string</code>, an SDT defines it as a distinct conceptual entity bound to specific metadata constraints, geopolitical coverage (US), validation checksums, display formatting, and agentic instructions.
+  </p>
+</div>
+
+<h2 style="margin-top: 3rem;">Key Characteristics</h2>
+<div class="grid">
+  <div class="card" style="background: rgba(17, 24, 43, 0.4);">
+    <h3 style="margin-bottom: 0.5rem; color: var(--accent-secondary);">Ontological Mapping</h3>
+    <p class="card-description" style="margin: 0; font-size: 0.9rem;">
+      Each SDT is mapped to one or more conceptual definitions in global vocabularies (e.g., SKOS, Wikidata, Dublin Core, or DDI-CDI), ensuring cross-domain semantic interoperability.
+    </p>
+  </div>
+
+  <div class="card" style="background: rgba(17, 24, 43, 0.4);">
+    <h3 style="margin-bottom: 0.5rem; color: var(--accent-secondary);">Contextual Boundaries</h3>
+    <p class="card-description" style="margin: 0; font-size: 0.9rem;">
+      SDTs declare their temporal and geospatial scope (e.g., ISO country codes or specific legal domains), indicating exactly where and when the variable representation is valid.
+    </p>
+  </div>
+
+  <div class="card" style="background: rgba(17, 24, 43, 0.4);">
+    <h3 style="margin-bottom: 0.5rem; color: var(--accent-secondary);">Agent Guidelines</h3>
+    <p class="card-description" style="margin: 0; font-size: 0.9rem;">
+      Provides machine-readable instructions and system prompt snippets so that Large Language Models (LLMs) and agentic toolkits know how to parse, normalize, mask, or display values.
+    </p>
+  </div>
+</div>
+
+<h2 style="margin-top: 3rem;">Built on LinkML</h2>
+<div class="card" style="margin-bottom: 2rem; padding: 2rem; border-left: 4px solid var(--accent-secondary);">
+  <p>
+    The Semantic Data Type modeling schema is built upon and compiled using <a href="https://linkml.io/" target="_blank" rel="noopener" style="font-weight: 600;">LinkML (Linked Data Modeling Language)</a>.
+  </p>
+  <p style="margin-bottom: 0;">
+    LinkML provides a robust, author-friendly framework for describing structural data models. By leveraging LinkML, this project gains automated model validation, strict schema conformance checks, and dynamic generation of multi-environment target bindings (such as Python Pydantic classes, TypeScript interfaces, Rust modules, and Markdown documentation) from a single source of truth.
+  </p>
+</div>
+
+<h2 style="margin-top: 3rem;">Comparison with Other Systems</h2>
+<div style="overflow-x: auto; margin-bottom: 4rem;">
+  <table class="spec-table">
+    <thead>
+      <tr>
+        <th>Feature</th>
+        <th>Physical Types (e.g., JSON Schema)</th>
+        <th>Semantic Web (RDF / OWL)</th>
+        <th>Semantic Data Types (SDT)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="font-weight: 600;">Data Constraints</td>
+        <td>Basic regex and numerical ranges.</td>
+        <td>Logic axioms, domain/range constraints.</td>
+        <td>Multi-layered patterns, custom checksum algorithms, and templates.</td>
+      </tr>
+      <tr>
+        <td style="font-weight: 600;">Environment Portability</td>
+        <td>Primarily JSON/Web environments.</td>
+        <td>Linked-data formats (Turtle, JSON-LD).</td>
+        <td>Multi-environment storage bindings (Python, Rust, TS, SQL).</td>
+      </tr>
+      <tr>
+        <td style="font-weight: 600;">Agent Interaction</td>
+        <td>None (requires custom code).</td>
+        <td>Query engines (SPARQL).</td>
+        <td>Direct agent guidelines and LLM prompt snippets.</td>
+      </tr>
+      <tr>
+        <td style="font-weight: 600;">Code Generation</td>
+        <td>Schema to class generation.</td>
+        <td>None (purely conceptual).</td>
+        <td>Built-in fuzzer patterns and environment-specific snippet generation.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

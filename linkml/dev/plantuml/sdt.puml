@@ -1,0 +1,88 @@
+@startuml
+skinparam nodesep 10
+hide circle
+hide empty members
+class "ValidationRule" [[{A rule defining syntactical or logical validation of values.}]] {
+    {field} rule_type : string
+    {field} pattern : string
+    {field} algorithm : string
+    {field} message : string
+}
+class "CodeSnippet" [[{A concrete piece of code or expression implementing logic (e.g., validation, generation) in a specific environment.}]] {
+    {field} target_environment : string
+    {field} code : string
+}
+class "SemanticDataType" [[{A high-level data type associated with a distinct concept, validation/generation rules, and metadata.}]] {
+    {field} id : string
+    {field} name : string
+    {field} description : string
+    {field} version : string
+}
+"ValidationRule" *--> "0..*" "CodeSnippet" : "code_snippets"
+"SemanticDataType" *--> "0..*" "ValidationRule" : "validation_rules"
+class "ScopeContext" [[{Contextual boundaries of the data type.}]] {
+    {field} domain : string
+    {field} governing_institution : string
+}
+class "TemporalCoverage" [[{Temporal coverage boundaries represented by description, start/end dates, or ISO 8601 periods/durations.}]] {
+    {field} description : string
+    {field} start_date : string
+    {field} end_date : string
+    {field} iso_period : string
+}
+"ScopeContext" *--> "0..1" "TemporalCoverage" : "temporal_coverage"
+class "StorageType" [[{Physical or logical storage data type binding.}]] {
+    {field} target_environment : string
+    {field} data_type : string
+    {field} format_modifier : string
+}
+"SemanticDataType" *--> "0..*" "StorageType" : "storage_types"
+class "Example" [[{Concrete instance of values.}]] {
+    {field} value : string
+    {field} is_valid : boolean
+    {field} description : string
+}
+class "DisplayFormat" [[{Guidelines for displaying and masking data.}]] {
+    {field} input_mask : string
+    {field} display_template : string
+    {field} formatting_regex : string
+}
+class "AgentSkill" [[{Executable tools, functions, or workflows related to the semantic type.}]] {
+    {field} tool_name : string
+    {field} description : string
+    {field} api_definition : string
+}
+class "AgentInstruction" [[{Machine and agentic parsing, transformation, or reasoning guidelines.}]] {
+    {field} guidelines : string
+    {field} system_prompt_snippet : string
+}
+class "GenerationRule" [[{Directive for synthetic data generation.}]] {
+    {field} generator_type : string
+    {field} template : string
+}
+class "ClassificationSystem" [[{Controlled vocabulary or coding scheme (making this a categorical variable).}]] {
+    {field} name : string
+    {field} uri : string
+    {field} version : string
+}
+class "ConceptReference" [[{Reference to a concept in an external ontology or vocabulary.}]] {
+    {field} uri : string
+    {field} vocabulary : string
+    {field} pref_label : string
+    {field} match_type : string
+}
+"SemanticDataType" *--> "0..*" "Example" : "examples"
+"SemanticDataType" *--> "0..1" "DisplayFormat" : "display_format"
+"SemanticDataType" *--> "0..1" "ScopeContext" : "scope"
+"SemanticDataType" *--> "0..*" "AgentSkill" : "agent_skills"
+"SemanticDataType" *--> "0..1" "AgentInstruction" : "agent_instructions"
+"SemanticDataType" *--> "0..*" "GenerationRule" : "generation_rules"
+"SemanticDataType" *--> "0..1" "ClassificationSystem" : "classification"
+"SemanticDataType" *--> "0..*" "ConceptReference" : "concepts"
+class "GeospatialCoverage" [[{Geospatial coverage boundaries represented by description and/or formal codes or URIs.}]] {
+    {field} description : string
+    {field} codes : string  [0..*]
+}
+"ScopeContext" *--> "0..1" "GeospatialCoverage" : "geospatial_coverage"
+"GenerationRule" *--> "0..*" "CodeSnippet" : "code_snippets"
+@enduml

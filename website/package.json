@@ -1,0 +1,22 @@
+{
+  "name": "sdt-portal",
+  "version": "0.1.0",
+  "description": "Static portal and library browser for Semantic Data Types",
+  "main": "eleventy.config.js",
+  "scripts": {
+    "compile": "node compile_library.js",
+    "build": "npm run compile && npx @11ty/eleventy",
+    "dev": "npm run compile && npx @11ty/eleventy --serve"
+  },
+  "keywords": [
+    "semantic-data-type",
+    "eleventy",
+    "documentation"
+  ],
+  "author": "DataArtifex",
+  "license": "MIT",
+  "dependencies": {
+    "@11ty/eleventy": "^2.0.1",
+    "js-yaml": "^4.1.0"
+  }
+}

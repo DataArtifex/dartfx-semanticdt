@@ -1,0 +1,307 @@
+---
+layout: layouts/base.njk
+title: Interactive SDT Playground
+description: Live in-browser validator and playground for Semantic Data Types. Test custom values against specifications.
+---
+
+<div style="margin-bottom: 2rem;">
+  <h1 style="background: linear-gradient(135deg, #ffffff 40%, var(--accent-secondary) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Validator Playground</h1>
+  <p style="font-size: 1.1rem; max-width: 800px; margin-bottom: 0;">
+    Select a Semantic Data Type and enter values to test them in real-time. The playground validates regular expressions, formatting rules, and complex algorithmic checksums.
+  </p>
+</div>
+
+<div class="validator-container">
+  <!-- Interactive Form Panel -->
+  <div class="interactive-panel">
+    <div class="field">
+      <label for="sdt-selector">Select Semantic Data Type</label>
+      <select id="sdt-selector" class="filter-select" style="width: 100%; margin-bottom: 0.5rem;">
+        <option value="">-- Choose a Type --</option>
+        {% for sdt in sdt_library %}
+          <option value="{{ sdt.meta.slug }}">{{ sdt.name }} ({{ sdt.meta.category }})</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <!-- Active SDT Details (populated via JS) -->
+    <div id="active-sdt-info" style="display: none; margin-bottom: 1.5rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border-color);">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem;">
+        <span class="badge badge-violet" id="sdt-category-badge"></span>
+        <span class="badge" id="sdt-version-badge"></span>
+      </div>
+      <h3 style="font-size:1.1rem; margin-bottom:0.5rem;" id="sdt-name-text"></h3>
+      <p id="sdt-desc-text" style="font-size:0.875rem; margin-bottom:0.5rem; line-height:1.4;"></p>
+
+      <div id="sdt-mask-info" style="display:none; font-size:0.8rem; color:var(--text-muted);">
+        Form Mask: <code id="sdt-mask-value"></code>
+      </div>
+    </div>
+
+    <!-- Live Test Input -->
+    <div class="field">
+      <label for="test-value">Test Value</label>
+      <div class="input-container">
+        <input type="text" id="test-value" class="validator-input" placeholder="Select a type to begin..." disabled>
+      </div>
+      <span style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem;" id="validation-rule-msg"></span>
+    </div>
+
+    <!-- Live Validation Result Alert -->
+    <div id="validation-alert" class="validation-result">
+      <div class="validation-result-title">
+        <span id="alert-icon"></span>
+        <span id="alert-status"></span>
+      </div>
+      <div id="alert-message" style="font-size: 0.875rem;"></div>
+    </div>
+  </div>
+
+  <!-- Examples & Guidance Panel -->
+  <div class="interactive-panel" style="background: rgba(17, 24, 43, 0.4);">
+    <h3 style="margin-bottom: 1rem; font-size: 1.1rem; color: var(--text-primary);">Test Cases & Presets</h3>
+    <p style="font-size: 0.875rem; margin-bottom: 1.25rem;">
+      Click any preset below to populate the validator with valid or invalid test cases.
+    </p>
+
+    <div id="playground-examples" class="example-list">
+      <div style="text-align: center; color: var(--text-muted); padding: 3rem 0; font-style: italic;">
+        No data type selected.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Raw compiled database injected for client-side JS validation -->
+<script id="sdt-database" type="application/json">
+  {{ sdt_library | stringify | safe }}
+</script>
+
+<script>
+  // ISO Country Code Set
+  const countryCodes = new Set([
+    "AD", "AE", "AF", "AG", "AI", "AL", "AM", "AO", "AQ", "AR", "AS", "AT", "AU", "AW", "AX", "AZ",
+    "BA", "BB", "BD", "BE", "BF", "BG", "BH", "BI", "BJ", "BL", "BM", "BN", "BO", "BQ", "BR", "BS",
+    "BT", "BV", "BW", "BY", "BZ", "CA", "CC", "CD", "CF", "CG", "CH", "CI", "CK", "CL", "CM", "CN",
+    "CO", "CR", "CU", "CV", "CW", "CX", "CY", "CZ", "DE", "DJ", "DK", "DM", "DO", "DZ", "EC", "EE",
+    "EG", "EH", "ER", "ES", "ET", "FI", "FJ", "FK", "FM", "FO", "FR", "GA", "GB", "GD", "GE", "GF",
+    "GG", "GH", "GI", "GL", "GM", "GN", "GP", "GQ", "GR", "GS", "GT", "GU", "GW", "GY", "HK", "HM",
+    "HN", "HR", "HT", "HU", "ID", "IE", "IL", "IM", "IN", "IO", "IQ", "IR", "IS", "IT", "JE", "JM",
+    "JO", "JP", "KE", "KG", "KH", "KI", "KM", "KN", "KP", "KR", "KW", "KY", "KZ", "LA", "LB", "LC",
+    "LI", "LK", "LR", "LS", "LT", "LU", "LV", "LY", "MA", "MC", "MD", "ME", "MF", "MG", "MH", "MK",
+    "ML", "MM", "MN", "MO", "MP", "MQ", "MR", "MS", "MT", "MU", "MV", "MW", "MX", "MY", "MZ", "NA",
+    "NC", "NE", "NF", "NG", "NI", "NL", "NO", "NP", "NR", "NU", "NZ", "OM", "PA", "PE", "PF", "PG",
+    "PH", "PK", "PL", "PM", "PN", "PR", "PS", "PT", "PW", "PY", "QA", "RE", "RO", "RS", "RU", "RW",
+    "SA", "SB", "SC", "SD", "SE", "SG", "SH", "SI", "SJ", "SK", "SL", "SM", "SN", "SO", "SR", "SS",
+    "ST", "SV", "SX", "SY", "SZ", "TC", "TD", "TF", "TG", "TH", "TJ", "TK", "TL", "TM", "TN", "TO",
+    "TR", "TT", "TV", "TW", "TZ", "UA", "UG", "UM", "US", "UY", "UZ", "VA", "VC", "VE", "VG", "VI",
+    "VN", "VU", "WF", "WS", "YE", "YT", "ZA", "ZM", "ZW"
+  ]);
+
+  // Client-side Custom Algorithmic Checksum Validators
+  const CustomValidators = {
+    // Weighted Modulo-10 checksum validation (ISBN-13)
+    "global-isbn": function(val) {
+      const clean = val.replace(/[- ]/g, "");
+      if (clean.length !== 13 || !/^\d+$/.test(clean)) return false;
+      let total = 0;
+      for (let i = 0; i < 13; i++) {
+        const d = parseInt(clean[i]);
+        const weight = (i % 2 === 1) ? 3 : 1;
+        total += d * weight;
+      }
+      return total % 10 === 0;
+    },
+
+    // Modulo-97 checksum validation (IBAN)
+    "global-iban": function(val) {
+      const clean = val.replace(/ /g, "").toUpperCase();
+      if (clean.length < 15 || clean.length > 34) return false;
+      if (!/^[A-Z]{2}\d{2}[A-Z0-9]{11,30}$/.test(clean)) return false;
+
+      const rearranged = clean.slice(4) + clean.slice(0, 4);
+      let numStr = "";
+      for (let i = 0; i < rearranged.length; i++) {
+        const char = rearranged[i];
+        if (/[A-Z]/.test(char)) {
+          numStr += (char.charCodeAt(0) - 65 + 10).toString();
+        } else {
+          numStr += char;
+        }
+      }
+      try {
+        return BigInt(numStr) % 97n === 1n;
+      } catch (e) {
+        return false;
+      }
+    },
+
+    // Country Code verification (ISO 3166-1 alpha-2)
+    "global-country_code": function(val) {
+      return countryCodes.has(val.trim().toUpperCase());
+    }
+  };
+
+  document.addEventListener("DOMContentLoaded", () => {
+    // Load database
+    const database = JSON.parse(document.getElementById("sdt-database").innerText);
+    const sdtMap = new Map(database.map(s => [s.meta.slug, s]));
+
+    const sdtSelector = document.getElementById("sdt-selector");
+    const testValue = document.getElementById("test-value");
+    const validationAlert = document.getElementById("validation-alert");
+    const alertIcon = document.getElementById("alert-icon");
+    const alertStatus = document.getElementById("alert-status");
+    const alertMessage = document.getElementById("alert-message");
+    const ruleMsg = document.getElementById("validation-rule-msg");
+    const examplesPanel = document.getElementById("playground-examples");
+
+    // UI elements for selected SDT details
+    const infoPanel = document.getElementById("active-sdt-info");
+    const sdtNameText = document.getElementById("sdt-name-text");
+    const sdtDescText = document.getElementById("sdt-desc-text");
+    const sdtCatBadge = document.getElementById("sdt-category-badge");
+    const sdtVerBadge = document.getElementById("sdt-version-badge");
+    const sdtMaskInfo = document.getElementById("sdt-mask-info");
+    const sdtMaskValue = document.getElementById("sdt-mask-value");
+
+    function selectSDT(slug, presetValue = "") {
+      sdtSelector.value = slug;
+      const sdt = sdtMap.get(slug);
+
+      if (!sdt) {
+        // Reset view
+        infoPanel.style.display = "none";
+        testValue.value = "";
+        testValue.disabled = true;
+        testValue.placeholder = "Select a type to begin...";
+        ruleMsg.innerText = "";
+        validationAlert.className = "validation-result";
+        validationAlert.style.display = "none";
+        examplesPanel.innerHTML = `
+          <div style="text-align: center; color: var(--text-muted); padding: 3rem 0; font-style: italic;">
+            No data type selected.
+          </div>`;
+        return;
+      }
+
+      // Populate Info Panel
+      sdtNameText.innerText = sdt.name;
+      sdtDescText.innerText = sdt.description;
+      sdtCatBadge.innerText = sdt.meta.category;
+      sdtVerBadge.innerText = `v${sdt.version}`;
+      infoPanel.style.display = "block";
+
+      if (sdt.display_format && sdt.display_format.input_mask) {
+        sdtMaskValue.innerText = sdt.display_format.input_mask;
+        sdtMaskInfo.style.display = "block";
+      } else {
+        sdtMaskInfo.style.display = "none";
+      }
+
+      // Configure Input
+      testValue.disabled = false;
+      testValue.placeholder = sdt.display_format?.input_mask ? `Format: ${sdt.display_format.input_mask}` : "Enter test value...";
+
+      // Configure regex helper message
+      const regexRule = sdt.validation_rules?.find(r => r.rule_type === "regex");
+      if (regexRule) {
+        ruleMsg.innerText = `Regex: ${regexRule.pattern}`;
+      } else {
+        ruleMsg.innerText = "";
+      }
+
+      // Build presets
+      if (sdt.examples && sdt.examples.length > 0) {
+        let examplesHtml = "";
+        sdt.examples.forEach((example, idx) => {
+          const badgeClass = example.is_valid ? "badge-success" : "badge-error";
+          const badgeText = example.is_valid ? "Valid" : "Invalid";
+          examplesHtml += `
+            <div class="example-item" onclick="setPresetValue('${example.value}')">
+              <span class="badge ${badgeClass}">${badgeText}</span>
+              <div style="display:flex; flex-direction:column; gap:0.15rem; flex-grow:1;">
+                <span class="value-text">${example.value}</span>
+                ${example.description ? `<span class="desc-text">${example.description}</span>` : ""}
+              </div>
+            </div>`;
+        });
+        examplesPanel.innerHTML = examplesHtml;
+      } else {
+        examplesPanel.innerHTML = `<div style="text-align: center; color: var(--text-muted); padding: 3rem 0; font-style: italic;">No examples available.</div>`;
+      }
+
+      // Perform validation on load if value is present
+      testValue.value = presetValue;
+      validateCurrentValue();
+    }
+
+    window.setPresetValue = function(val) {
+      testValue.value = val;
+      validateCurrentValue();
+    };
+
+    function validateCurrentValue() {
+      const slug = sdtSelector.value;
+      const sdt = sdtMap.get(slug);
+      if (!sdt) return;
+
+      const val = testValue.value;
+      if (!val) {
+        validationAlert.className = "validation-result";
+        validationAlert.style.display = "none";
+        return;
+      }
+
+      let errors = [];
+      let customCheckerFailed = false;
+
+      // 1. Run Regex Validation
+      const regexRules = sdt.validation_rules?.filter(r => r.rule_type === "regex") || [];
+      regexRules.forEach(rule => {
+        const regex = new RegExp(rule.pattern, "i"); // case-insensitive match for playground comfort
+        if (!regex.test(val)) {
+          errors.push(rule.message || `Value does not match pattern: ${rule.pattern}`);
+        }
+      });
+
+      // 2. Run Custom Algorithmic Checklist (if registered)
+      if (CustomValidators[slug]) {
+        const customValidator = CustomValidators[slug];
+        const isValid = customValidator(val);
+        if (!isValid) {
+          customCheckerFailed = true;
+          const customRule = sdt.validation_rules?.find(r => r.rule_type === "custom");
+          errors.push(customRule?.message || "Failed custom checksum verification.");
+        }
+      }
+
+      // Present Results
+      if (errors.length === 0) {
+        validationAlert.className = "validation-result valid";
+        alertIcon.innerText = "✓";
+        alertStatus.innerText = "VALID REPRESENTATION";
+        alertMessage.innerText = "This value strictly conforms to the Semantic Data Type's structural patterns and validation checksums.";
+      } else {
+        validationAlert.className = "validation-result invalid";
+        alertIcon.innerText = "✗";
+        alertStatus.innerText = "INVALID REPRESENTATION";
+        alertMessage.innerHTML = `This value does not conform to the specifications:<br><ul style="padding-left:1.2rem; margin-top:0.5rem;">${errors.map(e => `<li>${e}</li>`).join("")}</ul>`;
+      }
+    }
+
+    // Input handlers
+    sdtSelector.addEventListener("change", (e) => {
+      selectSDT(e.target.value);
+    });
+    testValue.addEventListener("input", validateCurrentValue);
+
+    // Deep-linking helper (e.g. ?sdt=global-isbn&val=9783161484100)
+    const urlParams = new URLSearchParams(window.location.search);
+    const paramSdt = urlParams.get("sdt");
+    const paramVal = urlParams.get("val");
+    if (paramSdt) {
+      selectSDT(paramSdt, paramVal || "");
+    }
+  });
+</script>

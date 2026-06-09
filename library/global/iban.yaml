@@ -1,0 +1,78 @@
+id: https://w3id.org/dartfx/semanticdt/library/global/iban
+name: International Bank Account Number
+description: >-
+  An internationally agreed system of identifying bank accounts across national borders,
+  standardized under ISO 13616. Validated using the Modulo-97 algorithm.
+version: 0.1.0
+concepts:
+  - uri: https://www.wikidata.org/wiki/Q166827
+    vocabulary: Wikidata
+    pref_label: International Bank Account Number
+    match_type: exactMatch
+storage_types:
+  - target_environment: generic
+    data_type: string
+  - target_environment: python
+    data_type: str
+  - target_environment: sql
+    data_type: VARCHAR
+    format_modifier: 34
+  - target_environment: xsd
+    data_type: string
+validation_rules:
+  - rule_type: regex
+    pattern: ^[A-Z]{2}\d{2}[A-Z0-9]{11,30}$
+    message: IBAN must start with a 2-letter country code, 2 check digits, and 11 to 30 alphanumeric characters.
+  - rule_type: custom
+    message: IBAN failed Modulo-97 checksum validation.
+    code_snippets:
+      - target_environment: python
+        code: |
+          def validate_iban(val: str) -> bool:
+              clean = val.replace(" ", "").upper()
+              if len(clean) < 15 or len(clean) > 34:
+                  return False
+              # Rearrange: first 4 characters to the end
+              rearranged = clean[4:] + clean[:4]
+              # Convert letters to numbers (A=10, B=11, ..., Z=35)
+              num_str = ""
+              for char in rearranged:
+                  if char.isalpha():
+                      num_str += str(ord(char) - ord('A') + 10)
+                  else:
+                      num_str += char
+              try:
+                  return int(num_str) % 97 == 1
+              except ValueError:
+                  return False
+agent_instructions:
+  guidelines: >-
+    IBANs are sensitive financial identifiers. Ensure they are masked in public displays,
+    showing only the first 4 (country/check digits) and last 4 characters (e.g., DE89 **** **** **** 4567).
+  system_prompt_snippet: >-
+    Normalize IBAN by removing spaces and converting to uppercase before validating.
+scope:
+  geospatial_coverage:
+    description: Global (primarily SEPA and participating countries)
+    codes:
+      - Global
+  domain: Financial
+  governing_institution: ISO / SWIFT
+display_format:
+  display_template: "{{ value[:4] }} **** **** **** {{ value[-4:] }}"
+examples:
+  - value: DE89 3704 0044 0532 0130 00
+    is_valid: true
+    description: A valid German IBAN (standard format with spaces).
+  - value: DE89370400440532013000
+    is_valid: true
+    description: A valid German IBAN without spaces.
+  - value: GB33 BUGB 1234 5678 9012 34
+    is_valid: true
+    description: A valid United Kingdom IBAN.
+  - value: DE89 3704 0044 0532 0130 01
+    is_valid: false
+    description: Invalid because it fails the Modulo-97 checksum verification.
+  - value: FR76 3000
+    is_valid: false
+    description: Invalid because it is too short.

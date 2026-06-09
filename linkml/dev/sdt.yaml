@@ -1,0 +1,301 @@
+id: https://w3id.org/dartfx/semanticdt
+name: semantic-data-type
+title: Semantic Data Type Schema
+version: 0.1.0-dev
+description: >-
+  A schema defining Semantic Data Types (SDT) situated above physical database or programming types.
+  Encompasses metadata, mappings, validation, generation, and agentic instructions.
+license: https://creativecommons.org/publicdomain/zero/1.0/
+prefixes:
+  linkml: https://w3id.org/linkml/
+  sdt: https://w3id.org/dartfx/semanticdt/
+  skos: http://www.w3.org/2004/02/skos/core#
+  xsd: http://www.w3.org/2001/XMLSchema#
+default_prefix: sdt
+default_range: string
+
+imports:
+  - linkml:types
+
+slots:
+  target_environment:
+    description: >-
+      Target platform, framework, database, or language.
+      Prefer using values from the TargetEnvironmentEnum controlled vocabulary where applicable.
+      Custom values not in the enum are permitted since this slot is of type string.
+    required: true
+    range: string
+
+  iso_date:
+    description: A date string formatted strictly according to ISO 8601 (YYYY-MM-DD).
+    range: string
+    pattern: ^\d{4}-\d{2}-\d{2}$
+
+classes:
+  SemanticDataType:
+    description: A high-level data type associated with a distinct concept, validation/generation rules, and metadata.
+    attributes:
+      id:
+        description: Unique identifier/URI for the Semantic Data Type.
+        required: true
+        identifier: true
+      name:
+        description: Human-readable name of the Semantic Data Type.
+        required: true
+      description:
+        description: A human-readable description of the Semantic Data Type.
+        required: true
+      version:
+        description: The version of the Semantic Data Type instance definition (e.g., 1.0.0).
+        required: true
+      concepts:
+        description: >-
+          A list of conceptual ontology alignments or mapping references representing this data type in external systems
+          (e.g., SKOS concepts, Wikidata items, or vocabularies like DDI-CDI and schema.org).
+          This should list multiple representations of the same underlying semantic concept, not distinct concepts.
+        multivalued: true
+        range: ConceptReference
+      storage_types:
+        description: >-
+          Mappings to physical storage types across different environments.
+          A mapping for the 'generic' environment is required to define the platform-independent base type.
+        multivalued: true
+        range: StorageType
+      classification:
+        description: Code lists or classification schemes that categorize this variable.
+        range: ClassificationSystem
+      validation_rules:
+        description: Rules to validate physical representations of the data type.
+        multivalued: true
+        range: ValidationRule
+      generation_rules:
+        description: Templates or directives for generating synthetic valid data.
+        multivalued: true
+        range: GenerationRule
+      agent_instructions:
+        description: Specific guidelines and instructions for AI agents handling this data type.
+        range: AgentInstruction
+      agent_skills:
+        description: Tools, functions, or prompts associated with this data type.
+        multivalued: true
+        range: AgentSkill
+      scope:
+        description: Contextual scope of the data type (temporal, geographic, etc.).
+        range: ScopeContext
+      display_format:
+        description: Formatting rules for displaying values of this type.
+        range: DisplayFormat
+      examples:
+        description: Curated valid and invalid examples for documentation and testing.
+        multivalued: true
+        range: Example
+
+  ConceptReference:
+    description: Reference to a concept in an external ontology or vocabulary.
+    attributes:
+      uri:
+        description: URI of the concept (e.g., SKOS URI).
+        required: true
+      vocabulary:
+        description: Name of the vocabulary or ontology (e.g., SKOS, DDI-CDI, Wikidata, LCSH).
+      pref_label:
+        description: Preferred label of the concept in the ontology.
+      match_type:
+        description: Relationship to the concept (e.g., exactMatch, closeMatch, broadMatch, narrowMatch).
+        ifabsent: string(exactMatch)
+
+  StorageType:
+    description: Physical or logical storage data type binding.
+    slots:
+      - target_environment
+    attributes:
+      data_type:
+        description: Data type identifier in the target environment (e.g., string, varchar, integer, str).
+        required: true
+      format_modifier:
+        description: Optional modifiers (e.g., length, precision).
+
+  ClassificationSystem:
+    description: Controlled vocabulary or coding scheme (making this a categorical variable).
+    attributes:
+      name:
+        description: Name of the classification (e.g., ISO-3166-1, ICD-10).
+        required: true
+      uri:
+        description: URI to the standard classification.
+      version:
+        description: Version of the classification scheme.
+
+  ValidationRule:
+    description: A rule defining syntactical or logical validation of values.
+    attributes:
+      rule_type:
+        description: Type of validation (e.g., regex, checksum, range).
+        required: true
+      pattern:
+        description: Regular expression pattern for validation.
+      algorithm:
+        description: Algorithmic checker name (e.g., luhn, modulo-11, isbn13).
+      message:
+        description: Error message when validation fails.
+      code_snippets:
+        description: Environment-specific code snippets or expressions implementing the validation logic.
+        multivalued: true
+        range: CodeSnippet
+
+  CodeSnippet:
+    description: A concrete piece of code or expression implementing logic (e.g., validation, generation) in a specific environment.
+    slots:
+      - target_environment
+    attributes:
+      code:
+        description: The actual code snippet or expression (e.g., Python function/lambda, SQL expression).
+        required: true
+
+  GenerationRule:
+    description: Directive for synthetic data generation.
+    attributes:
+      generator_type:
+        description: Type of generator (e.g., regex_fuzzer, template, faker_provider, custom).
+        required: true
+      template:
+        description: Seed template or expression.
+      code_snippets:
+        description: Environment-specific code snippets or expressions implementing the generator logic.
+        multivalued: true
+        range: CodeSnippet
+
+  AgentInstruction:
+    description: Machine and agentic parsing, transformation, or reasoning guidelines.
+    attributes:
+      guidelines:
+        description: Text instructions for agents.
+        required: true
+      system_prompt_snippet:
+        description: System prompt instructions for configuring agents with this data type.
+
+  AgentSkill:
+    description: Executable tools, functions, or workflows related to the semantic type.
+    attributes:
+      tool_name:
+        description: Name of the tool or function.
+        required: true
+      description:
+        description: What this skill does.
+      api_definition:
+        description: API endpoint or function signature.
+
+  ScopeContext:
+    description: Contextual boundaries of the data type.
+    attributes:
+      geospatial_coverage:
+        description: Geospatial region or country coverage details.
+        range: GeospatialCoverage
+      temporal_coverage:
+        description: Temporal coverage details.
+        range: TemporalCoverage
+      domain:
+        description: Specific field or subject domain (e.g., Healthcare, Finance).
+      governing_institution:
+        description: Governing body (e.g., ISO, W3C, IRS).
+
+  GeospatialCoverage:
+    description: Geospatial coverage boundaries represented by description and/or formal codes or URIs.
+    attributes:
+      description:
+        description: Human-readable description of the geospatial coverage (e.g., United States, Canada, Global).
+      codes:
+        description: A list of formal codes or URIs (e.g., ISO country/subdivision codes, GeoNames URIs, Wikidata URIs).
+        multivalued: true
+        range: string
+
+  TemporalCoverage:
+    description: Temporal coverage boundaries represented by description, start/end dates, or ISO 8601 periods/durations.
+    attributes:
+      description:
+        description: Human-readable description of the temporal coverage (e.g., '21st Century', '2020 Census').
+      start_date:
+        description: Start date of the coverage formatted strictly according to ISO 8601 (YYYY-MM-DD).
+        is_a: iso_date
+        pattern: ^\d{4}-\d{2}-\d{2}$
+      end_date:
+        description: End date of the coverage formatted strictly according to ISO 8601 (YYYY-MM-DD).
+        is_a: iso_date
+        pattern: ^\d{4}-\d{2}-\d{2}$
+      iso_period:
+        description: ISO 8601 time interval or period representation (e.g., '2020-01-01/2020-12-31', 'P1Y').
+        range: string
+
+  DisplayFormat:
+    description: Guidelines for displaying and masking data.
+    attributes:
+      input_mask:
+        description: Mask for input forms (e.g., 999-99-9999).
+      display_template:
+        description: Output representation template.
+      formatting_regex:
+        description: Regex used to transform raw data to formatted data.
+
+  Example:
+    description: Concrete instance of values.
+    attributes:
+      value:
+        description: Example value representation.
+        required: true
+      is_valid:
+        description: Indication of whether the example value is valid under the SDT.
+        required: true
+        range: boolean
+      description:
+        description: Description of the specific test case this example represents.
+
+enums:
+  TargetEnvironmentEnum:
+    description: Recommended vocabulary of target systems and development environments.
+    permissible_values:
+      csharp:
+        description: C# programming environment.
+      generic:
+        description: Platform-independent representation.
+      go:
+        description: Go programming environment.
+      java:
+        description: Java programming environment.
+      javascript:
+        description: JavaScript programming environment.
+      python:
+        description: Python programming environment.
+      r:
+        description: R statistical computing environment.
+      rust:
+        description: Rust programming environment.
+      sas:
+        description: SAS statistical computing environment.
+      spss:
+        description: SPSS statistical computing environment.
+      sql:
+        description: Standard Structured Query Language (ANSI).
+      sql-bigquery:
+        description: Google BigQuery database environment.
+      sql-clickhouse:
+        description: ClickHouse database environment.
+      sql-mssql:
+        description: Microsoft SQL Server database environment.
+      sql-mysql:
+        description: MySQL database environment.
+      sql-oracle:
+        description: Oracle database environment.
+      sql-postgresql:
+        description: PostgreSQL database environment.
+      sql-redshift:
+        description: Amazon Redshift database environment.
+      sql-snowflake:
+        description: Snowflake database environment.
+      sql-sqlite:
+        description: SQLite database environment.
+      stata:
+        description: Stata statistical software environment.
+      typescript:
+        description: TypeScript programming environment.
+      xsd:
+        description: XML Schema Definition.

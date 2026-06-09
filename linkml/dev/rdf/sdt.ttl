@@ -1,0 +1,1341 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix linkml: <https://w3id.org/linkml/> .
+@prefix pav: <http://purl.org/pav/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://w3id.org/dartfx/semanticdt/semantic-data-type> a linkml:SchemaDefinition ;
+    dcterms:license "https://creativecommons.org/publicdomain/zero/1.0/" ;
+    dcterms:title "Semantic Data Type Schema" ;
+    pav:version "0.1.0-dev" ;
+    sh:declare [ sh:namespace "http://www.w3.org/2004/02/skos/core#"^^xsd:anyURI ;
+            sh:prefix "skos" ],
+        [ sh:namespace "https://w3id.org/dartfx/semanticdt/"^^xsd:anyURI ;
+            sh:prefix "sdt" ],
+        [ sh:namespace "https://w3id.org/linkml/"^^xsd:anyURI ;
+            sh:prefix "linkml" ],
+        [ sh:namespace "http://www.w3.org/2001/XMLSchema#"^^xsd:anyURI ;
+            sh:prefix "xsd" ] ;
+    linkml:classes <https://w3id.org/dartfx/semanticdt/AgentInstruction>,
+        <https://w3id.org/dartfx/semanticdt/AgentSkill>,
+        <https://w3id.org/dartfx/semanticdt/ClassificationSystem>,
+        <https://w3id.org/dartfx/semanticdt/CodeSnippet>,
+        <https://w3id.org/dartfx/semanticdt/ConceptReference>,
+        <https://w3id.org/dartfx/semanticdt/DisplayFormat>,
+        <https://w3id.org/dartfx/semanticdt/Example>,
+        <https://w3id.org/dartfx/semanticdt/GenerationRule>,
+        <https://w3id.org/dartfx/semanticdt/GeospatialCoverage>,
+        <https://w3id.org/dartfx/semanticdt/ScopeContext>,
+        <https://w3id.org/dartfx/semanticdt/SemanticDataType>,
+        <https://w3id.org/dartfx/semanticdt/StorageType>,
+        <https://w3id.org/dartfx/semanticdt/TemporalCoverage>,
+        <https://w3id.org/dartfx/semanticdt/ValidationRule> ;
+    linkml:default_prefix "sdt" ;
+    linkml:default_range <https://w3id.org/dartfx/semanticdt/string> ;
+    linkml:description "A schema defining Semantic Data Types (SDT) situated above physical database or programming types. Encompasses metadata, mappings, validation, generation, and agentic instructions." ;
+    linkml:enums <https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum> ;
+    linkml:generation_date "2026-06-09T14:42:23"^^xsd:dateTime ;
+    linkml:id "https://w3id.org/dartfx/semanticdt"^^xsd:anyURI ;
+    linkml:imports "linkml:types"^^xsd:anyURI ;
+    linkml:metamodel_version "1.11.0" ;
+    linkml:slots <https://w3id.org/dartfx/semanticdt/agentInstruction__guidelines>,
+        <https://w3id.org/dartfx/semanticdt/agentInstruction__system_prompt_snippet>,
+        <https://w3id.org/dartfx/semanticdt/agentSkill__api_definition>,
+        <https://w3id.org/dartfx/semanticdt/agentSkill__description>,
+        <https://w3id.org/dartfx/semanticdt/agentSkill__tool_name>,
+        <https://w3id.org/dartfx/semanticdt/classificationSystem__name>,
+        <https://w3id.org/dartfx/semanticdt/classificationSystem__uri>,
+        <https://w3id.org/dartfx/semanticdt/classificationSystem__version>,
+        <https://w3id.org/dartfx/semanticdt/codeSnippet__code>,
+        <https://w3id.org/dartfx/semanticdt/conceptReference__match_type>,
+        <https://w3id.org/dartfx/semanticdt/conceptReference__pref_label>,
+        <https://w3id.org/dartfx/semanticdt/conceptReference__uri>,
+        <https://w3id.org/dartfx/semanticdt/conceptReference__vocabulary>,
+        <https://w3id.org/dartfx/semanticdt/displayFormat__display_template>,
+        <https://w3id.org/dartfx/semanticdt/displayFormat__formatting_regex>,
+        <https://w3id.org/dartfx/semanticdt/displayFormat__input_mask>,
+        <https://w3id.org/dartfx/semanticdt/example__description>,
+        <https://w3id.org/dartfx/semanticdt/example__is_valid>,
+        <https://w3id.org/dartfx/semanticdt/example__value>,
+        <https://w3id.org/dartfx/semanticdt/generationRule__code_snippets>,
+        <https://w3id.org/dartfx/semanticdt/generationRule__generator_type>,
+        <https://w3id.org/dartfx/semanticdt/generationRule__template>,
+        <https://w3id.org/dartfx/semanticdt/geospatialCoverage__codes>,
+        <https://w3id.org/dartfx/semanticdt/geospatialCoverage__description>,
+        <https://w3id.org/dartfx/semanticdt/iso_date>,
+        <https://w3id.org/dartfx/semanticdt/scopeContext__domain>,
+        <https://w3id.org/dartfx/semanticdt/scopeContext__geospatial_coverage>,
+        <https://w3id.org/dartfx/semanticdt/scopeContext__governing_institution>,
+        <https://w3id.org/dartfx/semanticdt/scopeContext__temporal_coverage>,
+        <https://w3id.org/dartfx/semanticdt/semanticDataType__agent_instructions>,
+        <https://w3id.org/dartfx/semanticdt/semanticDataType__agent_skills>,
+        <https://w3id.org/dartfx/semanticdt/semanticDataType__classification>,
+        <https://w3id.org/dartfx/semanticdt/semanticDataType__concepts>,
+        <https://w3id.org/dartfx/semanticdt/semanticDataType__description>,
+        <https://w3id.org/dartfx/semanticdt/semanticDataType__display_format>,
+        <https://w3id.org/dartfx/semanticdt/semanticDataType__examples>,
+        <https://w3id.org/dartfx/semanticdt/semanticDataType__generation_rules>,
+        <https://w3id.org/dartfx/semanticdt/semanticDataType__id>,
+        <https://w3id.org/dartfx/semanticdt/semanticDataType__name>,
+        <https://w3id.org/dartfx/semanticdt/semanticDataType__scope>,
+        <https://w3id.org/dartfx/semanticdt/semanticDataType__storage_types>,
+        <https://w3id.org/dartfx/semanticdt/semanticDataType__validation_rules>,
+        <https://w3id.org/dartfx/semanticdt/semanticDataType__version>,
+        <https://w3id.org/dartfx/semanticdt/storageType__data_type>,
+        <https://w3id.org/dartfx/semanticdt/storageType__format_modifier>,
+        <https://w3id.org/dartfx/semanticdt/target_environment>,
+        <https://w3id.org/dartfx/semanticdt/temporalCoverage__description>,
+        <https://w3id.org/dartfx/semanticdt/temporalCoverage__end_date>,
+        <https://w3id.org/dartfx/semanticdt/temporalCoverage__iso_period>,
+        <https://w3id.org/dartfx/semanticdt/temporalCoverage__start_date>,
+        <https://w3id.org/dartfx/semanticdt/validationRule__algorithm>,
+        <https://w3id.org/dartfx/semanticdt/validationRule__code_snippets>,
+        <https://w3id.org/dartfx/semanticdt/validationRule__message>,
+        <https://w3id.org/dartfx/semanticdt/validationRule__pattern>,
+        <https://w3id.org/dartfx/semanticdt/validationRule__rule_type> ;
+    linkml:source_file "sdt.yaml" ;
+    linkml:source_file_date "2026-06-09T13:43:27"^^xsd:dateTime ;
+    linkml:source_file_size 11421 ;
+    linkml:types <https://w3id.org/dartfx/semanticdt/boolean>,
+        <https://w3id.org/dartfx/semanticdt/curie>,
+        <https://w3id.org/dartfx/semanticdt/date>,
+        <https://w3id.org/dartfx/semanticdt/date_or_datetime>,
+        <https://w3id.org/dartfx/semanticdt/datetime>,
+        <https://w3id.org/dartfx/semanticdt/decimal>,
+        <https://w3id.org/dartfx/semanticdt/double>,
+        <https://w3id.org/dartfx/semanticdt/float>,
+        <https://w3id.org/dartfx/semanticdt/integer>,
+        <https://w3id.org/dartfx/semanticdt/jsonpath>,
+        <https://w3id.org/dartfx/semanticdt/jsonpointer>,
+        <https://w3id.org/dartfx/semanticdt/ncname>,
+        <https://w3id.org/dartfx/semanticdt/nodeidentifier>,
+        <https://w3id.org/dartfx/semanticdt/objectidentifier>,
+        <https://w3id.org/dartfx/semanticdt/sparqlpath>,
+        <https://w3id.org/dartfx/semanticdt/string>,
+        <https://w3id.org/dartfx/semanticdt/time>,
+        <https://w3id.org/dartfx/semanticdt/uri>,
+        <https://w3id.org/dartfx/semanticdt/uriorcurie> .
+
+<https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum> skos:inScheme "https://w3id.org/dartfx/semanticdt"^^xsd:anyURI ;
+    linkml:definition_uri "https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum"^^xsd:anyURI ;
+    linkml:description "Recommended vocabulary of target systems and development environments." ;
+    linkml:permissible_values <https://w3id.org/dartfx/semanticdt/csharp>,
+        <https://w3id.org/dartfx/semanticdt/generic>,
+        <https://w3id.org/dartfx/semanticdt/go>,
+        <https://w3id.org/dartfx/semanticdt/java>,
+        <https://w3id.org/dartfx/semanticdt/javascript>,
+        <https://w3id.org/dartfx/semanticdt/python>,
+        <https://w3id.org/dartfx/semanticdt/r>,
+        <https://w3id.org/dartfx/semanticdt/rust>,
+        <https://w3id.org/dartfx/semanticdt/sas>,
+        <https://w3id.org/dartfx/semanticdt/spss>,
+        <https://w3id.org/dartfx/semanticdt/sql>,
+        <https://w3id.org/dartfx/semanticdt/sql-bigquery>,
+        <https://w3id.org/dartfx/semanticdt/sql-clickhouse>,
+        <https://w3id.org/dartfx/semanticdt/sql-mssql>,
+        <https://w3id.org/dartfx/semanticdt/sql-mysql>,
+        <https://w3id.org/dartfx/semanticdt/sql-oracle>,
+        <https://w3id.org/dartfx/semanticdt/sql-postgresql>,
+        <https://w3id.org/dartfx/semanticdt/sql-redshift>,
+        <https://w3id.org/dartfx/semanticdt/sql-snowflake>,
+        <https://w3id.org/dartfx/semanticdt/sql-sqlite>,
+        <https://w3id.org/dartfx/semanticdt/stata>,
+        <https://w3id.org/dartfx/semanticdt/typescript>,
+        <https://w3id.org/dartfx/semanticdt/xsd> .
+
+<https://w3id.org/dartfx/semanticdt/agent_instructions> a linkml:SlotDefinition ;
+    linkml:description "Specific guidelines and instructions for AI agents handling this data type." ;
+    linkml:range <https://w3id.org/dartfx/semanticdt/AgentInstruction> .
+
+<https://w3id.org/dartfx/semanticdt/agent_skills> a linkml:SlotDefinition ;
+    linkml:description "Tools, functions, or prompts associated with this data type." ;
+    linkml:multivalued true ;
+    linkml:range <https://w3id.org/dartfx/semanticdt/AgentSkill> .
+
+<https://w3id.org/dartfx/semanticdt/algorithm> a linkml:SlotDefinition ;
+    linkml:description "Algorithmic checker name (e.g., luhn, modulo-11, isbn13)." .
+
+<https://w3id.org/dartfx/semanticdt/api_definition> a linkml:SlotDefinition ;
+    linkml:description "API endpoint or function signature." .
+
+<https://w3id.org/dartfx/semanticdt/classification> a linkml:SlotDefinition ;
+    linkml:description "Code lists or classification schemes that categorize this variable." ;
+    linkml:range <https://w3id.org/dartfx/semanticdt/ClassificationSystem> .
+
+<https://w3id.org/dartfx/semanticdt/code> a linkml:SlotDefinition ;
+    linkml:description "The actual code snippet or expression (e.g., Python function/lambda, SQL expression)." ;
+    linkml:required true .
+
+<https://w3id.org/dartfx/semanticdt/codes> a linkml:SlotDefinition ;
+    linkml:description "A list of formal codes or URIs (e.g., ISO country/subdivision codes, GeoNames URIs, Wikidata URIs)." ;
+    linkml:multivalued true ;
+    linkml:range <https://w3id.org/dartfx/semanticdt/string> .
+
+<https://w3id.org/dartfx/semanticdt/concepts> a linkml:SlotDefinition ;
+    linkml:description "A list of conceptual ontology alignments or mapping references representing this data type in external systems (e.g., SKOS concepts, Wikidata items, or vocabularies like DDI-CDI and schema.org). This should list multiple representations of the same underlying semantic concept, not distinct concepts." ;
+    linkml:multivalued true ;
+    linkml:range <https://w3id.org/dartfx/semanticdt/ConceptReference> .
+
+<https://w3id.org/dartfx/semanticdt/csharp> linkml:description "C# programming environment." .
+
+<https://w3id.org/dartfx/semanticdt/curie> a linkml:TypeDefinition ;
+    dcterms:conformsTo "https://www.w3.org/TR/curie/" ;
+    skos:editorialNote "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"curie\"." ;
+    skos:inScheme "https://w3id.org/linkml/types"^^xsd:anyURI ;
+    skos:note "in RDF serializations this MUST be expanded to a URI",
+        "in non-RDF serializations MAY be serialized as the compact representation" ;
+    linkml:base "Curie" ;
+    linkml:definition_uri "https://w3id.org/linkml/Curie"^^xsd:anyURI ;
+    linkml:description "a compact URI" ;
+    linkml:imported_from "linkml:types" ;
+    linkml:repr "str" ;
+    linkml:uri "http://www.w3.org/2001/XMLSchema#string"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/data_type> a linkml:SlotDefinition ;
+    linkml:description "Data type identifier in the target environment (e.g., string, varchar, integer, str)." ;
+    linkml:required true .
+
+<https://w3id.org/dartfx/semanticdt/date> a linkml:TypeDefinition ;
+    skos:editorialNote "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"date\".",
+        "URI is dateTime because OWL reasoners don't work with straight date or time" ;
+    skos:exactMatch "schema:Date"^^xsd:anyURI ;
+    skos:inScheme "https://w3id.org/linkml/types"^^xsd:anyURI ;
+    linkml:base "XSDDate" ;
+    linkml:definition_uri "https://w3id.org/linkml/Date"^^xsd:anyURI ;
+    linkml:description "a date (year, month and day) in an idealized calendar" ;
+    linkml:imported_from "linkml:types" ;
+    linkml:repr "str" ;
+    linkml:uri "http://www.w3.org/2001/XMLSchema#date"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/date_or_datetime> a linkml:TypeDefinition ;
+    skos:editorialNote "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"date_or_datetime\"." ;
+    skos:inScheme "https://w3id.org/linkml/types"^^xsd:anyURI ;
+    linkml:base "str" ;
+    linkml:definition_uri "https://w3id.org/linkml/DateOrDatetime"^^xsd:anyURI ;
+    linkml:description "Either a date or a datetime" ;
+    linkml:imported_from "linkml:types" ;
+    linkml:repr "str" ;
+    linkml:uri "https://w3id.org/linkml/DateOrDatetime"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/datetime> a linkml:TypeDefinition ;
+    skos:editorialNote "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"datetime\"." ;
+    skos:exactMatch "schema:DateTime"^^xsd:anyURI ;
+    skos:inScheme "https://w3id.org/linkml/types"^^xsd:anyURI ;
+    linkml:base "XSDDateTime" ;
+    linkml:definition_uri "https://w3id.org/linkml/Datetime"^^xsd:anyURI ;
+    linkml:description "The combination of a date and time" ;
+    linkml:imported_from "linkml:types" ;
+    linkml:repr "str" ;
+    linkml:uri "http://www.w3.org/2001/XMLSchema#dateTime"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/decimal> a linkml:TypeDefinition ;
+    skos:broadMatch "schema:Number"^^xsd:anyURI ;
+    skos:editorialNote "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"decimal\"." ;
+    skos:inScheme "https://w3id.org/linkml/types"^^xsd:anyURI ;
+    linkml:base "Decimal" ;
+    linkml:definition_uri "https://w3id.org/linkml/Decimal"^^xsd:anyURI ;
+    linkml:description "A real number with arbitrary precision that conforms to the xsd:decimal specification" ;
+    linkml:imported_from "linkml:types" ;
+    linkml:uri "http://www.w3.org/2001/XMLSchema#decimal"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/display_format> a linkml:SlotDefinition ;
+    linkml:description "Formatting rules for displaying values of this type." ;
+    linkml:range <https://w3id.org/dartfx/semanticdt/DisplayFormat> .
+
+<https://w3id.org/dartfx/semanticdt/display_template> a linkml:SlotDefinition ;
+    linkml:description "Output representation template." .
+
+<https://w3id.org/dartfx/semanticdt/domain> a linkml:SlotDefinition ;
+    linkml:description "Specific field or subject domain (e.g., Healthcare, Finance)." .
+
+<https://w3id.org/dartfx/semanticdt/double> a linkml:TypeDefinition ;
+    skos:closeMatch "schema:Float"^^xsd:anyURI ;
+    skos:editorialNote "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"double\"." ;
+    skos:inScheme "https://w3id.org/linkml/types"^^xsd:anyURI ;
+    linkml:base "float" ;
+    linkml:definition_uri "https://w3id.org/linkml/Double"^^xsd:anyURI ;
+    linkml:description "A real number that conforms to the xsd:double specification" ;
+    linkml:imported_from "linkml:types" ;
+    linkml:uri "http://www.w3.org/2001/XMLSchema#double"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/end_date> a linkml:SlotDefinition ;
+    linkml:description "End date of the coverage formatted strictly according to ISO 8601 (YYYY-MM-DD)." ;
+    linkml:is_a <https://w3id.org/dartfx/semanticdt/iso_date> ;
+    linkml:pattern "^\\d{4}-\\d{2}-\\d{2}$" .
+
+<https://w3id.org/dartfx/semanticdt/examples> a linkml:SlotDefinition ;
+    linkml:description "Curated valid and invalid examples for documentation and testing." ;
+    linkml:multivalued true ;
+    linkml:range <https://w3id.org/dartfx/semanticdt/Example> .
+
+<https://w3id.org/dartfx/semanticdt/float> a linkml:TypeDefinition ;
+    skos:editorialNote "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"float\"." ;
+    skos:exactMatch "schema:Float"^^xsd:anyURI ;
+    skos:inScheme "https://w3id.org/linkml/types"^^xsd:anyURI ;
+    linkml:base "float" ;
+    linkml:definition_uri "https://w3id.org/linkml/Float"^^xsd:anyURI ;
+    linkml:description "A real number that conforms to the xsd:float specification" ;
+    linkml:imported_from "linkml:types" ;
+    linkml:uri "http://www.w3.org/2001/XMLSchema#float"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/format_modifier> a linkml:SlotDefinition ;
+    linkml:description "Optional modifiers (e.g., length, precision)." .
+
+<https://w3id.org/dartfx/semanticdt/formatting_regex> a linkml:SlotDefinition ;
+    linkml:description "Regex used to transform raw data to formatted data." .
+
+<https://w3id.org/dartfx/semanticdt/generation_rules> a linkml:SlotDefinition ;
+    linkml:description "Templates or directives for generating synthetic valid data." ;
+    linkml:multivalued true ;
+    linkml:range <https://w3id.org/dartfx/semanticdt/GenerationRule> .
+
+<https://w3id.org/dartfx/semanticdt/generator_type> a linkml:SlotDefinition ;
+    linkml:description "Type of generator (e.g., regex_fuzzer, template, faker_provider, custom)." ;
+    linkml:required true .
+
+<https://w3id.org/dartfx/semanticdt/generic> linkml:description "Platform-independent representation." .
+
+<https://w3id.org/dartfx/semanticdt/geospatial_coverage> a linkml:SlotDefinition ;
+    linkml:description "Geospatial region or country coverage details." ;
+    linkml:range <https://w3id.org/dartfx/semanticdt/GeospatialCoverage> .
+
+<https://w3id.org/dartfx/semanticdt/go> linkml:description "Go programming environment." .
+
+<https://w3id.org/dartfx/semanticdt/governing_institution> a linkml:SlotDefinition ;
+    linkml:description "Governing body (e.g., ISO, W3C, IRS)." .
+
+<https://w3id.org/dartfx/semanticdt/guidelines> a linkml:SlotDefinition ;
+    linkml:description "Text instructions for agents." ;
+    linkml:required true .
+
+<https://w3id.org/dartfx/semanticdt/id> a linkml:SlotDefinition ;
+    linkml:description "Unique identifier/URI for the Semantic Data Type." ;
+    linkml:identifier true ;
+    linkml:required true .
+
+<https://w3id.org/dartfx/semanticdt/input_mask> a linkml:SlotDefinition ;
+    linkml:description "Mask for input forms (e.g., 999-99-9999)." .
+
+<https://w3id.org/dartfx/semanticdt/integer> a linkml:TypeDefinition ;
+    skos:editorialNote "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"integer\"." ;
+    skos:exactMatch "schema:Integer"^^xsd:anyURI ;
+    skos:inScheme "https://w3id.org/linkml/types"^^xsd:anyURI ;
+    linkml:base "int" ;
+    linkml:definition_uri "https://w3id.org/linkml/Integer"^^xsd:anyURI ;
+    linkml:description "An integer" ;
+    linkml:imported_from "linkml:types" ;
+    linkml:uri "http://www.w3.org/2001/XMLSchema#integer"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/is_valid> a linkml:SlotDefinition ;
+    linkml:description "Indication of whether the example value is valid under the SDT." ;
+    linkml:range <https://w3id.org/dartfx/semanticdt/boolean> ;
+    linkml:required true .
+
+<https://w3id.org/dartfx/semanticdt/iso_period> a linkml:SlotDefinition ;
+    linkml:description "ISO 8601 time interval or period representation (e.g., '2020-01-01/2020-12-31', 'P1Y')." ;
+    linkml:range <https://w3id.org/dartfx/semanticdt/string> .
+
+<https://w3id.org/dartfx/semanticdt/java> linkml:description "Java programming environment." .
+
+<https://w3id.org/dartfx/semanticdt/javascript> linkml:description "JavaScript programming environment." .
+
+<https://w3id.org/dartfx/semanticdt/jsonpath> a linkml:TypeDefinition ;
+    dcterms:conformsTo "https://www.ietf.org/archive/id/draft-goessner-dispatch-jsonpath-00.html" ;
+    skos:editorialNote "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"jsonpath\"." ;
+    skos:inScheme "https://w3id.org/linkml/types"^^xsd:anyURI ;
+    linkml:base "str" ;
+    linkml:definition_uri "https://w3id.org/linkml/Jsonpath"^^xsd:anyURI ;
+    linkml:description "A string encoding a JSON Path. The value of the string MUST conform to JSON Point syntax and SHOULD dereference to zero or more valid objects within the current instance document when encoded in tree form." ;
+    linkml:imported_from "linkml:types" ;
+    linkml:repr "str" ;
+    linkml:uri "http://www.w3.org/2001/XMLSchema#string"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/jsonpointer> a linkml:TypeDefinition ;
+    dcterms:conformsTo "https://datatracker.ietf.org/doc/html/rfc6901" ;
+    skos:editorialNote "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"jsonpointer\"." ;
+    skos:inScheme "https://w3id.org/linkml/types"^^xsd:anyURI ;
+    linkml:base "str" ;
+    linkml:definition_uri "https://w3id.org/linkml/Jsonpointer"^^xsd:anyURI ;
+    linkml:description "A string encoding a JSON Pointer. The value of the string MUST conform to JSON Point syntax and SHOULD dereference to a valid object within the current instance document when encoded in tree form." ;
+    linkml:imported_from "linkml:types" ;
+    linkml:repr "str" ;
+    linkml:uri "http://www.w3.org/2001/XMLSchema#string"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/match_type> a linkml:SlotDefinition ;
+    linkml:description "Relationship to the concept (e.g., exactMatch, closeMatch, broadMatch, narrowMatch)." ;
+    linkml:ifabsent "string(exactMatch)" .
+
+<https://w3id.org/dartfx/semanticdt/message> a linkml:SlotDefinition ;
+    linkml:description "Error message when validation fails." .
+
+<https://w3id.org/dartfx/semanticdt/ncname> a linkml:TypeDefinition ;
+    skos:editorialNote "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"ncname\"." ;
+    skos:inScheme "https://w3id.org/linkml/types"^^xsd:anyURI ;
+    linkml:base "NCName" ;
+    linkml:definition_uri "https://w3id.org/linkml/Ncname"^^xsd:anyURI ;
+    linkml:description "Prefix part of CURIE" ;
+    linkml:imported_from "linkml:types" ;
+    linkml:repr "str" ;
+    linkml:uri "http://www.w3.org/2001/XMLSchema#string"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/nodeidentifier> a linkml:TypeDefinition ;
+    skos:editorialNote "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"nodeidentifier\"." ;
+    skos:inScheme "https://w3id.org/linkml/types"^^xsd:anyURI ;
+    linkml:base "NodeIdentifier" ;
+    linkml:definition_uri "https://w3id.org/linkml/Nodeidentifier"^^xsd:anyURI ;
+    linkml:description "A URI, CURIE or BNODE that represents a node in a model." ;
+    linkml:imported_from "linkml:types" ;
+    linkml:repr "str" ;
+    linkml:uri "http://www.w3.org/ns/shex#nonLiteral"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/objectidentifier> a linkml:TypeDefinition ;
+    skos:editorialNote "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"objectidentifier\"." ;
+    skos:inScheme "https://w3id.org/linkml/types"^^xsd:anyURI ;
+    skos:note "Used for inheritance and type checking" ;
+    linkml:base "ElementIdentifier" ;
+    linkml:definition_uri "https://w3id.org/linkml/Objectidentifier"^^xsd:anyURI ;
+    linkml:description "A URI or CURIE that represents an object in the model." ;
+    linkml:imported_from "linkml:types" ;
+    linkml:repr "str" ;
+    linkml:uri "http://www.w3.org/ns/shex#iri"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/pattern> a linkml:SlotDefinition ;
+    linkml:description "Regular expression pattern for validation." .
+
+<https://w3id.org/dartfx/semanticdt/pref_label> a linkml:SlotDefinition ;
+    linkml:description "Preferred label of the concept in the ontology." .
+
+<https://w3id.org/dartfx/semanticdt/python> linkml:description "Python programming environment." .
+
+<https://w3id.org/dartfx/semanticdt/r> linkml:description "R statistical computing environment." .
+
+<https://w3id.org/dartfx/semanticdt/rule_type> a linkml:SlotDefinition ;
+    linkml:description "Type of validation (e.g., regex, checksum, range)." ;
+    linkml:required true .
+
+<https://w3id.org/dartfx/semanticdt/rust> linkml:description "Rust programming environment." .
+
+<https://w3id.org/dartfx/semanticdt/sas> linkml:description "SAS statistical computing environment." .
+
+<https://w3id.org/dartfx/semanticdt/scope> a linkml:SlotDefinition ;
+    linkml:description "Contextual scope of the data type (temporal, geographic, etc.)." ;
+    linkml:range <https://w3id.org/dartfx/semanticdt/ScopeContext> .
+
+<https://w3id.org/dartfx/semanticdt/sparqlpath> a linkml:TypeDefinition ;
+    dcterms:conformsTo "https://www.w3.org/TR/sparql11-query/#propertypaths" ;
+    skos:editorialNote "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"sparqlpath\"." ;
+    skos:inScheme "https://w3id.org/linkml/types"^^xsd:anyURI ;
+    linkml:base "str" ;
+    linkml:definition_uri "https://w3id.org/linkml/Sparqlpath"^^xsd:anyURI ;
+    linkml:description "A string encoding a SPARQL Property Path. The value of the string MUST conform to SPARQL syntax and SHOULD dereference to zero or more valid objects within the current instance document when encoded as RDF." ;
+    linkml:imported_from "linkml:types" ;
+    linkml:repr "str" ;
+    linkml:uri "http://www.w3.org/2001/XMLSchema#string"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/spss> linkml:description "SPSS statistical computing environment." .
+
+<https://w3id.org/dartfx/semanticdt/sql> linkml:description "Standard Structured Query Language (ANSI)." .
+
+<https://w3id.org/dartfx/semanticdt/sql-bigquery> linkml:description "Google BigQuery database environment." .
+
+<https://w3id.org/dartfx/semanticdt/sql-clickhouse> linkml:description "ClickHouse database environment." .
+
+<https://w3id.org/dartfx/semanticdt/sql-mssql> linkml:description "Microsoft SQL Server database environment." .
+
+<https://w3id.org/dartfx/semanticdt/sql-mysql> linkml:description "MySQL database environment." .
+
+<https://w3id.org/dartfx/semanticdt/sql-oracle> linkml:description "Oracle database environment." .
+
+<https://w3id.org/dartfx/semanticdt/sql-postgresql> linkml:description "PostgreSQL database environment." .
+
+<https://w3id.org/dartfx/semanticdt/sql-redshift> linkml:description "Amazon Redshift database environment." .
+
+<https://w3id.org/dartfx/semanticdt/sql-snowflake> linkml:description "Snowflake database environment." .
+
+<https://w3id.org/dartfx/semanticdt/sql-sqlite> linkml:description "SQLite database environment." .
+
+<https://w3id.org/dartfx/semanticdt/start_date> a linkml:SlotDefinition ;
+    linkml:description "Start date of the coverage formatted strictly according to ISO 8601 (YYYY-MM-DD)." ;
+    linkml:is_a <https://w3id.org/dartfx/semanticdt/iso_date> ;
+    linkml:pattern "^\\d{4}-\\d{2}-\\d{2}$" .
+
+<https://w3id.org/dartfx/semanticdt/stata> linkml:description "Stata statistical software environment." .
+
+<https://w3id.org/dartfx/semanticdt/storage_types> a linkml:SlotDefinition ;
+    linkml:description "Mappings to physical storage types across different environments. A mapping for the 'generic' environment is required to define the platform-independent base type." ;
+    linkml:multivalued true ;
+    linkml:range <https://w3id.org/dartfx/semanticdt/StorageType> .
+
+<https://w3id.org/dartfx/semanticdt/system_prompt_snippet> a linkml:SlotDefinition ;
+    linkml:description "System prompt instructions for configuring agents with this data type." .
+
+<https://w3id.org/dartfx/semanticdt/template> a linkml:SlotDefinition ;
+    linkml:description "Seed template or expression." .
+
+<https://w3id.org/dartfx/semanticdt/temporal_coverage> a linkml:SlotDefinition ;
+    linkml:description "Temporal coverage details." ;
+    linkml:range <https://w3id.org/dartfx/semanticdt/TemporalCoverage> .
+
+<https://w3id.org/dartfx/semanticdt/time> a linkml:TypeDefinition ;
+    skos:editorialNote "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"time\".",
+        "URI is dateTime because OWL reasoners do not work with straight date or time" ;
+    skos:exactMatch "schema:Time"^^xsd:anyURI ;
+    skos:inScheme "https://w3id.org/linkml/types"^^xsd:anyURI ;
+    linkml:base "XSDTime" ;
+    linkml:definition_uri "https://w3id.org/linkml/Time"^^xsd:anyURI ;
+    linkml:description "A time object represents a (local) time of day, independent of any particular day" ;
+    linkml:imported_from "linkml:types" ;
+    linkml:repr "str" ;
+    linkml:uri "http://www.w3.org/2001/XMLSchema#time"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/tool_name> a linkml:SlotDefinition ;
+    linkml:description "Name of the tool or function." ;
+    linkml:required true .
+
+<https://w3id.org/dartfx/semanticdt/typescript> linkml:description "TypeScript programming environment." .
+
+<https://w3id.org/dartfx/semanticdt/uriorcurie> a linkml:TypeDefinition ;
+    skos:editorialNote "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"uriorcurie\"." ;
+    skos:inScheme "https://w3id.org/linkml/types"^^xsd:anyURI ;
+    linkml:base "URIorCURIE" ;
+    linkml:definition_uri "https://w3id.org/linkml/Uriorcurie"^^xsd:anyURI ;
+    linkml:description "a URI or a CURIE" ;
+    linkml:imported_from "linkml:types" ;
+    linkml:repr "str" ;
+    linkml:uri "http://www.w3.org/2001/XMLSchema#anyURI"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/validation_rules> a linkml:SlotDefinition ;
+    linkml:description "Rules to validate physical representations of the data type." ;
+    linkml:multivalued true ;
+    linkml:range <https://w3id.org/dartfx/semanticdt/ValidationRule> .
+
+<https://w3id.org/dartfx/semanticdt/value> a linkml:SlotDefinition ;
+    linkml:description "Example value representation." ;
+    linkml:required true .
+
+<https://w3id.org/dartfx/semanticdt/vocabulary> a linkml:SlotDefinition ;
+    linkml:description "Name of the vocabulary or ontology (e.g., SKOS, DDI-CDI, Wikidata, LCSH)." .
+
+<https://w3id.org/dartfx/semanticdt/xsd> linkml:description "XML Schema Definition." .
+
+<https://w3id.org/dartfx/semanticdt/agentInstruction__guidelines> a linkml:SlotDefinition ;
+    skos:inScheme "https://w3id.org/dartfx/semanticdt"^^xsd:anyURI ;
+    skos:prefLabel "guidelines" ;
+    linkml:description "Text instructions for agents." ;
+    linkml:domain_of <https://w3id.org/dartfx/semanticdt/AgentInstruction> ;
+    linkml:owner <https://w3id.org/dartfx/semanticdt/AgentInstruction> ;
+    linkml:range <https://w3id.org/dartfx/semanticdt/string> ;
+    linkml:required true ;
+    linkml:slot_uri "https://w3id.org/dartfx/semanticdt/guidelines"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/agentInstruction__system_prompt_snippet> a linkml:SlotDefinition ;
+    skos:inScheme "https://w3id.org/dartfx/semanticdt"^^xsd:anyURI ;
+    skos:prefLabel "system_prompt_snippet" ;
+    linkml:description "System prompt instructions for configuring agents with this data type." ;
+    linkml:domain_of <https://w3id.org/dartfx/semanticdt/AgentInstruction> ;
+    linkml:owner <https://w3id.org/dartfx/semanticdt/AgentInstruction> ;
+    linkml:range <https://w3id.org/dartfx/semanticdt/string> ;
+    linkml:slot_uri "https://w3id.org/dartfx/semanticdt/system_prompt_snippet"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/agentSkill__api_definition> a linkml:SlotDefinition ;
+    skos:inScheme "https://w3id.org/dartfx/semanticdt"^^xsd:anyURI ;
+    skos:prefLabel "api_definition" ;
+    linkml:description "API endpoint or function signature." ;
+    linkml:domain_of <https://w3id.org/dartfx/semanticdt/AgentSkill> ;
+    linkml:owner <https://w3id.org/dartfx/semanticdt/AgentSkill> ;
+    linkml:range <https://w3id.org/dartfx/semanticdt/string> ;
+    linkml:slot_uri "https://w3id.org/dartfx/semanticdt/api_definition"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/agentSkill__description> a linkml:SlotDefinition ;
+    skos:inScheme "https://w3id.org/dartfx/semanticdt"^^xsd:anyURI ;
+    skos:prefLabel "description" ;
+    linkml:description "What this skill does." ;
+    linkml:domain_of <https://w3id.org/dartfx/semanticdt/AgentSkill> ;
+    linkml:owner <https://w3id.org/dartfx/semanticdt/AgentSkill> ;
+    linkml:range <https://w3id.org/dartfx/semanticdt/string> ;
+    linkml:slot_uri "https://w3id.org/dartfx/semanticdt/description"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/agentSkill__tool_name> a linkml:SlotDefinition ;
+    skos:inScheme "https://w3id.org/dartfx/semanticdt"^^xsd:anyURI ;
+    skos:prefLabel "tool_name" ;
+    linkml:description "Name of the tool or function." ;
+    linkml:domain_of <https://w3id.org/dartfx/semanticdt/AgentSkill> ;
+    linkml:owner <https://w3id.org/dartfx/semanticdt/AgentSkill> ;
+    linkml:range <https://w3id.org/dartfx/semanticdt/string> ;
+    linkml:required true ;
+    linkml:slot_uri "https://w3id.org/dartfx/semanticdt/tool_name"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/classificationSystem__name> a linkml:SlotDefinition ;
+    skos:inScheme "https://w3id.org/dartfx/semanticdt"^^xsd:anyURI ;
+    skos:prefLabel "name" ;
+    linkml:description "Name of the classification (e.g., ISO-3166-1, ICD-10)." ;
+    linkml:domain_of <https://w3id.org/dartfx/semanticdt/ClassificationSystem> ;
+    linkml:owner <https://w3id.org/dartfx/semanticdt/ClassificationSystem> ;
+    linkml:range <https://w3id.org/dartfx/semanticdt/string> ;
+    linkml:required true ;
+    linkml:slot_uri "https://w3id.org/dartfx/semanticdt/name"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/classificationSystem__uri> a linkml:SlotDefinition ;
+    skos:inScheme "https://w3id.org/dartfx/semanticdt"^^xsd:anyURI ;
+    skos:prefLabel "uri" ;
+    linkml:description "URI to the standard classification." ;
+    linkml:domain_of <https://w3id.org/dartfx/semanticdt/ClassificationSystem> ;
+    linkml:owner <https://w3id.org/dartfx/semanticdt/ClassificationSystem> ;
+    linkml:range <https://w3id.org/dartfx/semanticdt/string> ;
+    linkml:slot_uri "https://w3id.org/dartfx/semanticdt/uri"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/classificationSystem__version> a linkml:SlotDefinition ;
+    skos:inScheme "https://w3id.org/dartfx/semanticdt"^^xsd:anyURI ;
+    skos:prefLabel "version" ;
+    linkml:description "Version of the classification scheme." ;
+    linkml:domain_of <https://w3id.org/dartfx/semanticdt/ClassificationSystem> ;
+    linkml:owner <https://w3id.org/dartfx/semanticdt/ClassificationSystem> ;
+    linkml:range <https://w3id.org/dartfx/semanticdt/string> ;
+    linkml:slot_uri "https://w3id.org/dartfx/semanticdt/version"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/codeSnippet__code> a linkml:SlotDefinition ;
+    skos:inScheme "https://w3id.org/dartfx/semanticdt"^^xsd:anyURI ;
+    skos:prefLabel "code" ;
+    linkml:description "The actual code snippet or expression (e.g., Python function/lambda, SQL expression)." ;
+    linkml:domain_of <https://w3id.org/dartfx/semanticdt/CodeSnippet> ;
+    linkml:owner <https://w3id.org/dartfx/semanticdt/CodeSnippet> ;
+    linkml:range <https://w3id.org/dartfx/semanticdt/string> ;
+    linkml:required true ;
+    linkml:slot_uri "https://w3id.org/dartfx/semanticdt/code"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/code_snippets> a linkml:SlotDefinition ;
+    linkml:description "Environment-specific code snippets or expressions implementing the generator logic.",
+        "Environment-specific code snippets or expressions implementing the validation logic." ;
+    linkml:multivalued true ;
+    linkml:range <https://w3id.org/dartfx/semanticdt/CodeSnippet> .
+
+<https://w3id.org/dartfx/semanticdt/conceptReference__match_type> a linkml:SlotDefinition ;
+    skos:inScheme "https://w3id.org/dartfx/semanticdt"^^xsd:anyURI ;
+    skos:prefLabel "match_type" ;
+    linkml:description "Relationship to the concept (e.g., exactMatch, closeMatch, broadMatch, narrowMatch)." ;
+    linkml:domain_of <https://w3id.org/dartfx/semanticdt/ConceptReference> ;
+    linkml:ifabsent "string(exactMatch)" ;
+    linkml:owner <https://w3id.org/dartfx/semanticdt/ConceptReference> ;
+    linkml:range <https://w3id.org/dartfx/semanticdt/string> ;
+    linkml:slot_uri "https://w3id.org/dartfx/semanticdt/match_type"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/conceptReference__pref_label> a linkml:SlotDefinition ;
+    skos:inScheme "https://w3id.org/dartfx/semanticdt"^^xsd:anyURI ;
+    skos:prefLabel "pref_label" ;
+    linkml:description "Preferred label of the concept in the ontology." ;
+    linkml:domain_of <https://w3id.org/dartfx/semanticdt/ConceptReference> ;
+    linkml:owner <https://w3id.org/dartfx/semanticdt/ConceptReference> ;
+    linkml:range <https://w3id.org/dartfx/semanticdt/string> ;
+    linkml:slot_uri "https://w3id.org/dartfx/semanticdt/pref_label"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/conceptReference__uri> a linkml:SlotDefinition ;
+    skos:inScheme "https://w3id.org/dartfx/semanticdt"^^xsd:anyURI ;
+    skos:prefLabel "uri" ;
+    linkml:description "URI of the concept (e.g., SKOS URI)." ;
+    linkml:domain_of <https://w3id.org/dartfx/semanticdt/ConceptReference> ;
+    linkml:owner <https://w3id.org/dartfx/semanticdt/ConceptReference> ;
+    linkml:range <https://w3id.org/dartfx/semanticdt/string> ;
+    linkml:required true ;
+    linkml:slot_uri "https://w3id.org/dartfx/semanticdt/uri"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/conceptReference__vocabulary> a linkml:SlotDefinition ;
+    skos:inScheme "https://w3id.org/dartfx/semanticdt"^^xsd:anyURI ;
+    skos:prefLabel "vocabulary" ;
+    linkml:description "Name of the vocabulary or ontology (e.g., SKOS, DDI-CDI, Wikidata, LCSH)." ;
+    linkml:domain_of <https://w3id.org/dartfx/semanticdt/ConceptReference> ;
+    linkml:owner <https://w3id.org/dartfx/semanticdt/ConceptReference> ;
+    linkml:range <https://w3id.org/dartfx/semanticdt/string> ;
+    linkml:slot_uri "https://w3id.org/dartfx/semanticdt/vocabulary"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/displayFormat__display_template> a linkml:SlotDefinition ;
+    skos:inScheme "https://w3id.org/dartfx/semanticdt"^^xsd:anyURI ;
+    skos:prefLabel "display_template" ;
+    linkml:description "Output representation template." ;
+    linkml:domain_of <https://w3id.org/dartfx/semanticdt/DisplayFormat> ;
+    linkml:owner <https://w3id.org/dartfx/semanticdt/DisplayFormat> ;
+    linkml:range <https://w3id.org/dartfx/semanticdt/string> ;
+    linkml:slot_uri "https://w3id.org/dartfx/semanticdt/display_template"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/displayFormat__formatting_regex> a linkml:SlotDefinition ;
+    skos:inScheme "https://w3id.org/dartfx/semanticdt"^^xsd:anyURI ;
+    skos:prefLabel "formatting_regex" ;
+    linkml:description "Regex used to transform raw data to formatted data." ;
+    linkml:domain_of <https://w3id.org/dartfx/semanticdt/DisplayFormat> ;
+    linkml:owner <https://w3id.org/dartfx/semanticdt/DisplayFormat> ;
+    linkml:range <https://w3id.org/dartfx/semanticdt/string> ;
+    linkml:slot_uri "https://w3id.org/dartfx/semanticdt/formatting_regex"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/displayFormat__input_mask> a linkml:SlotDefinition ;
+    skos:inScheme "https://w3id.org/dartfx/semanticdt"^^xsd:anyURI ;
+    skos:prefLabel "input_mask" ;
+    linkml:description "Mask for input forms (e.g., 999-99-9999)." ;
+    linkml:domain_of <https://w3id.org/dartfx/semanticdt/DisplayFormat> ;
+    linkml:owner <https://w3id.org/dartfx/semanticdt/DisplayFormat> ;
+    linkml:range <https://w3id.org/dartfx/semanticdt/string> ;
+    linkml:slot_uri "https://w3id.org/dartfx/semanticdt/input_mask"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/example__description> a linkml:SlotDefinition ;
+    skos:inScheme "https://w3id.org/dartfx/semanticdt"^^xsd:anyURI ;
+    skos:prefLabel "description" ;
+    linkml:description "Description of the specific test case this example represents." ;
+    linkml:domain_of <https://w3id.org/dartfx/semanticdt/Example> ;
+    linkml:owner <https://w3id.org/dartfx/semanticdt/Example> ;
+    linkml:range <https://w3id.org/dartfx/semanticdt/string> ;
+    linkml:slot_uri "https://w3id.org/dartfx/semanticdt/description"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/example__is_valid> a linkml:SlotDefinition ;
+    skos:inScheme "https://w3id.org/dartfx/semanticdt"^^xsd:anyURI ;
+    skos:prefLabel "is_valid" ;
+    linkml:description "Indication of whether the example value is valid under the SDT." ;
+    linkml:domain_of <https://w3id.org/dartfx/semanticdt/Example> ;
+    linkml:owner <https://w3id.org/dartfx/semanticdt/Example> ;
+    linkml:range <https://w3id.org/dartfx/semanticdt/boolean> ;
+    linkml:required true ;
+    linkml:slot_uri "https://w3id.org/dartfx/semanticdt/is_valid"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/example__value> a linkml:SlotDefinition ;
+    skos:inScheme "https://w3id.org/dartfx/semanticdt"^^xsd:anyURI ;
+    skos:prefLabel "value" ;
+    linkml:description "Example value representation." ;
+    linkml:domain_of <https://w3id.org/dartfx/semanticdt/Example> ;
+    linkml:owner <https://w3id.org/dartfx/semanticdt/Example> ;
+    linkml:range <https://w3id.org/dartfx/semanticdt/string> ;
+    linkml:required true ;
+    linkml:slot_uri "https://w3id.org/dartfx/semanticdt/value"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/generationRule__code_snippets> a linkml:SlotDefinition ;
+    skos:inScheme "https://w3id.org/dartfx/semanticdt"^^xsd:anyURI ;
+    skos:prefLabel "code_snippets" ;
+    linkml:description "Environment-specific code snippets or expressions implementing the generator logic." ;
+    linkml:domain_of <https://w3id.org/dartfx/semanticdt/GenerationRule> ;
+    linkml:inlined true ;
+    linkml:inlined_as_list true ;
+    linkml:multivalued true ;
+    linkml:owner <https://w3id.org/dartfx/semanticdt/GenerationRule> ;
+    linkml:range <https://w3id.org/dartfx/semanticdt/CodeSnippet> ;
+    linkml:slot_uri "https://w3id.org/dartfx/semanticdt/code_snippets"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/generationRule__generator_type> a linkml:SlotDefinition ;
+    skos:inScheme "https://w3id.org/dartfx/semanticdt"^^xsd:anyURI ;
+    skos:prefLabel "generator_type" ;
+    linkml:description "Type of generator (e.g., regex_fuzzer, template, faker_provider, custom)." ;
+    linkml:domain_of <https://w3id.org/dartfx/semanticdt/GenerationRule> ;
+    linkml:owner <https://w3id.org/dartfx/semanticdt/GenerationRule> ;
+    linkml:range <https://w3id.org/dartfx/semanticdt/string> ;
+    linkml:required true ;
+    linkml:slot_uri "https://w3id.org/dartfx/semanticdt/generator_type"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/generationRule__template> a linkml:SlotDefinition ;
+    skos:inScheme "https://w3id.org/dartfx/semanticdt"^^xsd:anyURI ;
+    skos:prefLabel "template" ;
+    linkml:description "Seed template or expression." ;
+    linkml:domain_of <https://w3id.org/dartfx/semanticdt/GenerationRule> ;
+    linkml:owner <https://w3id.org/dartfx/semanticdt/GenerationRule> ;
+    linkml:range <https://w3id.org/dartfx/semanticdt/string> ;
+    linkml:slot_uri "https://w3id.org/dartfx/semanticdt/template"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/geospatialCoverage__codes> a linkml:SlotDefinition ;
+    skos:inScheme "https://w3id.org/dartfx/semanticdt"^^xsd:anyURI ;
+    skos:prefLabel "codes" ;
+    linkml:description "A list of formal codes or URIs (e.g., ISO country/subdivision codes, GeoNames URIs, Wikidata URIs)." ;
+    linkml:domain_of <https://w3id.org/dartfx/semanticdt/GeospatialCoverage> ;
+    linkml:multivalued true ;
+    linkml:owner <https://w3id.org/dartfx/semanticdt/GeospatialCoverage> ;
+    linkml:range <https://w3id.org/dartfx/semanticdt/string> ;
+    linkml:slot_uri "https://w3id.org/dartfx/semanticdt/codes"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/geospatialCoverage__description> a linkml:SlotDefinition ;
+    skos:inScheme "https://w3id.org/dartfx/semanticdt"^^xsd:anyURI ;
+    skos:prefLabel "description" ;
+    linkml:description "Human-readable description of the geospatial coverage (e.g., United States, Canada, Global)." ;
+    linkml:domain_of <https://w3id.org/dartfx/semanticdt/GeospatialCoverage> ;
+    linkml:owner <https://w3id.org/dartfx/semanticdt/GeospatialCoverage> ;
+    linkml:range <https://w3id.org/dartfx/semanticdt/string> ;
+    linkml:slot_uri "https://w3id.org/dartfx/semanticdt/description"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/name> a linkml:SlotDefinition ;
+    linkml:description "Human-readable name of the Semantic Data Type.",
+        "Name of the classification (e.g., ISO-3166-1, ICD-10)." ;
+    linkml:required true .
+
+<https://w3id.org/dartfx/semanticdt/scopeContext__domain> a linkml:SlotDefinition ;
+    skos:inScheme "https://w3id.org/dartfx/semanticdt"^^xsd:anyURI ;
+    skos:prefLabel "domain" ;
+    linkml:description "Specific field or subject domain (e.g., Healthcare, Finance)." ;
+    linkml:domain_of <https://w3id.org/dartfx/semanticdt/ScopeContext> ;
+    linkml:owner <https://w3id.org/dartfx/semanticdt/ScopeContext> ;
+    linkml:range <https://w3id.org/dartfx/semanticdt/string> ;
+    linkml:slot_uri "https://w3id.org/dartfx/semanticdt/domain"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/scopeContext__geospatial_coverage> a linkml:SlotDefinition ;
+    skos:inScheme "https://w3id.org/dartfx/semanticdt"^^xsd:anyURI ;
+    skos:prefLabel "geospatial_coverage" ;
+    linkml:description "Geospatial region or country coverage details." ;
+    linkml:domain_of <https://w3id.org/dartfx/semanticdt/ScopeContext> ;
+    linkml:inlined true ;
+    linkml:inlined_as_list true ;
+    linkml:owner <https://w3id.org/dartfx/semanticdt/ScopeContext> ;
+    linkml:range <https://w3id.org/dartfx/semanticdt/GeospatialCoverage> ;
+    linkml:slot_uri "https://w3id.org/dartfx/semanticdt/geospatial_coverage"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/scopeContext__governing_institution> a linkml:SlotDefinition ;
+    skos:inScheme "https://w3id.org/dartfx/semanticdt"^^xsd:anyURI ;
+    skos:prefLabel "governing_institution" ;
+    linkml:description "Governing body (e.g., ISO, W3C, IRS)." ;
+    linkml:domain_of <https://w3id.org/dartfx/semanticdt/ScopeContext> ;
+    linkml:owner <https://w3id.org/dartfx/semanticdt/ScopeContext> ;
+    linkml:range <https://w3id.org/dartfx/semanticdt/string> ;
+    linkml:slot_uri "https://w3id.org/dartfx/semanticdt/governing_institution"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/scopeContext__temporal_coverage> a linkml:SlotDefinition ;
+    skos:inScheme "https://w3id.org/dartfx/semanticdt"^^xsd:anyURI ;
+    skos:prefLabel "temporal_coverage" ;
+    linkml:description "Temporal coverage details." ;
+    linkml:domain_of <https://w3id.org/dartfx/semanticdt/ScopeContext> ;
+    linkml:inlined true ;
+    linkml:inlined_as_list true ;
+    linkml:owner <https://w3id.org/dartfx/semanticdt/ScopeContext> ;
+    linkml:range <https://w3id.org/dartfx/semanticdt/TemporalCoverage> ;
+    linkml:slot_uri "https://w3id.org/dartfx/semanticdt/temporal_coverage"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/semanticDataType__agent_instructions> a linkml:SlotDefinition ;
+    skos:inScheme "https://w3id.org/dartfx/semanticdt"^^xsd:anyURI ;
+    skos:prefLabel "agent_instructions" ;
+    linkml:description "Specific guidelines and instructions for AI agents handling this data type." ;
+    linkml:domain_of <https://w3id.org/dartfx/semanticdt/SemanticDataType> ;
+    linkml:inlined true ;
+    linkml:inlined_as_list true ;
+    linkml:owner <https://w3id.org/dartfx/semanticdt/SemanticDataType> ;
+    linkml:range <https://w3id.org/dartfx/semanticdt/AgentInstruction> ;
+    linkml:slot_uri "https://w3id.org/dartfx/semanticdt/agent_instructions"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/semanticDataType__agent_skills> a linkml:SlotDefinition ;
+    skos:inScheme "https://w3id.org/dartfx/semanticdt"^^xsd:anyURI ;
+    skos:prefLabel "agent_skills" ;
+    linkml:description "Tools, functions, or prompts associated with this data type." ;
+    linkml:domain_of <https://w3id.org/dartfx/semanticdt/SemanticDataType> ;
+    linkml:inlined true ;
+    linkml:inlined_as_list true ;
+    linkml:multivalued true ;
+    linkml:owner <https://w3id.org/dartfx/semanticdt/SemanticDataType> ;
+    linkml:range <https://w3id.org/dartfx/semanticdt/AgentSkill> ;
+    linkml:slot_uri "https://w3id.org/dartfx/semanticdt/agent_skills"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/semanticDataType__classification> a linkml:SlotDefinition ;
+    skos:inScheme "https://w3id.org/dartfx/semanticdt"^^xsd:anyURI ;
+    skos:prefLabel "classification" ;
+    linkml:description "Code lists or classification schemes that categorize this variable." ;
+    linkml:domain_of <https://w3id.org/dartfx/semanticdt/SemanticDataType> ;
+    linkml:inlined true ;
+    linkml:inlined_as_list true ;
+    linkml:owner <https://w3id.org/dartfx/semanticdt/SemanticDataType> ;
+    linkml:range <https://w3id.org/dartfx/semanticdt/ClassificationSystem> ;
+    linkml:slot_uri "https://w3id.org/dartfx/semanticdt/classification"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/semanticDataType__concepts> a linkml:SlotDefinition ;
+    skos:inScheme "https://w3id.org/dartfx/semanticdt"^^xsd:anyURI ;
+    skos:prefLabel "concepts" ;
+    linkml:description "A list of conceptual ontology alignments or mapping references representing this data type in external systems (e.g., SKOS concepts, Wikidata items, or vocabularies like DDI-CDI and schema.org). This should list multiple representations of the same underlying semantic concept, not distinct concepts." ;
+    linkml:domain_of <https://w3id.org/dartfx/semanticdt/SemanticDataType> ;
+    linkml:inlined true ;
+    linkml:inlined_as_list true ;
+    linkml:multivalued true ;
+    linkml:owner <https://w3id.org/dartfx/semanticdt/SemanticDataType> ;
+    linkml:range <https://w3id.org/dartfx/semanticdt/ConceptReference> ;
+    linkml:slot_uri "https://w3id.org/dartfx/semanticdt/concepts"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/semanticDataType__description> a linkml:SlotDefinition ;
+    skos:inScheme "https://w3id.org/dartfx/semanticdt"^^xsd:anyURI ;
+    skos:prefLabel "description" ;
+    linkml:description "A human-readable description of the Semantic Data Type." ;
+    linkml:domain_of <https://w3id.org/dartfx/semanticdt/SemanticDataType> ;
+    linkml:owner <https://w3id.org/dartfx/semanticdt/SemanticDataType> ;
+    linkml:range <https://w3id.org/dartfx/semanticdt/string> ;
+    linkml:required true ;
+    linkml:slot_uri "https://w3id.org/dartfx/semanticdt/description"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/semanticDataType__display_format> a linkml:SlotDefinition ;
+    skos:inScheme "https://w3id.org/dartfx/semanticdt"^^xsd:anyURI ;
+    skos:prefLabel "display_format" ;
+    linkml:description "Formatting rules for displaying values of this type." ;
+    linkml:domain_of <https://w3id.org/dartfx/semanticdt/SemanticDataType> ;
+    linkml:inlined true ;
+    linkml:inlined_as_list true ;
+    linkml:owner <https://w3id.org/dartfx/semanticdt/SemanticDataType> ;
+    linkml:range <https://w3id.org/dartfx/semanticdt/DisplayFormat> ;
+    linkml:slot_uri "https://w3id.org/dartfx/semanticdt/display_format"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/semanticDataType__examples> a linkml:SlotDefinition ;
+    skos:inScheme "https://w3id.org/dartfx/semanticdt"^^xsd:anyURI ;
+    skos:prefLabel "examples" ;
+    linkml:description "Curated valid and invalid examples for documentation and testing." ;
+    linkml:domain_of <https://w3id.org/dartfx/semanticdt/SemanticDataType> ;
+    linkml:inlined true ;
+    linkml:inlined_as_list true ;
+    linkml:multivalued true ;
+    linkml:owner <https://w3id.org/dartfx/semanticdt/SemanticDataType> ;
+    linkml:range <https://w3id.org/dartfx/semanticdt/Example> ;
+    linkml:slot_uri "https://w3id.org/dartfx/semanticdt/examples"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/semanticDataType__generation_rules> a linkml:SlotDefinition ;
+    skos:inScheme "https://w3id.org/dartfx/semanticdt"^^xsd:anyURI ;
+    skos:prefLabel "generation_rules" ;
+    linkml:description "Templates or directives for generating synthetic valid data." ;
+    linkml:domain_of <https://w3id.org/dartfx/semanticdt/SemanticDataType> ;
+    linkml:inlined true ;
+    linkml:inlined_as_list true ;
+    linkml:multivalued true ;
+    linkml:owner <https://w3id.org/dartfx/semanticdt/SemanticDataType> ;
+    linkml:range <https://w3id.org/dartfx/semanticdt/GenerationRule> ;
+    linkml:slot_uri "https://w3id.org/dartfx/semanticdt/generation_rules"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/semanticDataType__id> a linkml:SlotDefinition ;
+    skos:inScheme "https://w3id.org/dartfx/semanticdt"^^xsd:anyURI ;
+    skos:prefLabel "id" ;
+    linkml:description "Unique identifier/URI for the Semantic Data Type." ;
+    linkml:domain_of <https://w3id.org/dartfx/semanticdt/SemanticDataType> ;
+    linkml:identifier true ;
+    linkml:owner <https://w3id.org/dartfx/semanticdt/SemanticDataType> ;
+    linkml:range <https://w3id.org/dartfx/semanticdt/string> ;
+    linkml:required true ;
+    linkml:slot_uri "https://w3id.org/dartfx/semanticdt/id"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/semanticDataType__name> a linkml:SlotDefinition ;
+    skos:inScheme "https://w3id.org/dartfx/semanticdt"^^xsd:anyURI ;
+    skos:prefLabel "name" ;
+    linkml:description "Human-readable name of the Semantic Data Type." ;
+    linkml:domain_of <https://w3id.org/dartfx/semanticdt/SemanticDataType> ;
+    linkml:owner <https://w3id.org/dartfx/semanticdt/SemanticDataType> ;
+    linkml:range <https://w3id.org/dartfx/semanticdt/string> ;
+    linkml:required true ;
+    linkml:slot_uri "https://w3id.org/dartfx/semanticdt/name"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/semanticDataType__scope> a linkml:SlotDefinition ;
+    skos:inScheme "https://w3id.org/dartfx/semanticdt"^^xsd:anyURI ;
+    skos:prefLabel "scope" ;
+    linkml:description "Contextual scope of the data type (temporal, geographic, etc.)." ;
+    linkml:domain_of <https://w3id.org/dartfx/semanticdt/SemanticDataType> ;
+    linkml:inlined true ;
+    linkml:inlined_as_list true ;
+    linkml:owner <https://w3id.org/dartfx/semanticdt/SemanticDataType> ;
+    linkml:range <https://w3id.org/dartfx/semanticdt/ScopeContext> ;
+    linkml:slot_uri "https://w3id.org/dartfx/semanticdt/scope"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/semanticDataType__storage_types> a linkml:SlotDefinition ;
+    skos:inScheme "https://w3id.org/dartfx/semanticdt"^^xsd:anyURI ;
+    skos:prefLabel "storage_types" ;
+    linkml:description "Mappings to physical storage types across different environments. A mapping for the 'generic' environment is required to define the platform-independent base type." ;
+    linkml:domain_of <https://w3id.org/dartfx/semanticdt/SemanticDataType> ;
+    linkml:inlined true ;
+    linkml:inlined_as_list true ;
+    linkml:multivalued true ;
+    linkml:owner <https://w3id.org/dartfx/semanticdt/SemanticDataType> ;
+    linkml:range <https://w3id.org/dartfx/semanticdt/StorageType> ;
+    linkml:slot_uri "https://w3id.org/dartfx/semanticdt/storage_types"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/semanticDataType__validation_rules> a linkml:SlotDefinition ;
+    skos:inScheme "https://w3id.org/dartfx/semanticdt"^^xsd:anyURI ;
+    skos:prefLabel "validation_rules" ;
+    linkml:description "Rules to validate physical representations of the data type." ;
+    linkml:domain_of <https://w3id.org/dartfx/semanticdt/SemanticDataType> ;
+    linkml:inlined true ;
+    linkml:inlined_as_list true ;
+    linkml:multivalued true ;
+    linkml:owner <https://w3id.org/dartfx/semanticdt/SemanticDataType> ;
+    linkml:range <https://w3id.org/dartfx/semanticdt/ValidationRule> ;
+    linkml:slot_uri "https://w3id.org/dartfx/semanticdt/validation_rules"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/semanticDataType__version> a linkml:SlotDefinition ;
+    skos:inScheme "https://w3id.org/dartfx/semanticdt"^^xsd:anyURI ;
+    skos:prefLabel "version" ;
+    linkml:description "The version of the Semantic Data Type instance definition (e.g., 1.0.0)." ;
+    linkml:domain_of <https://w3id.org/dartfx/semanticdt/SemanticDataType> ;
+    linkml:owner <https://w3id.org/dartfx/semanticdt/SemanticDataType> ;
+    linkml:range <https://w3id.org/dartfx/semanticdt/string> ;
+    linkml:required true ;
+    linkml:slot_uri "https://w3id.org/dartfx/semanticdt/version"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/storageType__data_type> a linkml:SlotDefinition ;
+    skos:inScheme "https://w3id.org/dartfx/semanticdt"^^xsd:anyURI ;
+    skos:prefLabel "data_type" ;
+    linkml:description "Data type identifier in the target environment (e.g., string, varchar, integer, str)." ;
+    linkml:domain_of <https://w3id.org/dartfx/semanticdt/StorageType> ;
+    linkml:owner <https://w3id.org/dartfx/semanticdt/StorageType> ;
+    linkml:range <https://w3id.org/dartfx/semanticdt/string> ;
+    linkml:required true ;
+    linkml:slot_uri "https://w3id.org/dartfx/semanticdt/data_type"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/storageType__format_modifier> a linkml:SlotDefinition ;
+    skos:inScheme "https://w3id.org/dartfx/semanticdt"^^xsd:anyURI ;
+    skos:prefLabel "format_modifier" ;
+    linkml:description "Optional modifiers (e.g., length, precision)." ;
+    linkml:domain_of <https://w3id.org/dartfx/semanticdt/StorageType> ;
+    linkml:owner <https://w3id.org/dartfx/semanticdt/StorageType> ;
+    linkml:range <https://w3id.org/dartfx/semanticdt/string> ;
+    linkml:slot_uri "https://w3id.org/dartfx/semanticdt/format_modifier"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/temporalCoverage__description> a linkml:SlotDefinition ;
+    skos:inScheme "https://w3id.org/dartfx/semanticdt"^^xsd:anyURI ;
+    skos:prefLabel "description" ;
+    linkml:description "Human-readable description of the temporal coverage (e.g., '21st Century', '2020 Census')." ;
+    linkml:domain_of <https://w3id.org/dartfx/semanticdt/TemporalCoverage> ;
+    linkml:owner <https://w3id.org/dartfx/semanticdt/TemporalCoverage> ;
+    linkml:range <https://w3id.org/dartfx/semanticdt/string> ;
+    linkml:slot_uri "https://w3id.org/dartfx/semanticdt/description"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/temporalCoverage__end_date> a linkml:SlotDefinition ;
+    skos:inScheme "https://w3id.org/dartfx/semanticdt"^^xsd:anyURI ;
+    skos:prefLabel "end_date" ;
+    linkml:description "End date of the coverage formatted strictly according to ISO 8601 (YYYY-MM-DD)." ;
+    linkml:domain_of <https://w3id.org/dartfx/semanticdt/TemporalCoverage> ;
+    linkml:is_a <https://w3id.org/dartfx/semanticdt/iso_date> ;
+    linkml:owner <https://w3id.org/dartfx/semanticdt/TemporalCoverage> ;
+    linkml:pattern "^\\d{4}-\\d{2}-\\d{2}$" ;
+    linkml:range <https://w3id.org/dartfx/semanticdt/string> ;
+    linkml:slot_uri "https://w3id.org/dartfx/semanticdt/end_date"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/temporalCoverage__iso_period> a linkml:SlotDefinition ;
+    skos:inScheme "https://w3id.org/dartfx/semanticdt"^^xsd:anyURI ;
+    skos:prefLabel "iso_period" ;
+    linkml:description "ISO 8601 time interval or period representation (e.g., '2020-01-01/2020-12-31', 'P1Y')." ;
+    linkml:domain_of <https://w3id.org/dartfx/semanticdt/TemporalCoverage> ;
+    linkml:owner <https://w3id.org/dartfx/semanticdt/TemporalCoverage> ;
+    linkml:range <https://w3id.org/dartfx/semanticdt/string> ;
+    linkml:slot_uri "https://w3id.org/dartfx/semanticdt/iso_period"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/temporalCoverage__start_date> a linkml:SlotDefinition ;
+    skos:inScheme "https://w3id.org/dartfx/semanticdt"^^xsd:anyURI ;
+    skos:prefLabel "start_date" ;
+    linkml:description "Start date of the coverage formatted strictly according to ISO 8601 (YYYY-MM-DD)." ;
+    linkml:domain_of <https://w3id.org/dartfx/semanticdt/TemporalCoverage> ;
+    linkml:is_a <https://w3id.org/dartfx/semanticdt/iso_date> ;
+    linkml:owner <https://w3id.org/dartfx/semanticdt/TemporalCoverage> ;
+    linkml:pattern "^\\d{4}-\\d{2}-\\d{2}$" ;
+    linkml:range <https://w3id.org/dartfx/semanticdt/string> ;
+    linkml:slot_uri "https://w3id.org/dartfx/semanticdt/start_date"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/validationRule__algorithm> a linkml:SlotDefinition ;
+    skos:inScheme "https://w3id.org/dartfx/semanticdt"^^xsd:anyURI ;
+    skos:prefLabel "algorithm" ;
+    linkml:description "Algorithmic checker name (e.g., luhn, modulo-11, isbn13)." ;
+    linkml:domain_of <https://w3id.org/dartfx/semanticdt/ValidationRule> ;
+    linkml:owner <https://w3id.org/dartfx/semanticdt/ValidationRule> ;
+    linkml:range <https://w3id.org/dartfx/semanticdt/string> ;
+    linkml:slot_uri "https://w3id.org/dartfx/semanticdt/algorithm"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/validationRule__code_snippets> a linkml:SlotDefinition ;
+    skos:inScheme "https://w3id.org/dartfx/semanticdt"^^xsd:anyURI ;
+    skos:prefLabel "code_snippets" ;
+    linkml:description "Environment-specific code snippets or expressions implementing the validation logic." ;
+    linkml:domain_of <https://w3id.org/dartfx/semanticdt/ValidationRule> ;
+    linkml:inlined true ;
+    linkml:inlined_as_list true ;
+    linkml:multivalued true ;
+    linkml:owner <https://w3id.org/dartfx/semanticdt/ValidationRule> ;
+    linkml:range <https://w3id.org/dartfx/semanticdt/CodeSnippet> ;
+    linkml:slot_uri "https://w3id.org/dartfx/semanticdt/code_snippets"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/validationRule__message> a linkml:SlotDefinition ;
+    skos:inScheme "https://w3id.org/dartfx/semanticdt"^^xsd:anyURI ;
+    skos:prefLabel "message" ;
+    linkml:description "Error message when validation fails." ;
+    linkml:domain_of <https://w3id.org/dartfx/semanticdt/ValidationRule> ;
+    linkml:owner <https://w3id.org/dartfx/semanticdt/ValidationRule> ;
+    linkml:range <https://w3id.org/dartfx/semanticdt/string> ;
+    linkml:slot_uri "https://w3id.org/dartfx/semanticdt/message"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/validationRule__pattern> a linkml:SlotDefinition ;
+    skos:inScheme "https://w3id.org/dartfx/semanticdt"^^xsd:anyURI ;
+    skos:prefLabel "pattern" ;
+    linkml:description "Regular expression pattern for validation." ;
+    linkml:domain_of <https://w3id.org/dartfx/semanticdt/ValidationRule> ;
+    linkml:owner <https://w3id.org/dartfx/semanticdt/ValidationRule> ;
+    linkml:range <https://w3id.org/dartfx/semanticdt/string> ;
+    linkml:slot_uri "https://w3id.org/dartfx/semanticdt/pattern"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/validationRule__rule_type> a linkml:SlotDefinition ;
+    skos:inScheme "https://w3id.org/dartfx/semanticdt"^^xsd:anyURI ;
+    skos:prefLabel "rule_type" ;
+    linkml:description "Type of validation (e.g., regex, checksum, range)." ;
+    linkml:domain_of <https://w3id.org/dartfx/semanticdt/ValidationRule> ;
+    linkml:owner <https://w3id.org/dartfx/semanticdt/ValidationRule> ;
+    linkml:range <https://w3id.org/dartfx/semanticdt/string> ;
+    linkml:required true ;
+    linkml:slot_uri "https://w3id.org/dartfx/semanticdt/rule_type"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/version> a linkml:SlotDefinition ;
+    linkml:description "The version of the Semantic Data Type instance definition (e.g., 1.0.0).",
+        "Version of the classification scheme." ;
+    linkml:required true .
+
+<https://w3id.org/dartfx/semanticdt/boolean> a linkml:TypeDefinition ;
+    skos:editorialNote "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"boolean\"." ;
+    skos:exactMatch "schema:Boolean"^^xsd:anyURI ;
+    skos:inScheme "https://w3id.org/linkml/types"^^xsd:anyURI ;
+    linkml:base "Bool" ;
+    linkml:definition_uri "https://w3id.org/linkml/Boolean"^^xsd:anyURI ;
+    linkml:description "A binary (true or false) value" ;
+    linkml:imported_from "linkml:types" ;
+    linkml:repr "bool" ;
+    linkml:uri "http://www.w3.org/2001/XMLSchema#boolean"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/target_environment> a linkml:SlotDefinition ;
+    skos:inScheme "https://w3id.org/dartfx/semanticdt"^^xsd:anyURI ;
+    linkml:definition_uri "https://w3id.org/dartfx/semanticdt/target_environment"^^xsd:anyURI ;
+    linkml:description "Target platform, framework, database, or language. Prefer using values from the TargetEnvironmentEnum controlled vocabulary where applicable. Custom values not in the enum are permitted since this slot is of type string." ;
+    linkml:domain_of <https://w3id.org/dartfx/semanticdt/CodeSnippet>,
+        <https://w3id.org/dartfx/semanticdt/StorageType> ;
+    linkml:owner <https://w3id.org/dartfx/semanticdt/CodeSnippet> ;
+    linkml:range <https://w3id.org/dartfx/semanticdt/string> ;
+    linkml:required true ;
+    linkml:slot_uri "https://w3id.org/dartfx/semanticdt/target_environment"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/uri> a linkml:SlotDefinition,
+        linkml:TypeDefinition ;
+    dcterms:conformsTo "https://www.ietf.org/rfc/rfc3987.txt" ;
+    skos:closeMatch "schema:URL"^^xsd:anyURI ;
+    skos:editorialNote "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"uri\"." ;
+    skos:inScheme "https://w3id.org/linkml/types"^^xsd:anyURI ;
+    skos:note "in RDF serializations a slot with range of uri is treated as a literal or type xsd:anyURI unless it is an identifier or a reference to an identifier, in which case it is translated directly to a node" ;
+    linkml:base "URI" ;
+    linkml:definition_uri "https://w3id.org/linkml/Uri"^^xsd:anyURI ;
+    linkml:description "URI of the concept (e.g., SKOS URI).",
+        "URI to the standard classification.",
+        "a complete URI" ;
+    linkml:imported_from "linkml:types" ;
+    linkml:repr "str" ;
+    linkml:required true ;
+    linkml:uri "http://www.w3.org/2001/XMLSchema#anyURI"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/description> a linkml:SlotDefinition ;
+    linkml:description "A human-readable description of the Semantic Data Type.",
+        "Description of the specific test case this example represents.",
+        "Human-readable description of the geospatial coverage (e.g., United States, Canada, Global).",
+        "Human-readable description of the temporal coverage (e.g., '21st Century', '2020 Census').",
+        "What this skill does." ;
+    linkml:required true .
+
+<https://w3id.org/dartfx/semanticdt/iso_date> a linkml:SlotDefinition ;
+    skos:inScheme "https://w3id.org/dartfx/semanticdt"^^xsd:anyURI ;
+    linkml:definition_uri "https://w3id.org/dartfx/semanticdt/iso_date"^^xsd:anyURI ;
+    linkml:description "A date string formatted strictly according to ISO 8601 (YYYY-MM-DD)." ;
+    linkml:pattern "^\\d{4}-\\d{2}-\\d{2}$" ;
+    linkml:range <https://w3id.org/dartfx/semanticdt/string> ;
+    linkml:slot_uri "https://w3id.org/dartfx/semanticdt/iso_date"^^xsd:anyURI .
+
+<https://w3id.org/dartfx/semanticdt/AgentInstruction> a linkml:ClassDefinition ;
+    skos:inScheme "https://w3id.org/dartfx/semanticdt"^^xsd:anyURI ;
+    linkml:attributes <https://w3id.org/dartfx/semanticdt/guidelines>,
+        <https://w3id.org/dartfx/semanticdt/system_prompt_snippet> ;
+    linkml:class_uri "https://w3id.org/dartfx/semanticdt/AgentInstruction"^^xsd:anyURI ;
+    linkml:definition_uri "https://w3id.org/dartfx/semanticdt/AgentInstruction"^^xsd:anyURI ;
+    linkml:description "Machine and agentic parsing, transformation, or reasoning guidelines." ;
+    linkml:slot_usage [ ] ;
+    linkml:slots <https://w3id.org/dartfx/semanticdt/agentInstruction__guidelines>,
+        <https://w3id.org/dartfx/semanticdt/agentInstruction__system_prompt_snippet> .
+
+<https://w3id.org/dartfx/semanticdt/GeospatialCoverage> a linkml:ClassDefinition ;
+    skos:inScheme "https://w3id.org/dartfx/semanticdt"^^xsd:anyURI ;
+    linkml:attributes <https://w3id.org/dartfx/semanticdt/codes>,
+        <https://w3id.org/dartfx/semanticdt/description> ;
+    linkml:class_uri "https://w3id.org/dartfx/semanticdt/GeospatialCoverage"^^xsd:anyURI ;
+    linkml:definition_uri "https://w3id.org/dartfx/semanticdt/GeospatialCoverage"^^xsd:anyURI ;
+    linkml:description "Geospatial coverage boundaries represented by description and/or formal codes or URIs." ;
+    linkml:slot_usage [ ] ;
+    linkml:slots <https://w3id.org/dartfx/semanticdt/geospatialCoverage__codes>,
+        <https://w3id.org/dartfx/semanticdt/geospatialCoverage__description> .
+
+<https://w3id.org/dartfx/semanticdt/CodeSnippet> a linkml:ClassDefinition ;
+    skos:inScheme "https://w3id.org/dartfx/semanticdt"^^xsd:anyURI ;
+    linkml:attributes <https://w3id.org/dartfx/semanticdt/code> ;
+    linkml:class_uri "https://w3id.org/dartfx/semanticdt/CodeSnippet"^^xsd:anyURI ;
+    linkml:definition_uri "https://w3id.org/dartfx/semanticdt/CodeSnippet"^^xsd:anyURI ;
+    linkml:description "A concrete piece of code or expression implementing logic (e.g., validation, generation) in a specific environment." ;
+    linkml:slot_usage [ ] ;
+    linkml:slots <https://w3id.org/dartfx/semanticdt/codeSnippet__code>,
+        <https://w3id.org/dartfx/semanticdt/target_environment> .
+
+<https://w3id.org/dartfx/semanticdt/StorageType> a linkml:ClassDefinition ;
+    skos:inScheme "https://w3id.org/dartfx/semanticdt"^^xsd:anyURI ;
+    linkml:attributes <https://w3id.org/dartfx/semanticdt/data_type>,
+        <https://w3id.org/dartfx/semanticdt/format_modifier> ;
+    linkml:class_uri "https://w3id.org/dartfx/semanticdt/StorageType"^^xsd:anyURI ;
+    linkml:definition_uri "https://w3id.org/dartfx/semanticdt/StorageType"^^xsd:anyURI ;
+    linkml:description "Physical or logical storage data type binding." ;
+    linkml:slot_usage [ ] ;
+    linkml:slots <https://w3id.org/dartfx/semanticdt/storageType__data_type>,
+        <https://w3id.org/dartfx/semanticdt/storageType__format_modifier>,
+        <https://w3id.org/dartfx/semanticdt/target_environment> .
+
+<https://w3id.org/dartfx/semanticdt/AgentSkill> a linkml:ClassDefinition ;
+    skos:inScheme "https://w3id.org/dartfx/semanticdt"^^xsd:anyURI ;
+    linkml:attributes <https://w3id.org/dartfx/semanticdt/api_definition>,
+        <https://w3id.org/dartfx/semanticdt/description>,
+        <https://w3id.org/dartfx/semanticdt/tool_name> ;
+    linkml:class_uri "https://w3id.org/dartfx/semanticdt/AgentSkill"^^xsd:anyURI ;
+    linkml:definition_uri "https://w3id.org/dartfx/semanticdt/AgentSkill"^^xsd:anyURI ;
+    linkml:description "Executable tools, functions, or workflows related to the semantic type." ;
+    linkml:slot_usage [ ] ;
+    linkml:slots <https://w3id.org/dartfx/semanticdt/agentSkill__api_definition>,
+        <https://w3id.org/dartfx/semanticdt/agentSkill__description>,
+        <https://w3id.org/dartfx/semanticdt/agentSkill__tool_name> .
+
+<https://w3id.org/dartfx/semanticdt/ClassificationSystem> a linkml:ClassDefinition ;
+    skos:inScheme "https://w3id.org/dartfx/semanticdt"^^xsd:anyURI ;
+    linkml:attributes <https://w3id.org/dartfx/semanticdt/name>,
+        <https://w3id.org/dartfx/semanticdt/uri>,
+        <https://w3id.org/dartfx/semanticdt/version> ;
+    linkml:class_uri "https://w3id.org/dartfx/semanticdt/ClassificationSystem"^^xsd:anyURI ;
+    linkml:definition_uri "https://w3id.org/dartfx/semanticdt/ClassificationSystem"^^xsd:anyURI ;
+    linkml:description "Controlled vocabulary or coding scheme (making this a categorical variable)." ;
+    linkml:slot_usage [ ] ;
+    linkml:slots <https://w3id.org/dartfx/semanticdt/classificationSystem__name>,
+        <https://w3id.org/dartfx/semanticdt/classificationSystem__uri>,
+        <https://w3id.org/dartfx/semanticdt/classificationSystem__version> .
+
+<https://w3id.org/dartfx/semanticdt/DisplayFormat> a linkml:ClassDefinition ;
+    skos:inScheme "https://w3id.org/dartfx/semanticdt"^^xsd:anyURI ;
+    linkml:attributes <https://w3id.org/dartfx/semanticdt/display_template>,
+        <https://w3id.org/dartfx/semanticdt/formatting_regex>,
+        <https://w3id.org/dartfx/semanticdt/input_mask> ;
+    linkml:class_uri "https://w3id.org/dartfx/semanticdt/DisplayFormat"^^xsd:anyURI ;
+    linkml:definition_uri "https://w3id.org/dartfx/semanticdt/DisplayFormat"^^xsd:anyURI ;
+    linkml:description "Guidelines for displaying and masking data." ;
+    linkml:slot_usage [ ] ;
+    linkml:slots <https://w3id.org/dartfx/semanticdt/displayFormat__display_template>,
+        <https://w3id.org/dartfx/semanticdt/displayFormat__formatting_regex>,
+        <https://w3id.org/dartfx/semanticdt/displayFormat__input_mask> .
+
+<https://w3id.org/dartfx/semanticdt/Example> a linkml:ClassDefinition ;
+    skos:inScheme "https://w3id.org/dartfx/semanticdt"^^xsd:anyURI ;
+    linkml:attributes <https://w3id.org/dartfx/semanticdt/description>,
+        <https://w3id.org/dartfx/semanticdt/is_valid>,
+        <https://w3id.org/dartfx/semanticdt/value> ;
+    linkml:class_uri "https://w3id.org/dartfx/semanticdt/Example"^^xsd:anyURI ;
+    linkml:definition_uri "https://w3id.org/dartfx/semanticdt/Example"^^xsd:anyURI ;
+    linkml:description "Concrete instance of values." ;
+    linkml:slot_usage [ ] ;
+    linkml:slots <https://w3id.org/dartfx/semanticdt/example__description>,
+        <https://w3id.org/dartfx/semanticdt/example__is_valid>,
+        <https://w3id.org/dartfx/semanticdt/example__value> .
+
+<https://w3id.org/dartfx/semanticdt/GenerationRule> a linkml:ClassDefinition ;
+    skos:inScheme "https://w3id.org/dartfx/semanticdt"^^xsd:anyURI ;
+    linkml:attributes <https://w3id.org/dartfx/semanticdt/code_snippets>,
+        <https://w3id.org/dartfx/semanticdt/generator_type>,
+        <https://w3id.org/dartfx/semanticdt/template> ;
+    linkml:class_uri "https://w3id.org/dartfx/semanticdt/GenerationRule"^^xsd:anyURI ;
+    linkml:definition_uri "https://w3id.org/dartfx/semanticdt/GenerationRule"^^xsd:anyURI ;
+    linkml:description "Directive for synthetic data generation." ;
+    linkml:slot_usage [ ] ;
+    linkml:slots <https://w3id.org/dartfx/semanticdt/generationRule__code_snippets>,
+        <https://w3id.org/dartfx/semanticdt/generationRule__generator_type>,
+        <https://w3id.org/dartfx/semanticdt/generationRule__template> .
+
+<https://w3id.org/dartfx/semanticdt/ConceptReference> a linkml:ClassDefinition ;
+    skos:inScheme "https://w3id.org/dartfx/semanticdt"^^xsd:anyURI ;
+    linkml:attributes <https://w3id.org/dartfx/semanticdt/match_type>,
+        <https://w3id.org/dartfx/semanticdt/pref_label>,
+        <https://w3id.org/dartfx/semanticdt/uri>,
+        <https://w3id.org/dartfx/semanticdt/vocabulary> ;
+    linkml:class_uri "https://w3id.org/dartfx/semanticdt/ConceptReference"^^xsd:anyURI ;
+    linkml:definition_uri "https://w3id.org/dartfx/semanticdt/ConceptReference"^^xsd:anyURI ;
+    linkml:description "Reference to a concept in an external ontology or vocabulary." ;
+    linkml:slot_usage [ ] ;
+    linkml:slots <https://w3id.org/dartfx/semanticdt/conceptReference__match_type>,
+        <https://w3id.org/dartfx/semanticdt/conceptReference__pref_label>,
+        <https://w3id.org/dartfx/semanticdt/conceptReference__uri>,
+        <https://w3id.org/dartfx/semanticdt/conceptReference__vocabulary> .
+
+<https://w3id.org/dartfx/semanticdt/ScopeContext> a linkml:ClassDefinition ;
+    skos:inScheme "https://w3id.org/dartfx/semanticdt"^^xsd:anyURI ;
+    linkml:attributes <https://w3id.org/dartfx/semanticdt/domain>,
+        <https://w3id.org/dartfx/semanticdt/geospatial_coverage>,
+        <https://w3id.org/dartfx/semanticdt/governing_institution>,
+        <https://w3id.org/dartfx/semanticdt/temporal_coverage> ;
+    linkml:class_uri "https://w3id.org/dartfx/semanticdt/ScopeContext"^^xsd:anyURI ;
+    linkml:definition_uri "https://w3id.org/dartfx/semanticdt/ScopeContext"^^xsd:anyURI ;
+    linkml:description "Contextual boundaries of the data type." ;
+    linkml:slot_usage [ ] ;
+    linkml:slots <https://w3id.org/dartfx/semanticdt/scopeContext__domain>,
+        <https://w3id.org/dartfx/semanticdt/scopeContext__geospatial_coverage>,
+        <https://w3id.org/dartfx/semanticdt/scopeContext__governing_institution>,
+        <https://w3id.org/dartfx/semanticdt/scopeContext__temporal_coverage> .
+
+<https://w3id.org/dartfx/semanticdt/TemporalCoverage> a linkml:ClassDefinition ;
+    skos:inScheme "https://w3id.org/dartfx/semanticdt"^^xsd:anyURI ;
+    linkml:attributes <https://w3id.org/dartfx/semanticdt/description>,
+        <https://w3id.org/dartfx/semanticdt/end_date>,
+        <https://w3id.org/dartfx/semanticdt/iso_period>,
+        <https://w3id.org/dartfx/semanticdt/start_date> ;
+    linkml:class_uri "https://w3id.org/dartfx/semanticdt/TemporalCoverage"^^xsd:anyURI ;
+    linkml:definition_uri "https://w3id.org/dartfx/semanticdt/TemporalCoverage"^^xsd:anyURI ;
+    linkml:description "Temporal coverage boundaries represented by description, start/end dates, or ISO 8601 periods/durations." ;
+    linkml:slot_usage [ ] ;
+    linkml:slots <https://w3id.org/dartfx/semanticdt/temporalCoverage__description>,
+        <https://w3id.org/dartfx/semanticdt/temporalCoverage__end_date>,
+        <https://w3id.org/dartfx/semanticdt/temporalCoverage__iso_period>,
+        <https://w3id.org/dartfx/semanticdt/temporalCoverage__start_date> .
+
+<https://w3id.org/dartfx/semanticdt/ValidationRule> a linkml:ClassDefinition ;
+    skos:inScheme "https://w3id.org/dartfx/semanticdt"^^xsd:anyURI ;
+    linkml:attributes <https://w3id.org/dartfx/semanticdt/algorithm>,
+        <https://w3id.org/dartfx/semanticdt/code_snippets>,
+        <https://w3id.org/dartfx/semanticdt/message>,
+        <https://w3id.org/dartfx/semanticdt/pattern>,
+        <https://w3id.org/dartfx/semanticdt/rule_type> ;
+    linkml:class_uri "https://w3id.org/dartfx/semanticdt/ValidationRule"^^xsd:anyURI ;
+    linkml:definition_uri "https://w3id.org/dartfx/semanticdt/ValidationRule"^^xsd:anyURI ;
+    linkml:description "A rule defining syntactical or logical validation of values." ;
+    linkml:slot_usage [ ] ;
+    linkml:slots <https://w3id.org/dartfx/semanticdt/validationRule__algorithm>,
+        <https://w3id.org/dartfx/semanticdt/validationRule__code_snippets>,
+        <https://w3id.org/dartfx/semanticdt/validationRule__message>,
+        <https://w3id.org/dartfx/semanticdt/validationRule__pattern>,
+        <https://w3id.org/dartfx/semanticdt/validationRule__rule_type> .
+
+<https://w3id.org/dartfx/semanticdt/SemanticDataType> a linkml:ClassDefinition ;
+    skos:inScheme "https://w3id.org/dartfx/semanticdt"^^xsd:anyURI ;
+    linkml:attributes <https://w3id.org/dartfx/semanticdt/agent_instructions>,
+        <https://w3id.org/dartfx/semanticdt/agent_skills>,
+        <https://w3id.org/dartfx/semanticdt/classification>,
+        <https://w3id.org/dartfx/semanticdt/concepts>,
+        <https://w3id.org/dartfx/semanticdt/description>,
+        <https://w3id.org/dartfx/semanticdt/display_format>,
+        <https://w3id.org/dartfx/semanticdt/examples>,
+        <https://w3id.org/dartfx/semanticdt/generation_rules>,
+        <https://w3id.org/dartfx/semanticdt/id>,
+        <https://w3id.org/dartfx/semanticdt/name>,
+        <https://w3id.org/dartfx/semanticdt/scope>,
+        <https://w3id.org/dartfx/semanticdt/storage_types>,
+        <https://w3id.org/dartfx/semanticdt/validation_rules>,
+        <https://w3id.org/dartfx/semanticdt/version> ;
+    linkml:class_uri "https://w3id.org/dartfx/semanticdt/SemanticDataType"^^xsd:anyURI ;
+    linkml:definition_uri "https://w3id.org/dartfx/semanticdt/SemanticDataType"^^xsd:anyURI ;
+    linkml:description "A high-level data type associated with a distinct concept, validation/generation rules, and metadata." ;
+    linkml:slot_usage [ ] ;
+    linkml:slots <https://w3id.org/dartfx/semanticdt/semanticDataType__agent_instructions>,
+        <https://w3id.org/dartfx/semanticdt/semanticDataType__agent_skills>,
+        <https://w3id.org/dartfx/semanticdt/semanticDataType__classification>,
+        <https://w3id.org/dartfx/semanticdt/semanticDataType__concepts>,
+        <https://w3id.org/dartfx/semanticdt/semanticDataType__description>,
+        <https://w3id.org/dartfx/semanticdt/semanticDataType__display_format>,
+        <https://w3id.org/dartfx/semanticdt/semanticDataType__examples>,
+        <https://w3id.org/dartfx/semanticdt/semanticDataType__generation_rules>,
+        <https://w3id.org/dartfx/semanticdt/semanticDataType__id>,
+        <https://w3id.org/dartfx/semanticdt/semanticDataType__name>,
+        <https://w3id.org/dartfx/semanticdt/semanticDataType__scope>,
+        <https://w3id.org/dartfx/semanticdt/semanticDataType__storage_types>,
+        <https://w3id.org/dartfx/semanticdt/semanticDataType__validation_rules>,
+        <https://w3id.org/dartfx/semanticdt/semanticDataType__version> .
+
+<https://w3id.org/dartfx/semanticdt/string> a linkml:TypeDefinition ;
+    skos:editorialNote "In RDF serializations, a slot with range of string is treated as a literal or type xsd:string. If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"string\"." ;
+    skos:exactMatch "schema:Text"^^xsd:anyURI ;
+    skos:inScheme "https://w3id.org/linkml/types"^^xsd:anyURI ;
+    linkml:base "str" ;
+    linkml:definition_uri "https://w3id.org/linkml/String"^^xsd:anyURI ;
+    linkml:description "A character string" ;
+    linkml:imported_from "linkml:types" ;
+    linkml:uri "http://www.w3.org/2001/XMLSchema#string"^^xsd:anyURI .

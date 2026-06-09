@@ -1,0 +1,99 @@
+id: https://w3id.org/dartfx/semanticdt/library/ca/sin
+name: Canadian Social Insurance Number
+description: >-
+  A 9-digit number issued to individuals by the Canadian government to administer various government programs.
+  It is validated using the Luhn algorithm.
+version: 0.1.0
+concepts:
+  - uri: https://www.wikidata.org/wiki/Q3240093
+    vocabulary: Wikidata
+    pref_label: Social Insurance Number
+    match_type: exactMatch
+storage_types:
+  - target_environment: generic
+    data_type: string
+  - target_environment: python
+    data_type: str
+  - target_environment: sql
+    data_type: VARCHAR
+    format_modifier: 11
+  - target_environment: xsd
+    data_type: string
+validation_rules:
+  - rule_type: regex
+    pattern: ^\d{3}[ -]?\d{3}[ -]?\d{3}$
+    message: Canadian SIN must be formatted as 999 999 999, 999-999-999, or 999999999.
+  - rule_type: custom
+    message: Canadian SIN failed Luhn checksum validation.
+    code_snippets:
+      - target_environment: python
+        code: |
+          def validate_sin(val: str) -> bool:
+              digits = [int(c) for c in val if c.isdigit()]
+              if len(digits) != 9:
+                  return False
+              # Luhn algorithm check
+              total = 0
+              for i, d in enumerate(digits):
+                  if i % 2 == 1:
+                      d *= 2
+                      if d > 9:
+                          d -= 9
+                  total += d
+              return total % 10 == 0
+generation_rules:
+  - generator_type: custom
+    template: python code or seed template
+    code_snippets:
+      - target_environment: python
+        code: |
+          import random
+          def generate_sin() -> str:
+              # Generate first 8 digits randomly (avoiding starting with 0 or 8 which are invalid/test)
+              digits = [random.randint(1, 7)] + [random.randint(0, 9) for _ in range(7)]
+              # Compute Luhn check digit
+              total = 0
+              for i, d in enumerate(digits):
+                  if i % 2 == 1:
+                      d *= 2
+                      if d > 9:
+                          d -= 9
+                  total += d
+              check_digit = (10 - (total % 10)) % 10
+              digits.append(check_digit)
+              sin_str = "".join(map(str, digits))
+              return f"{sin_str[:3]} {sin_str[3:6]} {sin_str[6:]}"
+agent_instructions:
+  guidelines: >-
+    Canadian Social Insurance Numbers are sensitive PII. Treat them with high security.
+    Never display, store, or log them in plaintext. Mask them to the last 3 digits (e.g., XXX XXX 789).
+  system_prompt_snippet: >-
+    Treat Canadian SIN variables as confidential PII. Redact or mask them in logs and displays.
+scope:
+  geospatial_coverage:
+    description: Canada
+    codes:
+      - CA
+      - ISO-3166-1:CA
+      - https://www.wikidata.org/wiki/Q16
+  domain: Demographic
+  governing_institution: Service Canada
+display_format:
+  input_mask: 999 999 999
+  display_template: XXX XXX {{ value[-3:] }}
+examples:
+  - value: 046 454 286
+    is_valid: true
+    description: A valid Canadian Social Insurance Number (using the standard format).
+  - value: 123-456-782
+    is_valid: true
+    description: A valid Canadian SIN with hyphen separator.
+  - value: 123456782
+    is_valid: true
+    description: A valid Canadian SIN without separators.
+  - value: 046 454 287
+    is_valid: false
+    description: Invalid because it fails the Luhn checksum check.
+  - value: 123-456-78
+    is_valid: false
+    description: Invalid because it is too short.

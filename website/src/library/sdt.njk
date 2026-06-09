@@ -1,0 +1,28 @@
+---
+layout: layouts/sdt-detail.njk
+pagination:
+  data: sdt_library
+  size: 1
+  alias: sdt
+  addAllPagesToCollections: true
+permalink: "library/{{ sdt.meta.slug }}/index.html"
+eleventyComputed:
+  title: "{{ sdt.name }}"
+  description: "{{ sdt.description }}"
+---
+{% set id = sdt.id %}
+{% set name = sdt.name %}
+{% set description = sdt.description %}
+{% set version = sdt.version %}
+{% set concepts = sdt.concepts %}
+{% set storage_types = sdt.storage_types %}
+{% set classification = sdt.classification %}
+{% set validation_rules = sdt.validation_rules %}
+{% set generation_rules = sdt.generation_rules %}
+{% set agent_instructions = sdt.agent_instructions %}
+{% set agent_skills = sdt.agent_skills %}
+{% set scope = sdt.scope %}
+{% set display_format = sdt.display_format %}
+{% set examples = sdt.examples %}
+{% set meta = sdt.meta %}
+{% set this = sdt %}

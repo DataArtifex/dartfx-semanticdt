@@ -1,0 +1,1785 @@
+{
+  "name": "semantic-data-type",
+  "description": "A schema defining Semantic Data Types (SDT) situated above physical database or programming types. Encompasses metadata, mappings, validation, generation, and agentic instructions.",
+  "title": "Semantic Data Type Schema",
+  "id": "https://w3id.org/dartfx/semanticdt",
+  "version": "0.1.0-dev",
+  "imports": [
+    "linkml:types"
+  ],
+  "license": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "prefixes": [
+    {
+      "prefix_prefix": "linkml",
+      "prefix_reference": "https://w3id.org/linkml/"
+    },
+    {
+      "prefix_prefix": "sdt",
+      "prefix_reference": "https://w3id.org/dartfx/semanticdt/"
+    },
+    {
+      "prefix_prefix": "skos",
+      "prefix_reference": "http://www.w3.org/2004/02/skos/core#"
+    },
+    {
+      "prefix_prefix": "xsd",
+      "prefix_reference": "http://www.w3.org/2001/XMLSchema#"
+    }
+  ],
+  "default_prefix": "sdt",
+  "default_range": "string",
+  "types": [
+    {
+      "name": "string",
+      "definition_uri": "https://w3id.org/linkml/String",
+      "description": "A character string",
+      "notes": [
+        "In RDF serializations, a slot with range of string is treated as a literal or type xsd:string. If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"string\"."
+      ],
+      "from_schema": "https://w3id.org/linkml/types",
+      "imported_from": "linkml:types",
+      "exact_mappings": [
+        "schema:Text"
+      ],
+      "base": "str",
+      "uri": "http://www.w3.org/2001/XMLSchema#string",
+      "@type": "TypeDefinition"
+    },
+    {
+      "name": "integer",
+      "definition_uri": "https://w3id.org/linkml/Integer",
+      "description": "An integer",
+      "notes": [
+        "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"integer\"."
+      ],
+      "from_schema": "https://w3id.org/linkml/types",
+      "imported_from": "linkml:types",
+      "exact_mappings": [
+        "schema:Integer"
+      ],
+      "base": "int",
+      "uri": "http://www.w3.org/2001/XMLSchema#integer",
+      "@type": "TypeDefinition"
+    },
+    {
+      "name": "boolean",
+      "definition_uri": "https://w3id.org/linkml/Boolean",
+      "description": "A binary (true or false) value",
+      "notes": [
+        "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"boolean\"."
+      ],
+      "from_schema": "https://w3id.org/linkml/types",
+      "imported_from": "linkml:types",
+      "exact_mappings": [
+        "schema:Boolean"
+      ],
+      "base": "Bool",
+      "uri": "http://www.w3.org/2001/XMLSchema#boolean",
+      "repr": "bool",
+      "@type": "TypeDefinition"
+    },
+    {
+      "name": "float",
+      "definition_uri": "https://w3id.org/linkml/Float",
+      "description": "A real number that conforms to the xsd:float specification",
+      "notes": [
+        "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"float\"."
+      ],
+      "from_schema": "https://w3id.org/linkml/types",
+      "imported_from": "linkml:types",
+      "exact_mappings": [
+        "schema:Float"
+      ],
+      "base": "float",
+      "uri": "http://www.w3.org/2001/XMLSchema#float",
+      "@type": "TypeDefinition"
+    },
+    {
+      "name": "double",
+      "definition_uri": "https://w3id.org/linkml/Double",
+      "description": "A real number that conforms to the xsd:double specification",
+      "notes": [
+        "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"double\"."
+      ],
+      "from_schema": "https://w3id.org/linkml/types",
+      "imported_from": "linkml:types",
+      "close_mappings": [
+        "schema:Float"
+      ],
+      "base": "float",
+      "uri": "http://www.w3.org/2001/XMLSchema#double",
+      "@type": "TypeDefinition"
+    },
+    {
+      "name": "decimal",
+      "definition_uri": "https://w3id.org/linkml/Decimal",
+      "description": "A real number with arbitrary precision that conforms to the xsd:decimal specification",
+      "notes": [
+        "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"decimal\"."
+      ],
+      "from_schema": "https://w3id.org/linkml/types",
+      "imported_from": "linkml:types",
+      "broad_mappings": [
+        "schema:Number"
+      ],
+      "base": "Decimal",
+      "uri": "http://www.w3.org/2001/XMLSchema#decimal",
+      "@type": "TypeDefinition"
+    },
+    {
+      "name": "time",
+      "definition_uri": "https://w3id.org/linkml/Time",
+      "description": "A time object represents a (local) time of day, independent of any particular day",
+      "notes": [
+        "URI is dateTime because OWL reasoners do not work with straight date or time",
+        "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"time\"."
+      ],
+      "from_schema": "https://w3id.org/linkml/types",
+      "imported_from": "linkml:types",
+      "exact_mappings": [
+        "schema:Time"
+      ],
+      "base": "XSDTime",
+      "uri": "http://www.w3.org/2001/XMLSchema#time",
+      "repr": "str",
+      "@type": "TypeDefinition"
+    },
+    {
+      "name": "date",
+      "definition_uri": "https://w3id.org/linkml/Date",
+      "description": "a date (year, month and day) in an idealized calendar",
+      "notes": [
+        "URI is dateTime because OWL reasoners don't work with straight date or time",
+        "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"date\"."
+      ],
+      "from_schema": "https://w3id.org/linkml/types",
+      "imported_from": "linkml:types",
+      "exact_mappings": [
+        "schema:Date"
+      ],
+      "base": "XSDDate",
+      "uri": "http://www.w3.org/2001/XMLSchema#date",
+      "repr": "str",
+      "@type": "TypeDefinition"
+    },
+    {
+      "name": "datetime",
+      "definition_uri": "https://w3id.org/linkml/Datetime",
+      "description": "The combination of a date and time",
+      "notes": [
+        "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"datetime\"."
+      ],
+      "from_schema": "https://w3id.org/linkml/types",
+      "imported_from": "linkml:types",
+      "exact_mappings": [
+        "schema:DateTime"
+      ],
+      "base": "XSDDateTime",
+      "uri": "http://www.w3.org/2001/XMLSchema#dateTime",
+      "repr": "str",
+      "@type": "TypeDefinition"
+    },
+    {
+      "name": "date_or_datetime",
+      "definition_uri": "https://w3id.org/linkml/DateOrDatetime",
+      "description": "Either a date or a datetime",
+      "notes": [
+        "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"date_or_datetime\"."
+      ],
+      "from_schema": "https://w3id.org/linkml/types",
+      "imported_from": "linkml:types",
+      "base": "str",
+      "uri": "https://w3id.org/linkml/DateOrDatetime",
+      "repr": "str",
+      "@type": "TypeDefinition"
+    },
+    {
+      "name": "uriorcurie",
+      "definition_uri": "https://w3id.org/linkml/Uriorcurie",
+      "description": "a URI or a CURIE",
+      "notes": [
+        "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"uriorcurie\"."
+      ],
+      "from_schema": "https://w3id.org/linkml/types",
+      "imported_from": "linkml:types",
+      "base": "URIorCURIE",
+      "uri": "http://www.w3.org/2001/XMLSchema#anyURI",
+      "repr": "str",
+      "@type": "TypeDefinition"
+    },
+    {
+      "name": "curie",
+      "definition_uri": "https://w3id.org/linkml/Curie",
+      "conforms_to": "https://www.w3.org/TR/curie/",
+      "description": "a compact URI",
+      "notes": [
+        "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"curie\"."
+      ],
+      "comments": [
+        "in RDF serializations this MUST be expanded to a URI",
+        "in non-RDF serializations MAY be serialized as the compact representation"
+      ],
+      "from_schema": "https://w3id.org/linkml/types",
+      "imported_from": "linkml:types",
+      "base": "Curie",
+      "uri": "http://www.w3.org/2001/XMLSchema#string",
+      "repr": "str",
+      "@type": "TypeDefinition"
+    },
+    {
+      "name": "uri",
+      "definition_uri": "https://w3id.org/linkml/Uri",
+      "conforms_to": "https://www.ietf.org/rfc/rfc3987.txt",
+      "description": "a complete URI",
+      "notes": [
+        "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"uri\"."
+      ],
+      "comments": [
+        "in RDF serializations a slot with range of uri is treated as a literal or type xsd:anyURI unless it is an identifier or a reference to an identifier, in which case it is translated directly to a node"
+      ],
+      "from_schema": "https://w3id.org/linkml/types",
+      "imported_from": "linkml:types",
+      "close_mappings": [
+        "schema:URL"
+      ],
+      "base": "URI",
+      "uri": "http://www.w3.org/2001/XMLSchema#anyURI",
+      "repr": "str",
+      "@type": "TypeDefinition"
+    },
+    {
+      "name": "ncname",
+      "definition_uri": "https://w3id.org/linkml/Ncname",
+      "description": "Prefix part of CURIE",
+      "notes": [
+        "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"ncname\"."
+      ],
+      "from_schema": "https://w3id.org/linkml/types",
+      "imported_from": "linkml:types",
+      "base": "NCName",
+      "uri": "http://www.w3.org/2001/XMLSchema#string",
+      "repr": "str",
+      "@type": "TypeDefinition"
+    },
+    {
+      "name": "objectidentifier",
+      "definition_uri": "https://w3id.org/linkml/Objectidentifier",
+      "description": "A URI or CURIE that represents an object in the model.",
+      "notes": [
+        "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"objectidentifier\"."
+      ],
+      "comments": [
+        "Used for inheritance and type checking"
+      ],
+      "from_schema": "https://w3id.org/linkml/types",
+      "imported_from": "linkml:types",
+      "base": "ElementIdentifier",
+      "uri": "http://www.w3.org/ns/shex#iri",
+      "repr": "str",
+      "@type": "TypeDefinition"
+    },
+    {
+      "name": "nodeidentifier",
+      "definition_uri": "https://w3id.org/linkml/Nodeidentifier",
+      "description": "A URI, CURIE or BNODE that represents a node in a model.",
+      "notes": [
+        "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"nodeidentifier\"."
+      ],
+      "from_schema": "https://w3id.org/linkml/types",
+      "imported_from": "linkml:types",
+      "base": "NodeIdentifier",
+      "uri": "http://www.w3.org/ns/shex#nonLiteral",
+      "repr": "str",
+      "@type": "TypeDefinition"
+    },
+    {
+      "name": "jsonpointer",
+      "definition_uri": "https://w3id.org/linkml/Jsonpointer",
+      "conforms_to": "https://datatracker.ietf.org/doc/html/rfc6901",
+      "description": "A string encoding a JSON Pointer. The value of the string MUST conform to JSON Point syntax and SHOULD dereference to a valid object within the current instance document when encoded in tree form.",
+      "notes": [
+        "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"jsonpointer\"."
+      ],
+      "from_schema": "https://w3id.org/linkml/types",
+      "imported_from": "linkml:types",
+      "base": "str",
+      "uri": "http://www.w3.org/2001/XMLSchema#string",
+      "repr": "str",
+      "@type": "TypeDefinition"
+    },
+    {
+      "name": "jsonpath",
+      "definition_uri": "https://w3id.org/linkml/Jsonpath",
+      "conforms_to": "https://www.ietf.org/archive/id/draft-goessner-dispatch-jsonpath-00.html",
+      "description": "A string encoding a JSON Path. The value of the string MUST conform to JSON Point syntax and SHOULD dereference to zero or more valid objects within the current instance document when encoded in tree form.",
+      "notes": [
+        "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"jsonpath\"."
+      ],
+      "from_schema": "https://w3id.org/linkml/types",
+      "imported_from": "linkml:types",
+      "base": "str",
+      "uri": "http://www.w3.org/2001/XMLSchema#string",
+      "repr": "str",
+      "@type": "TypeDefinition"
+    },
+    {
+      "name": "sparqlpath",
+      "definition_uri": "https://w3id.org/linkml/Sparqlpath",
+      "conforms_to": "https://www.w3.org/TR/sparql11-query/#propertypaths",
+      "description": "A string encoding a SPARQL Property Path. The value of the string MUST conform to SPARQL syntax and SHOULD dereference to zero or more valid objects within the current instance document when encoded as RDF.",
+      "notes": [
+        "If you are authoring schemas in LinkML YAML, the type is referenced with the lower case \"sparqlpath\"."
+      ],
+      "from_schema": "https://w3id.org/linkml/types",
+      "imported_from": "linkml:types",
+      "base": "str",
+      "uri": "http://www.w3.org/2001/XMLSchema#string",
+      "repr": "str",
+      "@type": "TypeDefinition"
+    }
+  ],
+  "enums": [
+    {
+      "name": "TargetEnvironmentEnum",
+      "definition_uri": "https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum",
+      "description": "Recommended vocabulary of target systems and development environments.",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "permissible_values": [
+        {
+          "text": "csharp",
+          "description": "C# programming environment."
+        },
+        {
+          "text": "generic",
+          "description": "Platform-independent representation."
+        },
+        {
+          "text": "go",
+          "description": "Go programming environment."
+        },
+        {
+          "text": "java",
+          "description": "Java programming environment."
+        },
+        {
+          "text": "javascript",
+          "description": "JavaScript programming environment."
+        },
+        {
+          "text": "python",
+          "description": "Python programming environment."
+        },
+        {
+          "text": "r",
+          "description": "R statistical computing environment."
+        },
+        {
+          "text": "rust",
+          "description": "Rust programming environment."
+        },
+        {
+          "text": "sas",
+          "description": "SAS statistical computing environment."
+        },
+        {
+          "text": "spss",
+          "description": "SPSS statistical computing environment."
+        },
+        {
+          "text": "sql",
+          "description": "Standard Structured Query Language (ANSI)."
+        },
+        {
+          "text": "sql-bigquery",
+          "description": "Google BigQuery database environment."
+        },
+        {
+          "text": "sql-clickhouse",
+          "description": "ClickHouse database environment."
+        },
+        {
+          "text": "sql-mssql",
+          "description": "Microsoft SQL Server database environment."
+        },
+        {
+          "text": "sql-mysql",
+          "description": "MySQL database environment."
+        },
+        {
+          "text": "sql-oracle",
+          "description": "Oracle database environment."
+        },
+        {
+          "text": "sql-postgresql",
+          "description": "PostgreSQL database environment."
+        },
+        {
+          "text": "sql-redshift",
+          "description": "Amazon Redshift database environment."
+        },
+        {
+          "text": "sql-snowflake",
+          "description": "Snowflake database environment."
+        },
+        {
+          "text": "sql-sqlite",
+          "description": "SQLite database environment."
+        },
+        {
+          "text": "stata",
+          "description": "Stata statistical software environment."
+        },
+        {
+          "text": "typescript",
+          "description": "TypeScript programming environment."
+        },
+        {
+          "text": "xsd",
+          "description": "XML Schema Definition."
+        }
+      ]
+    }
+  ],
+  "slots": [
+    {
+      "name": "target_environment",
+      "definition_uri": "https://w3id.org/dartfx/semanticdt/target_environment",
+      "description": "Target platform, framework, database, or language. Prefer using values from the TargetEnvironmentEnum controlled vocabulary where applicable. Custom values not in the enum are permitted since this slot is of type string.",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slot_uri": "https://w3id.org/dartfx/semanticdt/target_environment",
+      "owner": "CodeSnippet",
+      "domain_of": [
+        "StorageType",
+        "CodeSnippet"
+      ],
+      "range": "string",
+      "required": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "iso_date",
+      "definition_uri": "https://w3id.org/dartfx/semanticdt/iso_date",
+      "description": "A date string formatted strictly according to ISO 8601 (YYYY-MM-DD).",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slot_uri": "https://w3id.org/dartfx/semanticdt/iso_date",
+      "range": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "semanticDataType__id",
+      "description": "Unique identifier/URI for the Semantic Data Type.",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slot_uri": "https://w3id.org/dartfx/semanticdt/id",
+      "identifier": true,
+      "alias": "id",
+      "owner": "SemanticDataType",
+      "domain_of": [
+        "SemanticDataType"
+      ],
+      "range": "string",
+      "required": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "semanticDataType__name",
+      "description": "Human-readable name of the Semantic Data Type.",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slot_uri": "https://w3id.org/dartfx/semanticdt/name",
+      "alias": "name",
+      "owner": "SemanticDataType",
+      "domain_of": [
+        "SemanticDataType"
+      ],
+      "range": "string",
+      "required": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "semanticDataType__description",
+      "description": "A human-readable description of the Semantic Data Type.",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slot_uri": "https://w3id.org/dartfx/semanticdt/description",
+      "alias": "description",
+      "owner": "SemanticDataType",
+      "domain_of": [
+        "SemanticDataType"
+      ],
+      "range": "string",
+      "required": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "semanticDataType__version",
+      "description": "The version of the Semantic Data Type instance definition (e.g., 1.0.0).",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slot_uri": "https://w3id.org/dartfx/semanticdt/version",
+      "alias": "version",
+      "owner": "SemanticDataType",
+      "domain_of": [
+        "SemanticDataType"
+      ],
+      "range": "string",
+      "required": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "semanticDataType__concepts",
+      "description": "A list of conceptual ontology alignments or mapping references representing this data type in external systems (e.g., SKOS concepts, Wikidata items, or vocabularies like DDI-CDI and schema.org). This should list multiple representations of the same underlying semantic concept, not distinct concepts.",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slot_uri": "https://w3id.org/dartfx/semanticdt/concepts",
+      "alias": "concepts",
+      "owner": "SemanticDataType",
+      "domain_of": [
+        "SemanticDataType"
+      ],
+      "range": "ConceptReference",
+      "multivalued": true,
+      "inlined": true,
+      "inlined_as_list": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "semanticDataType__storage_types",
+      "description": "Mappings to physical storage types across different environments. A mapping for the 'generic' environment is required to define the platform-independent base type.",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slot_uri": "https://w3id.org/dartfx/semanticdt/storage_types",
+      "alias": "storage_types",
+      "owner": "SemanticDataType",
+      "domain_of": [
+        "SemanticDataType"
+      ],
+      "range": "StorageType",
+      "multivalued": true,
+      "inlined": true,
+      "inlined_as_list": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "semanticDataType__classification",
+      "description": "Code lists or classification schemes that categorize this variable.",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slot_uri": "https://w3id.org/dartfx/semanticdt/classification",
+      "alias": "classification",
+      "owner": "SemanticDataType",
+      "domain_of": [
+        "SemanticDataType"
+      ],
+      "range": "ClassificationSystem",
+      "inlined": true,
+      "inlined_as_list": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "semanticDataType__validation_rules",
+      "description": "Rules to validate physical representations of the data type.",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slot_uri": "https://w3id.org/dartfx/semanticdt/validation_rules",
+      "alias": "validation_rules",
+      "owner": "SemanticDataType",
+      "domain_of": [
+        "SemanticDataType"
+      ],
+      "range": "ValidationRule",
+      "multivalued": true,
+      "inlined": true,
+      "inlined_as_list": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "semanticDataType__generation_rules",
+      "description": "Templates or directives for generating synthetic valid data.",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slot_uri": "https://w3id.org/dartfx/semanticdt/generation_rules",
+      "alias": "generation_rules",
+      "owner": "SemanticDataType",
+      "domain_of": [
+        "SemanticDataType"
+      ],
+      "range": "GenerationRule",
+      "multivalued": true,
+      "inlined": true,
+      "inlined_as_list": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "semanticDataType__agent_instructions",
+      "description": "Specific guidelines and instructions for AI agents handling this data type.",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slot_uri": "https://w3id.org/dartfx/semanticdt/agent_instructions",
+      "alias": "agent_instructions",
+      "owner": "SemanticDataType",
+      "domain_of": [
+        "SemanticDataType"
+      ],
+      "range": "AgentInstruction",
+      "inlined": true,
+      "inlined_as_list": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "semanticDataType__agent_skills",
+      "description": "Tools, functions, or prompts associated with this data type.",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slot_uri": "https://w3id.org/dartfx/semanticdt/agent_skills",
+      "alias": "agent_skills",
+      "owner": "SemanticDataType",
+      "domain_of": [
+        "SemanticDataType"
+      ],
+      "range": "AgentSkill",
+      "multivalued": true,
+      "inlined": true,
+      "inlined_as_list": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "semanticDataType__scope",
+      "description": "Contextual scope of the data type (temporal, geographic, etc.).",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slot_uri": "https://w3id.org/dartfx/semanticdt/scope",
+      "alias": "scope",
+      "owner": "SemanticDataType",
+      "domain_of": [
+        "SemanticDataType"
+      ],
+      "range": "ScopeContext",
+      "inlined": true,
+      "inlined_as_list": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "semanticDataType__display_format",
+      "description": "Formatting rules for displaying values of this type.",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slot_uri": "https://w3id.org/dartfx/semanticdt/display_format",
+      "alias": "display_format",
+      "owner": "SemanticDataType",
+      "domain_of": [
+        "SemanticDataType"
+      ],
+      "range": "DisplayFormat",
+      "inlined": true,
+      "inlined_as_list": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "semanticDataType__examples",
+      "description": "Curated valid and invalid examples for documentation and testing.",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slot_uri": "https://w3id.org/dartfx/semanticdt/examples",
+      "alias": "examples",
+      "owner": "SemanticDataType",
+      "domain_of": [
+        "SemanticDataType"
+      ],
+      "range": "Example",
+      "multivalued": true,
+      "inlined": true,
+      "inlined_as_list": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "conceptReference__uri",
+      "description": "URI of the concept (e.g., SKOS URI).",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slot_uri": "https://w3id.org/dartfx/semanticdt/uri",
+      "alias": "uri",
+      "owner": "ConceptReference",
+      "domain_of": [
+        "ConceptReference"
+      ],
+      "range": "string",
+      "required": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "conceptReference__vocabulary",
+      "description": "Name of the vocabulary or ontology (e.g., SKOS, DDI-CDI, Wikidata, LCSH).",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slot_uri": "https://w3id.org/dartfx/semanticdt/vocabulary",
+      "alias": "vocabulary",
+      "owner": "ConceptReference",
+      "domain_of": [
+        "ConceptReference"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "conceptReference__pref_label",
+      "description": "Preferred label of the concept in the ontology.",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slot_uri": "https://w3id.org/dartfx/semanticdt/pref_label",
+      "alias": "pref_label",
+      "owner": "ConceptReference",
+      "domain_of": [
+        "ConceptReference"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "conceptReference__match_type",
+      "description": "Relationship to the concept (e.g., exactMatch, closeMatch, broadMatch, narrowMatch).",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slot_uri": "https://w3id.org/dartfx/semanticdt/match_type",
+      "ifabsent": "string(exactMatch)",
+      "alias": "match_type",
+      "owner": "ConceptReference",
+      "domain_of": [
+        "ConceptReference"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "storageType__data_type",
+      "description": "Data type identifier in the target environment (e.g., string, varchar, integer, str).",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slot_uri": "https://w3id.org/dartfx/semanticdt/data_type",
+      "alias": "data_type",
+      "owner": "StorageType",
+      "domain_of": [
+        "StorageType"
+      ],
+      "range": "string",
+      "required": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "storageType__format_modifier",
+      "description": "Optional modifiers (e.g., length, precision).",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slot_uri": "https://w3id.org/dartfx/semanticdt/format_modifier",
+      "alias": "format_modifier",
+      "owner": "StorageType",
+      "domain_of": [
+        "StorageType"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "classificationSystem__name",
+      "description": "Name of the classification (e.g., ISO-3166-1, ICD-10).",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slot_uri": "https://w3id.org/dartfx/semanticdt/name",
+      "alias": "name",
+      "owner": "ClassificationSystem",
+      "domain_of": [
+        "ClassificationSystem"
+      ],
+      "range": "string",
+      "required": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "classificationSystem__uri",
+      "description": "URI to the standard classification.",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slot_uri": "https://w3id.org/dartfx/semanticdt/uri",
+      "alias": "uri",
+      "owner": "ClassificationSystem",
+      "domain_of": [
+        "ClassificationSystem"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "classificationSystem__version",
+      "description": "Version of the classification scheme.",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slot_uri": "https://w3id.org/dartfx/semanticdt/version",
+      "alias": "version",
+      "owner": "ClassificationSystem",
+      "domain_of": [
+        "ClassificationSystem"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "validationRule__rule_type",
+      "description": "Type of validation (e.g., regex, checksum, range).",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slot_uri": "https://w3id.org/dartfx/semanticdt/rule_type",
+      "alias": "rule_type",
+      "owner": "ValidationRule",
+      "domain_of": [
+        "ValidationRule"
+      ],
+      "range": "string",
+      "required": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "validationRule__pattern",
+      "description": "Regular expression pattern for validation.",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slot_uri": "https://w3id.org/dartfx/semanticdt/pattern",
+      "alias": "pattern",
+      "owner": "ValidationRule",
+      "domain_of": [
+        "ValidationRule"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "validationRule__algorithm",
+      "description": "Algorithmic checker name (e.g., luhn, modulo-11, isbn13).",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slot_uri": "https://w3id.org/dartfx/semanticdt/algorithm",
+      "alias": "algorithm",
+      "owner": "ValidationRule",
+      "domain_of": [
+        "ValidationRule"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "validationRule__message",
+      "description": "Error message when validation fails.",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slot_uri": "https://w3id.org/dartfx/semanticdt/message",
+      "alias": "message",
+      "owner": "ValidationRule",
+      "domain_of": [
+        "ValidationRule"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "validationRule__code_snippets",
+      "description": "Environment-specific code snippets or expressions implementing the validation logic.",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slot_uri": "https://w3id.org/dartfx/semanticdt/code_snippets",
+      "alias": "code_snippets",
+      "owner": "ValidationRule",
+      "domain_of": [
+        "ValidationRule"
+      ],
+      "range": "CodeSnippet",
+      "multivalued": true,
+      "inlined": true,
+      "inlined_as_list": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "codeSnippet__code",
+      "description": "The actual code snippet or expression (e.g., Python function/lambda, SQL expression).",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slot_uri": "https://w3id.org/dartfx/semanticdt/code",
+      "alias": "code",
+      "owner": "CodeSnippet",
+      "domain_of": [
+        "CodeSnippet"
+      ],
+      "range": "string",
+      "required": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "generationRule__generator_type",
+      "description": "Type of generator (e.g., regex_fuzzer, template, faker_provider, custom).",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slot_uri": "https://w3id.org/dartfx/semanticdt/generator_type",
+      "alias": "generator_type",
+      "owner": "GenerationRule",
+      "domain_of": [
+        "GenerationRule"
+      ],
+      "range": "string",
+      "required": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "generationRule__template",
+      "description": "Seed template or expression.",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slot_uri": "https://w3id.org/dartfx/semanticdt/template",
+      "alias": "template",
+      "owner": "GenerationRule",
+      "domain_of": [
+        "GenerationRule"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "generationRule__code_snippets",
+      "description": "Environment-specific code snippets or expressions implementing the generator logic.",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slot_uri": "https://w3id.org/dartfx/semanticdt/code_snippets",
+      "alias": "code_snippets",
+      "owner": "GenerationRule",
+      "domain_of": [
+        "GenerationRule"
+      ],
+      "range": "CodeSnippet",
+      "multivalued": true,
+      "inlined": true,
+      "inlined_as_list": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "agentInstruction__guidelines",
+      "description": "Text instructions for agents.",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slot_uri": "https://w3id.org/dartfx/semanticdt/guidelines",
+      "alias": "guidelines",
+      "owner": "AgentInstruction",
+      "domain_of": [
+        "AgentInstruction"
+      ],
+      "range": "string",
+      "required": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "agentInstruction__system_prompt_snippet",
+      "description": "System prompt instructions for configuring agents with this data type.",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slot_uri": "https://w3id.org/dartfx/semanticdt/system_prompt_snippet",
+      "alias": "system_prompt_snippet",
+      "owner": "AgentInstruction",
+      "domain_of": [
+        "AgentInstruction"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "agentSkill__tool_name",
+      "description": "Name of the tool or function.",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slot_uri": "https://w3id.org/dartfx/semanticdt/tool_name",
+      "alias": "tool_name",
+      "owner": "AgentSkill",
+      "domain_of": [
+        "AgentSkill"
+      ],
+      "range": "string",
+      "required": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "agentSkill__description",
+      "description": "What this skill does.",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slot_uri": "https://w3id.org/dartfx/semanticdt/description",
+      "alias": "description",
+      "owner": "AgentSkill",
+      "domain_of": [
+        "AgentSkill"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "agentSkill__api_definition",
+      "description": "API endpoint or function signature.",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slot_uri": "https://w3id.org/dartfx/semanticdt/api_definition",
+      "alias": "api_definition",
+      "owner": "AgentSkill",
+      "domain_of": [
+        "AgentSkill"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "scopeContext__geospatial_coverage",
+      "description": "Geospatial region or country coverage details.",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slot_uri": "https://w3id.org/dartfx/semanticdt/geospatial_coverage",
+      "alias": "geospatial_coverage",
+      "owner": "ScopeContext",
+      "domain_of": [
+        "ScopeContext"
+      ],
+      "range": "GeospatialCoverage",
+      "inlined": true,
+      "inlined_as_list": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "scopeContext__temporal_coverage",
+      "description": "Temporal coverage details.",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slot_uri": "https://w3id.org/dartfx/semanticdt/temporal_coverage",
+      "alias": "temporal_coverage",
+      "owner": "ScopeContext",
+      "domain_of": [
+        "ScopeContext"
+      ],
+      "range": "TemporalCoverage",
+      "inlined": true,
+      "inlined_as_list": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "scopeContext__domain",
+      "description": "Specific field or subject domain (e.g., Healthcare, Finance).",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slot_uri": "https://w3id.org/dartfx/semanticdt/domain",
+      "alias": "domain",
+      "owner": "ScopeContext",
+      "domain_of": [
+        "ScopeContext"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "scopeContext__governing_institution",
+      "description": "Governing body (e.g., ISO, W3C, IRS).",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slot_uri": "https://w3id.org/dartfx/semanticdt/governing_institution",
+      "alias": "governing_institution",
+      "owner": "ScopeContext",
+      "domain_of": [
+        "ScopeContext"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "geospatialCoverage__description",
+      "description": "Human-readable description of the geospatial coverage (e.g., United States, Canada, Global).",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slot_uri": "https://w3id.org/dartfx/semanticdt/description",
+      "alias": "description",
+      "owner": "GeospatialCoverage",
+      "domain_of": [
+        "GeospatialCoverage"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "geospatialCoverage__codes",
+      "description": "A list of formal codes or URIs (e.g., ISO country/subdivision codes, GeoNames URIs, Wikidata URIs).",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slot_uri": "https://w3id.org/dartfx/semanticdt/codes",
+      "alias": "codes",
+      "owner": "GeospatialCoverage",
+      "domain_of": [
+        "GeospatialCoverage"
+      ],
+      "range": "string",
+      "multivalued": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "temporalCoverage__description",
+      "description": "Human-readable description of the temporal coverage (e.g., '21st Century', '2020 Census').",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slot_uri": "https://w3id.org/dartfx/semanticdt/description",
+      "alias": "description",
+      "owner": "TemporalCoverage",
+      "domain_of": [
+        "TemporalCoverage"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "temporalCoverage__start_date",
+      "description": "Start date of the coverage formatted strictly according to ISO 8601 (YYYY-MM-DD).",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "is_a": "iso_date",
+      "slot_uri": "https://w3id.org/dartfx/semanticdt/start_date",
+      "alias": "start_date",
+      "owner": "TemporalCoverage",
+      "domain_of": [
+        "TemporalCoverage"
+      ],
+      "range": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "temporalCoverage__end_date",
+      "description": "End date of the coverage formatted strictly according to ISO 8601 (YYYY-MM-DD).",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "is_a": "iso_date",
+      "slot_uri": "https://w3id.org/dartfx/semanticdt/end_date",
+      "alias": "end_date",
+      "owner": "TemporalCoverage",
+      "domain_of": [
+        "TemporalCoverage"
+      ],
+      "range": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "temporalCoverage__iso_period",
+      "description": "ISO 8601 time interval or period representation (e.g., '2020-01-01/2020-12-31', 'P1Y').",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slot_uri": "https://w3id.org/dartfx/semanticdt/iso_period",
+      "alias": "iso_period",
+      "owner": "TemporalCoverage",
+      "domain_of": [
+        "TemporalCoverage"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "displayFormat__input_mask",
+      "description": "Mask for input forms (e.g., 999-99-9999).",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slot_uri": "https://w3id.org/dartfx/semanticdt/input_mask",
+      "alias": "input_mask",
+      "owner": "DisplayFormat",
+      "domain_of": [
+        "DisplayFormat"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "displayFormat__display_template",
+      "description": "Output representation template.",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slot_uri": "https://w3id.org/dartfx/semanticdt/display_template",
+      "alias": "display_template",
+      "owner": "DisplayFormat",
+      "domain_of": [
+        "DisplayFormat"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "displayFormat__formatting_regex",
+      "description": "Regex used to transform raw data to formatted data.",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slot_uri": "https://w3id.org/dartfx/semanticdt/formatting_regex",
+      "alias": "formatting_regex",
+      "owner": "DisplayFormat",
+      "domain_of": [
+        "DisplayFormat"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "example__value",
+      "description": "Example value representation.",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slot_uri": "https://w3id.org/dartfx/semanticdt/value",
+      "alias": "value",
+      "owner": "Example",
+      "domain_of": [
+        "Example"
+      ],
+      "range": "string",
+      "required": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "example__is_valid",
+      "description": "Indication of whether the example value is valid under the SDT.",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slot_uri": "https://w3id.org/dartfx/semanticdt/is_valid",
+      "alias": "is_valid",
+      "owner": "Example",
+      "domain_of": [
+        "Example"
+      ],
+      "range": "boolean",
+      "required": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "example__description",
+      "description": "Description of the specific test case this example represents.",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slot_uri": "https://w3id.org/dartfx/semanticdt/description",
+      "alias": "description",
+      "owner": "Example",
+      "domain_of": [
+        "Example"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    }
+  ],
+  "classes": [
+    {
+      "name": "SemanticDataType",
+      "definition_uri": "https://w3id.org/dartfx/semanticdt/SemanticDataType",
+      "description": "A high-level data type associated with a distinct concept, validation/generation rules, and metadata.",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slots": [
+        "semanticDataType__id",
+        "semanticDataType__name",
+        "semanticDataType__description",
+        "semanticDataType__version",
+        "semanticDataType__concepts",
+        "semanticDataType__storage_types",
+        "semanticDataType__classification",
+        "semanticDataType__validation_rules",
+        "semanticDataType__generation_rules",
+        "semanticDataType__agent_instructions",
+        "semanticDataType__agent_skills",
+        "semanticDataType__scope",
+        "semanticDataType__display_format",
+        "semanticDataType__examples"
+      ],
+      "slot_usage": {},
+      "attributes": [
+        {
+          "name": "id",
+          "description": "Unique identifier/URI for the Semantic Data Type.",
+          "identifier": true,
+          "required": true,
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "name",
+          "description": "Human-readable name of the Semantic Data Type.",
+          "required": true,
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "description",
+          "description": "A human-readable description of the Semantic Data Type.",
+          "required": true,
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "version",
+          "description": "The version of the Semantic Data Type instance definition (e.g., 1.0.0).",
+          "required": true,
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "concepts",
+          "description": "A list of conceptual ontology alignments or mapping references representing this data type in external systems (e.g., SKOS concepts, Wikidata items, or vocabularies like DDI-CDI and schema.org). This should list multiple representations of the same underlying semantic concept, not distinct concepts.",
+          "range": "ConceptReference",
+          "multivalued": true,
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "storage_types",
+          "description": "Mappings to physical storage types across different environments. A mapping for the 'generic' environment is required to define the platform-independent base type.",
+          "range": "StorageType",
+          "multivalued": true,
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "classification",
+          "description": "Code lists or classification schemes that categorize this variable.",
+          "range": "ClassificationSystem",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "validation_rules",
+          "description": "Rules to validate physical representations of the data type.",
+          "range": "ValidationRule",
+          "multivalued": true,
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "generation_rules",
+          "description": "Templates or directives for generating synthetic valid data.",
+          "range": "GenerationRule",
+          "multivalued": true,
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "agent_instructions",
+          "description": "Specific guidelines and instructions for AI agents handling this data type.",
+          "range": "AgentInstruction",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "agent_skills",
+          "description": "Tools, functions, or prompts associated with this data type.",
+          "range": "AgentSkill",
+          "multivalued": true,
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "scope",
+          "description": "Contextual scope of the data type (temporal, geographic, etc.).",
+          "range": "ScopeContext",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "display_format",
+          "description": "Formatting rules for displaying values of this type.",
+          "range": "DisplayFormat",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "examples",
+          "description": "Curated valid and invalid examples for documentation and testing.",
+          "range": "Example",
+          "multivalued": true,
+          "@type": "SlotDefinition"
+        }
+      ],
+      "class_uri": "https://w3id.org/dartfx/semanticdt/SemanticDataType",
+      "@type": "ClassDefinition"
+    },
+    {
+      "name": "ConceptReference",
+      "definition_uri": "https://w3id.org/dartfx/semanticdt/ConceptReference",
+      "description": "Reference to a concept in an external ontology or vocabulary.",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slots": [
+        "conceptReference__uri",
+        "conceptReference__vocabulary",
+        "conceptReference__pref_label",
+        "conceptReference__match_type"
+      ],
+      "slot_usage": {},
+      "attributes": [
+        {
+          "name": "uri",
+          "description": "URI of the concept (e.g., SKOS URI).",
+          "required": true,
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "vocabulary",
+          "description": "Name of the vocabulary or ontology (e.g., SKOS, DDI-CDI, Wikidata, LCSH).",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "pref_label",
+          "description": "Preferred label of the concept in the ontology.",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "match_type",
+          "description": "Relationship to the concept (e.g., exactMatch, closeMatch, broadMatch, narrowMatch).",
+          "ifabsent": "string(exactMatch)",
+          "@type": "SlotDefinition"
+        }
+      ],
+      "class_uri": "https://w3id.org/dartfx/semanticdt/ConceptReference",
+      "@type": "ClassDefinition"
+    },
+    {
+      "name": "StorageType",
+      "definition_uri": "https://w3id.org/dartfx/semanticdt/StorageType",
+      "description": "Physical or logical storage data type binding.",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slots": [
+        "target_environment",
+        "storageType__data_type",
+        "storageType__format_modifier"
+      ],
+      "slot_usage": {},
+      "attributes": [
+        {
+          "name": "data_type",
+          "description": "Data type identifier in the target environment (e.g., string, varchar, integer, str).",
+          "required": true,
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "format_modifier",
+          "description": "Optional modifiers (e.g., length, precision).",
+          "@type": "SlotDefinition"
+        }
+      ],
+      "class_uri": "https://w3id.org/dartfx/semanticdt/StorageType",
+      "@type": "ClassDefinition"
+    },
+    {
+      "name": "ClassificationSystem",
+      "definition_uri": "https://w3id.org/dartfx/semanticdt/ClassificationSystem",
+      "description": "Controlled vocabulary or coding scheme (making this a categorical variable).",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slots": [
+        "classificationSystem__name",
+        "classificationSystem__uri",
+        "classificationSystem__version"
+      ],
+      "slot_usage": {},
+      "attributes": [
+        {
+          "name": "name",
+          "description": "Name of the classification (e.g., ISO-3166-1, ICD-10).",
+          "required": true,
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "uri",
+          "description": "URI to the standard classification.",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "version",
+          "description": "Version of the classification scheme.",
+          "@type": "SlotDefinition"
+        }
+      ],
+      "class_uri": "https://w3id.org/dartfx/semanticdt/ClassificationSystem",
+      "@type": "ClassDefinition"
+    },
+    {
+      "name": "ValidationRule",
+      "definition_uri": "https://w3id.org/dartfx/semanticdt/ValidationRule",
+      "description": "A rule defining syntactical or logical validation of values.",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slots": [
+        "validationRule__rule_type",
+        "validationRule__pattern",
+        "validationRule__algorithm",
+        "validationRule__message",
+        "validationRule__code_snippets"
+      ],
+      "slot_usage": {},
+      "attributes": [
+        {
+          "name": "rule_type",
+          "description": "Type of validation (e.g., regex, checksum, range).",
+          "required": true,
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "pattern",
+          "description": "Regular expression pattern for validation.",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "algorithm",
+          "description": "Algorithmic checker name (e.g., luhn, modulo-11, isbn13).",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "message",
+          "description": "Error message when validation fails.",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "code_snippets",
+          "description": "Environment-specific code snippets or expressions implementing the validation logic.",
+          "range": "CodeSnippet",
+          "multivalued": true,
+          "@type": "SlotDefinition"
+        }
+      ],
+      "class_uri": "https://w3id.org/dartfx/semanticdt/ValidationRule",
+      "@type": "ClassDefinition"
+    },
+    {
+      "name": "CodeSnippet",
+      "definition_uri": "https://w3id.org/dartfx/semanticdt/CodeSnippet",
+      "description": "A concrete piece of code or expression implementing logic (e.g., validation, generation) in a specific environment.",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slots": [
+        "target_environment",
+        "codeSnippet__code"
+      ],
+      "slot_usage": {},
+      "attributes": [
+        {
+          "name": "code",
+          "description": "The actual code snippet or expression (e.g., Python function/lambda, SQL expression).",
+          "required": true,
+          "@type": "SlotDefinition"
+        }
+      ],
+      "class_uri": "https://w3id.org/dartfx/semanticdt/CodeSnippet",
+      "@type": "ClassDefinition"
+    },
+    {
+      "name": "GenerationRule",
+      "definition_uri": "https://w3id.org/dartfx/semanticdt/GenerationRule",
+      "description": "Directive for synthetic data generation.",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slots": [
+        "generationRule__generator_type",
+        "generationRule__template",
+        "generationRule__code_snippets"
+      ],
+      "slot_usage": {},
+      "attributes": [
+        {
+          "name": "generator_type",
+          "description": "Type of generator (e.g., regex_fuzzer, template, faker_provider, custom).",
+          "required": true,
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "template",
+          "description": "Seed template or expression.",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "code_snippets",
+          "description": "Environment-specific code snippets or expressions implementing the generator logic.",
+          "range": "CodeSnippet",
+          "multivalued": true,
+          "@type": "SlotDefinition"
+        }
+      ],
+      "class_uri": "https://w3id.org/dartfx/semanticdt/GenerationRule",
+      "@type": "ClassDefinition"
+    },
+    {
+      "name": "AgentInstruction",
+      "definition_uri": "https://w3id.org/dartfx/semanticdt/AgentInstruction",
+      "description": "Machine and agentic parsing, transformation, or reasoning guidelines.",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slots": [
+        "agentInstruction__guidelines",
+        "agentInstruction__system_prompt_snippet"
+      ],
+      "slot_usage": {},
+      "attributes": [
+        {
+          "name": "guidelines",
+          "description": "Text instructions for agents.",
+          "required": true,
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "system_prompt_snippet",
+          "description": "System prompt instructions for configuring agents with this data type.",
+          "@type": "SlotDefinition"
+        }
+      ],
+      "class_uri": "https://w3id.org/dartfx/semanticdt/AgentInstruction",
+      "@type": "ClassDefinition"
+    },
+    {
+      "name": "AgentSkill",
+      "definition_uri": "https://w3id.org/dartfx/semanticdt/AgentSkill",
+      "description": "Executable tools, functions, or workflows related to the semantic type.",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slots": [
+        "agentSkill__tool_name",
+        "agentSkill__description",
+        "agentSkill__api_definition"
+      ],
+      "slot_usage": {},
+      "attributes": [
+        {
+          "name": "tool_name",
+          "description": "Name of the tool or function.",
+          "required": true,
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "description",
+          "description": "What this skill does.",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "api_definition",
+          "description": "API endpoint or function signature.",
+          "@type": "SlotDefinition"
+        }
+      ],
+      "class_uri": "https://w3id.org/dartfx/semanticdt/AgentSkill",
+      "@type": "ClassDefinition"
+    },
+    {
+      "name": "ScopeContext",
+      "definition_uri": "https://w3id.org/dartfx/semanticdt/ScopeContext",
+      "description": "Contextual boundaries of the data type.",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slots": [
+        "scopeContext__geospatial_coverage",
+        "scopeContext__temporal_coverage",
+        "scopeContext__domain",
+        "scopeContext__governing_institution"
+      ],
+      "slot_usage": {},
+      "attributes": [
+        {
+          "name": "geospatial_coverage",
+          "description": "Geospatial region or country coverage details.",
+          "range": "GeospatialCoverage",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "temporal_coverage",
+          "description": "Temporal coverage details.",
+          "range": "TemporalCoverage",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "domain",
+          "description": "Specific field or subject domain (e.g., Healthcare, Finance).",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "governing_institution",
+          "description": "Governing body (e.g., ISO, W3C, IRS).",
+          "@type": "SlotDefinition"
+        }
+      ],
+      "class_uri": "https://w3id.org/dartfx/semanticdt/ScopeContext",
+      "@type": "ClassDefinition"
+    },
+    {
+      "name": "GeospatialCoverage",
+      "definition_uri": "https://w3id.org/dartfx/semanticdt/GeospatialCoverage",
+      "description": "Geospatial coverage boundaries represented by description and/or formal codes or URIs.",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slots": [
+        "geospatialCoverage__description",
+        "geospatialCoverage__codes"
+      ],
+      "slot_usage": {},
+      "attributes": [
+        {
+          "name": "description",
+          "description": "Human-readable description of the geospatial coverage (e.g., United States, Canada, Global).",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "codes",
+          "description": "A list of formal codes or URIs (e.g., ISO country/subdivision codes, GeoNames URIs, Wikidata URIs).",
+          "range": "string",
+          "multivalued": true,
+          "@type": "SlotDefinition"
+        }
+      ],
+      "class_uri": "https://w3id.org/dartfx/semanticdt/GeospatialCoverage",
+      "@type": "ClassDefinition"
+    },
+    {
+      "name": "TemporalCoverage",
+      "definition_uri": "https://w3id.org/dartfx/semanticdt/TemporalCoverage",
+      "description": "Temporal coverage boundaries represented by description, start/end dates, or ISO 8601 periods/durations.",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slots": [
+        "temporalCoverage__description",
+        "temporalCoverage__start_date",
+        "temporalCoverage__end_date",
+        "temporalCoverage__iso_period"
+      ],
+      "slot_usage": {},
+      "attributes": [
+        {
+          "name": "description",
+          "description": "Human-readable description of the temporal coverage (e.g., '21st Century', '2020 Census').",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "start_date",
+          "description": "Start date of the coverage formatted strictly according to ISO 8601 (YYYY-MM-DD).",
+          "is_a": "iso_date",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "end_date",
+          "description": "End date of the coverage formatted strictly according to ISO 8601 (YYYY-MM-DD).",
+          "is_a": "iso_date",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "iso_period",
+          "description": "ISO 8601 time interval or period representation (e.g., '2020-01-01/2020-12-31', 'P1Y').",
+          "range": "string",
+          "@type": "SlotDefinition"
+        }
+      ],
+      "class_uri": "https://w3id.org/dartfx/semanticdt/TemporalCoverage",
+      "@type": "ClassDefinition"
+    },
+    {
+      "name": "DisplayFormat",
+      "definition_uri": "https://w3id.org/dartfx/semanticdt/DisplayFormat",
+      "description": "Guidelines for displaying and masking data.",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slots": [
+        "displayFormat__input_mask",
+        "displayFormat__display_template",
+        "displayFormat__formatting_regex"
+      ],
+      "slot_usage": {},
+      "attributes": [
+        {
+          "name": "input_mask",
+          "description": "Mask for input forms (e.g., 999-99-9999).",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "display_template",
+          "description": "Output representation template.",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "formatting_regex",
+          "description": "Regex used to transform raw data to formatted data.",
+          "@type": "SlotDefinition"
+        }
+      ],
+      "class_uri": "https://w3id.org/dartfx/semanticdt/DisplayFormat",
+      "@type": "ClassDefinition"
+    },
+    {
+      "name": "Example",
+      "definition_uri": "https://w3id.org/dartfx/semanticdt/Example",
+      "description": "Concrete instance of values.",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slots": [
+        "example__value",
+        "example__is_valid",
+        "example__description"
+      ],
+      "slot_usage": {},
+      "attributes": [
+        {
+          "name": "value",
+          "description": "Example value representation.",
+          "required": true,
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "is_valid",
+          "description": "Indication of whether the example value is valid under the SDT.",
+          "range": "boolean",
+          "required": true,
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "description",
+          "description": "Description of the specific test case this example represents.",
+          "@type": "SlotDefinition"
+        }
+      ],
+      "class_uri": "https://w3id.org/dartfx/semanticdt/Example",
+      "@type": "ClassDefinition"
+    }
+  ],
+  "metamodel_version": "1.11.0",
+  "source_file": "sdt.yaml",
+  "source_file_date": "2026-06-09T13:43:27",
+  "source_file_size": 11421,
+  "generation_date": "2026-06-09T14:42:25",
+  "@type": "SchemaDefinition",
+  "@context": [
+    "https://w3id.org/linkml/meta.context.jsonld",
+    {
+      "xsd": "http://www.w3.org/2001/XMLSchema#",
+      "linkml": "https://w3id.org/linkml/",
+      "sdt": "https://w3id.org/dartfx/semanticdt/",
+      "skos": "http://www.w3.org/2004/02/skos/core#"
+    },
+    "https://w3id.org/linkml/types.context.jsonld",
+    {
+      "@base": "https://w3id.org/dartfx/semanticdt/"
+    }
+  ]
+}
