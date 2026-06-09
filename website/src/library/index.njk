@@ -54,7 +54,7 @@ description: Browse and search the curated registry of Semantic Data Types, filt
       </div>
 
       <h3 class="card-title">
-        <a href="/library/{{ sdt.meta.slug }}/" style="color: inherit;">{{ sdt.name }}</a>
+        <a href="{{ ('/library/' + sdt.meta.slug + '/') | url }}" style="color: inherit;">{{ sdt.name }}</a>
       </h3>
 
       <p class="card-description">
@@ -72,8 +72,8 @@ description: Browse and search the curated registry of Semantic Data Types, filt
           {{ sdt.meta.key }}
         </code>
         <div style="display: flex; gap: 0.75rem; align-items: center;">
-          <a href="/definitions/{{ sdt.meta.relativePath }}" target="_blank" download style="font-size: 0.8rem; color: var(--text-muted); font-weight: 500;">YAML</a>
-          <a href="/library/{{ sdt.meta.slug }}/" style="font-weight: 600; font-size: 0.8rem;">Details &rarr;</a>
+          <a href="{{ ('/definitions/' + sdt.meta.relativePath) | url }}" target="_blank" download style="font-size: 0.8rem; color: var(--text-muted); font-weight: 500;">YAML</a>
+          <a href="{{ ('/library/' + sdt.meta.slug + '/') | url }}" style="font-weight: 600; font-size: 0.8rem;">Details &rarr;</a>
         </div>
       </div>
     </div>
