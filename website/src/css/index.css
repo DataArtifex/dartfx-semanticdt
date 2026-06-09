@@ -825,3 +825,33 @@ footer {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+/* Compact View for Library Browser */
+.grid.compact-view {
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+.grid.compact-view .card {
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.grid.compact-view .card-title {
+  font-size: 1.1rem;
+  margin-bottom: 0.25rem;
+}
+
+.grid.compact-view .card-description {
+  display: none;
+}
+
+.grid.compact-view .card-envs {
+  display: none;
+}
+
+.grid.compact-view .card-footer {
+  border-top: none;
+  padding-top: 0.25rem;
+  margin-top: auto;
+}

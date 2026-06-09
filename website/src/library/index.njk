@@ -12,20 +12,37 @@ description: Browse and search the curated registry of Semantic Data Types, filt
 </div>
 
 <!-- Search & Filtering Bar -->
-<div class="search-filter-bar">
-  <div class="search-input-wrapper">
+<div class="search-filter-bar" style="display: flex; flex-direction: column; gap: 1rem;">
+  <div class="search-input-wrapper" style="width: 100%;">
     <input type="text" id="search-input" class="search-input" placeholder="Search SDT by name, description, identifier...">
   </div>
-  <div class="filter-select-wrapper">
-    <!-- Category Filter -->
-    <select id="category-filter" class="filter-select">
-      <option value="">All Categories</option>
-      <option value="global">Global</option>
-      <option value="us">United States (us)</option>
-      <option value="us-identifiers">US Identifiers</option>
-      <option value="ca">Canada (ca)</option>
-    </select>
+  <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; width: 100%;">
+    <div class="filter-select-wrapper" style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+      <!-- Category Filter -->
+      <select id="category-filter" class="filter-select">
+        <option value="">All Categories</option>
+        <option value="global">Global</option>
+        <option value="us">United States (us)</option>
+        <option value="ca">Canada (ca)</option>
+      </select>
 
+      <!-- Page Size Filter -->
+      <select id="pagesize-select" class="filter-select">
+        <option value="6">6 per page</option>
+        <option value="12">12 per page</option>
+        <option value="24">24 per page</option>
+      </select>
+    </div>
+
+    <!-- View Toggle -->
+    <div style="display: flex; gap: 0.25rem; align-items: center; background: rgba(255,255,255,0.03); padding: 0.25rem; border-radius: 8px; border: 1px solid var(--border-color);">
+      <button id="view-detailed-btn" class="btn" style="padding: 0.35rem 0.75rem; font-size: 0.8rem; border: none; border-radius: 6px; box-shadow: none; cursor: pointer; transition: all var(--transition-fast);" onclick="setViewMode('detailed')">
+        Detailed
+      </button>
+      <button id="view-compact-btn" class="btn" style="padding: 0.35rem 0.75rem; font-size: 0.8rem; border: none; border-radius: 6px; box-shadow: none; cursor: pointer; transition: all var(--transition-fast);" onclick="setViewMode('compact')">
+        Compact
+      </button>
+    </div>
   </div>
 </div>
 
@@ -61,7 +78,7 @@ description: Browse and search the curated registry of Semantic Data Types, filt
         {{ sdt.description | truncate(110) }}
       </p>
 
-      <div style="display: flex; gap: 0.25rem; flex-wrap: wrap; margin-bottom: 1rem; flex-grow: 1; align-content: flex-end;">
+      <div class="card-envs" style="display: flex; gap: 0.25rem; flex-wrap: wrap; margin-bottom: 1rem; flex-grow: 1; align-content: flex-end;">
         {% for env in envs %}
           <span class="badge badge-cyan" style="font-size: 0.65rem; padding: 0.05rem 0.35rem;">{{ env }}</span>
         {% endfor %}
@@ -96,18 +113,85 @@ description: Browse and search the curated registry of Semantic Data Types, filt
   document.addEventListener("DOMContentLoaded", () => {
     const searchInput = document.getElementById("search-input");
     const categoryFilter = document.getElementById("category-filter");
+    const pagesizeSelect = document.getElementById("pagesize-select");
     const cards = document.querySelectorAll(".sdt-card");
     const resultsCount = document.getElementById("results-count");
     const emptyState = document.getElementById("empty-state");
     const grid = document.getElementById("sdt-grid");
     const paginationControls = document.getElementById("pagination-controls");
 
-    const PAGE_SIZE = 6; // Configured to 6 to demonstrate pagination controls with the 8 default items. Can be scaled as needed.
+    const detailedBtn = document.getElementById("view-detailed-btn");
+    const compactBtn = document.getElementById("view-compact-btn");
+
     let currentPage = 1;
+
+    function updatePageSizeOptions(mode) {
+      const selectedIndex = pagesizeSelect.selectedIndex;
+
+      if (mode === "compact") {
+        pagesizeSelect.innerHTML = `
+          <option value="12">12 per page</option>
+          <option value="24">24 per page</option>
+          <option value="48">48 per page</option>
+        `;
+      } else {
+        pagesizeSelect.innerHTML = `
+          <option value="6">6 per page</option>
+          <option value="12">12 per page</option>
+          <option value="24">24 per page</option>
+        `;
+      }
+
+      // Restore selected index if valid
+      if (selectedIndex >= 0 && selectedIndex < pagesizeSelect.options.length) {
+        pagesizeSelect.selectedIndex = selectedIndex;
+      }
+    }
+
+    // View Mode Handler
+    window.setViewMode = function(mode) {
+      if (mode === "compact") {
+        grid.classList.add("compact-view");
+
+        compactBtn.className = "btn btn-primary";
+        compactBtn.style.color = "white";
+        detailedBtn.className = "btn";
+        detailedBtn.style.color = "var(--text-muted)";
+        detailedBtn.style.background = "none";
+      } else {
+        grid.classList.remove("compact-view");
+
+        detailedBtn.className = "btn btn-primary";
+        detailedBtn.style.color = "white";
+        compactBtn.className = "btn";
+        compactBtn.style.color = "var(--text-muted)";
+        compactBtn.style.background = "none";
+      }
+
+      localStorage.setItem("sdt-view-mode", mode);
+
+      // Update page sizes
+      updatePageSizeOptions(mode);
+
+      // Re-run filtering and pagination
+      if (typeof filterCards === "function") {
+        filterCards();
+      }
+    };
+
+    // Load persisted view mode
+    const savedViewMode = localStorage.getItem("sdt-view-mode") || "detailed";
+    setViewMode(savedViewMode);
+
+    function getPageSize() {
+      const val = pagesizeSelect.value;
+      return parseInt(val, 10) || 6;
+    }
 
     function filterCards() {
       const query = searchInput.value.toLowerCase().trim();
       const selectedCat = categoryFilter.value;
+      const pageSize = getPageSize();
 
       let matchingCards = [];
 
@@ -118,8 +202,6 @@ description: Browse and search the curated registry of Semantic Data Types, filt
         const cat = card.getAttribute("data-category");
 
         const matchesQuery = !query || name.includes(query) || desc.includes(query) || id.includes(query);
-
-        // Match category hierarchy (e.g., "us" filter matches "us" and "us/identifiers")
         const matchesCat = !selectedCat || cat === selectedCat || cat.startsWith(selectedCat + "/");
 
         if (matchesQuery && matchesCat) {
@@ -130,15 +212,13 @@ description: Browse and search the curated registry of Semantic Data Types, filt
       });
 
       const totalItems = matchingCards.length;
-      const totalPages = Math.ceil(totalItems / PAGE_SIZE) || 1;
+      const totalPages = Math.ceil(totalItems / pageSize) || 1;
 
-      // Adjust page if current is out of range
       if (currentPage > totalPages) currentPage = totalPages;
       if (currentPage < 1) currentPage = 1;
 
-      // Show elements of current page
-      const startIndex = (currentPage - 1) * PAGE_SIZE;
-      const endIndex = startIndex + PAGE_SIZE;
+      const startIndex = (currentPage - 1) * pageSize;
+      const endIndex = startIndex + pageSize;
 
       matchingCards.forEach((card, index) => {
         if (index >= startIndex && index < endIndex) {
@@ -148,17 +228,14 @@ description: Browse and search the curated registry of Semantic Data Types, filt
         }
       });
 
-      // Update count text
       if (totalItems === cards.length) {
         resultsCount.innerText = `Showing all ${totalItems} semantic data types.`;
       } else {
         resultsCount.innerText = `Found ${totalItems} matching semantic data types.`;
       }
 
-      // Render Pagination Buttons
       renderPagination(totalPages);
 
-      // Toggle Empty State & Pagination visibility
       if (totalItems === 0) {
         grid.style.display = "none";
         emptyState.style.display = "block";
@@ -174,7 +251,6 @@ description: Browse and search the curated registry of Semantic Data Types, filt
       paginationControls.innerHTML = "";
       if (totalPages <= 1) return;
 
-      // Prev Button
       const prevBtn = document.createElement("button");
       prevBtn.className = "btn btn-secondary";
       prevBtn.style.padding = "0.4rem 0.8rem";
@@ -190,7 +266,6 @@ description: Browse and search the curated registry of Semantic Data Types, filt
       };
       paginationControls.appendChild(prevBtn);
 
-      // Page numbers
       for (let i = 1; i <= totalPages; i++) {
         const pageBtn = document.createElement("button");
         pageBtn.className = "btn";
@@ -212,7 +287,6 @@ description: Browse and search the curated registry of Semantic Data Types, filt
         paginationControls.appendChild(pageBtn);
       }
 
-      // Next Button
       const nextBtn = document.createElement("button");
       nextBtn.className = "btn btn-secondary";
       nextBtn.style.padding = "0.4rem 0.8rem";
@@ -229,17 +303,15 @@ description: Browse and search the curated registry of Semantic Data Types, filt
       paginationControls.appendChild(nextBtn);
     }
 
-    // Reset page on filter changes
     function onFilterChange() {
       currentPage = 1;
       filterCards();
     }
 
-    // Bind event listeners
     searchInput.addEventListener("input", onFilterChange);
     categoryFilter.addEventListener("change", onFilterChange);
+    pagesizeSelect.addEventListener("change", onFilterChange);
 
-    // Initial render
     filterCards();
   });
 </script>
