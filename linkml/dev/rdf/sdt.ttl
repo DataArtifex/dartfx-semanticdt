@@ -11,12 +11,12 @@
     pav:version "0.1.0-dev" ;
     sh:declare [ sh:namespace "https://w3id.org/dartfx/semanticdt/"^^xsd:anyURI ;
             sh:prefix "sdt" ],
+        [ sh:namespace "http://www.w3.org/2004/02/skos/core#"^^xsd:anyURI ;
+            sh:prefix "skos" ],
         [ sh:namespace "http://www.w3.org/2001/XMLSchema#"^^xsd:anyURI ;
             sh:prefix "xsd" ],
         [ sh:namespace "https://w3id.org/linkml/"^^xsd:anyURI ;
-            sh:prefix "linkml" ],
-        [ sh:namespace "http://www.w3.org/2004/02/skos/core#"^^xsd:anyURI ;
-            sh:prefix "skos" ] ;
+            sh:prefix "linkml" ] ;
     linkml:classes <https://w3id.org/dartfx/semanticdt/AgentInstruction>,
         <https://w3id.org/dartfx/semanticdt/AgentSkill>,
         <https://w3id.org/dartfx/semanticdt/ClassificationSystem>,
@@ -34,9 +34,9 @@
         <https://w3id.org/dartfx/semanticdt/ValidationRule> ;
     linkml:default_prefix "sdt" ;
     linkml:default_range <https://w3id.org/dartfx/semanticdt/string> ;
-    linkml:description "A schema defining Semantic Data Types (SDT) situated above physical database or programming types. Encompasses metadata, mappings, validation, generation, and agentic instructions." ;
+    linkml:description "A LinkML schema defining Semantic Data Types (SDTs). An SDT serves as an intelligent bridge between high-level data type concepts and the ways they are commonly represented in files, databases, and programming environments. By formalizing metadata, mappings, validation, generation, and agentic instructions, this model enables both humans and AI agents to develop a deep, actionable understanding of the underlying data." ;
     linkml:enums <https://w3id.org/dartfx/semanticdt/TargetEnvironmentEnum> ;
-    linkml:generation_date "2026-06-09T18:16:48"^^xsd:dateTime ;
+    linkml:generation_date "2026-06-09T19:09:35"^^xsd:dateTime ;
     linkml:id "https://w3id.org/dartfx/semanticdt"^^xsd:anyURI ;
     linkml:imports "linkml:types"^^xsd:anyURI ;
     linkml:metamodel_version "1.11.0" ;
@@ -102,8 +102,8 @@
         <https://w3id.org/dartfx/semanticdt/validationRule__pattern>,
         <https://w3id.org/dartfx/semanticdt/validationRule__rule_type> ;
     linkml:source_file "sdt.yaml" ;
-    linkml:source_file_date "2026-06-09T18:16:32"^^xsd:dateTime ;
-    linkml:source_file_size 12175 ;
+    linkml:source_file_date "2026-06-09T19:09:27"^^xsd:dateTime ;
+    linkml:source_file_size 12418 ;
     linkml:types <https://w3id.org/dartfx/semanticdt/boolean>,
         <https://w3id.org/dartfx/semanticdt/curie>,
         <https://w3id.org/dartfx/semanticdt/date>,

@@ -8,20 +8,49 @@ sdt:SemanticDataType a sh:NodeShape ;
     rdfs:comment "A high-level data type associated with a distinct concept, validation/generation rules, and metadata." ;
     sh:closed true ;
     sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:datatype xsd:string ;
-            sh:description "The version of the Semantic Data Type instance definition (e.g., 1.0.0)." ;
+    sh:property [ sh:class sdt:ScopeContext ;
+            sh:description "Contextual scope of the data type (temporal, geographic, etc.)." ;
             sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 3 ;
-            sh:path sdt:version ],
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 11 ;
+            sh:path sdt:scope ],
+        [ sh:class sdt:Example ;
+            sh:description "Curated valid and invalid examples for documentation and testing." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 13 ;
+            sh:path sdt:examples ],
         [ sh:datatype xsd:string ;
-            sh:description "A human-readable description of the Semantic Data Type." ;
+            sh:description "Unique identifier/URI for the Semantic Data Type." ;
             sh:maxCount 1 ;
-            sh:minCount 1 ;
             sh:nodeKind sh:Literal ;
-            sh:order 2 ;
-            sh:path sdt:description ],
+            sh:order 0 ;
+            sh:path sdt:id ],
+        [ sh:class sdt:ConceptReference ;
+            sh:description "A list of conceptual ontology alignments or mapping references representing this data type in external systems (e.g., SKOS concepts, Wikidata items, or vocabularies like DDI-CDI and schema.org). This should list multiple representations of the same underlying semantic concept, not distinct concepts." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 4 ;
+            sh:path sdt:concepts ],
+        [ sh:class sdt:ClassificationSystem ;
+            sh:description "Code lists or classification schemes that categorize this variable." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 6 ;
+            sh:path sdt:classification ],
+        [ sh:class sdt:GenerationRule ;
+            sh:description "Templates or directives for generating synthetic valid data." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 8 ;
+            sh:path sdt:generation_rules ],
+        [ sh:class sdt:ValidationRule ;
+            sh:description "Rules to validate physical representations of the data type." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 7 ;
+            sh:path sdt:validation_rules ],
+        [ sh:class sdt:StorageType ;
+            sh:description "Mappings to physical storage types across different environments. A mapping for the 'generic' environment is required to define the platform-independent base type." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 5 ;
+            sh:path sdt:storage_types ],
         [ sh:datatype xsd:string ;
             sh:description "Human-readable name of the Semantic Data Type." ;
             sh:maxCount 1 ;
@@ -29,71 +58,42 @@ sdt:SemanticDataType a sh:NodeShape ;
             sh:nodeKind sh:Literal ;
             sh:order 1 ;
             sh:path sdt:name ],
-        [ sh:class sdt:Resource ;
-            sh:description "External resources and references related to the Semantic Data Type." ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 14 ;
-            sh:path sdt:resources ],
-        [ sh:class sdt:AgentSkill ;
-            sh:description "Tools, functions, or prompts associated with this data type." ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 10 ;
-            sh:path sdt:agent_skills ],
-        [ sh:class sdt:ValidationRule ;
-            sh:description "Rules to validate physical representations of the data type." ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 7 ;
-            sh:path sdt:validation_rules ],
-        [ sh:class sdt:ScopeContext ;
-            sh:description "Contextual scope of the data type (temporal, geographic, etc.)." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 11 ;
-            sh:path sdt:scope ],
-        [ sh:class sdt:DisplayFormat ;
-            sh:description "Formatting rules for displaying values of this type." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 12 ;
-            sh:path sdt:display_format ],
-        [ sh:class sdt:GenerationRule ;
-            sh:description "Templates or directives for generating synthetic valid data." ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 8 ;
-            sh:path sdt:generation_rules ],
-        [ sh:datatype xsd:string ;
-            sh:description "Unique identifier/URI for the Semantic Data Type." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 0 ;
-            sh:path sdt:id ],
         [ sh:class sdt:AgentInstruction ;
             sh:description "Specific guidelines and instructions for AI agents handling this data type." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:BlankNodeOrIRI ;
             sh:order 9 ;
             sh:path sdt:agent_instructions ],
-        [ sh:class sdt:ConceptReference ;
-            sh:description "A list of conceptual ontology alignments or mapping references representing this data type in external systems (e.g., SKOS concepts, Wikidata items, or vocabularies like DDI-CDI and schema.org). This should list multiple representations of the same underlying semantic concept, not distinct concepts." ;
+        [ sh:class sdt:AgentSkill ;
+            sh:description "Tools, functions, or prompts associated with this data type." ;
             sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 4 ;
-            sh:path sdt:concepts ],
-        [ sh:class sdt:Example ;
-            sh:description "Curated valid and invalid examples for documentation and testing." ;
+            sh:order 10 ;
+            sh:path sdt:agent_skills ],
+        [ sh:datatype xsd:string ;
+            sh:description "The version of the Semantic Data Type instance definition (e.g., 1.0.0)." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path sdt:version ],
+        [ sh:class sdt:Resource ;
+            sh:description "External resources and references related to the Semantic Data Type." ;
             sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 13 ;
-            sh:path sdt:examples ],
-        [ sh:class sdt:ClassificationSystem ;
-            sh:description "Code lists or classification schemes that categorize this variable." ;
+            sh:order 14 ;
+            sh:path sdt:resources ],
+        [ sh:class sdt:DisplayFormat ;
+            sh:description "Formatting rules for displaying values of this type." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 6 ;
-            sh:path sdt:classification ],
-        [ sh:class sdt:StorageType ;
-            sh:description "Mappings to physical storage types across different environments. A mapping for the 'generic' environment is required to define the platform-independent base type." ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 5 ;
-            sh:path sdt:storage_types ] ;
+            sh:order 12 ;
+            sh:path sdt:display_format ],
+        [ sh:datatype xsd:string ;
+            sh:description "A human-readable description of the Semantic Data Type." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path sdt:description ] ;
     sh:targetClass sdt:SemanticDataType .
 
 sdt:AgentInstruction a sh:NodeShape ;
@@ -101,18 +101,18 @@ sdt:AgentInstruction a sh:NodeShape ;
     sh:closed true ;
     sh:ignoredProperties ( rdf:type ) ;
     sh:property [ sh:datatype xsd:string ;
-            sh:description "System prompt instructions for configuring agents with this data type." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 1 ;
-            sh:path sdt:system_prompt_snippet ],
-        [ sh:datatype xsd:string ;
             sh:description "Text instructions for agents." ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 0 ;
-            sh:path sdt:guidelines ] ;
+            sh:path sdt:guidelines ],
+        [ sh:datatype xsd:string ;
+            sh:description "System prompt instructions for configuring agents with this data type." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path sdt:system_prompt_snippet ] ;
     sh:targetClass sdt:AgentInstruction .
 
 sdt:AgentSkill a sh:NodeShape ;
@@ -145,6 +145,12 @@ sdt:ClassificationSystem a sh:NodeShape ;
     sh:closed true ;
     sh:ignoredProperties ( rdf:type ) ;
     sh:property [ sh:datatype xsd:string ;
+            sh:description "Version of the classification scheme." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path sdt:version ],
+        [ sh:datatype xsd:string ;
             sh:description "URI to the standard classification." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
@@ -156,13 +162,7 @@ sdt:ClassificationSystem a sh:NodeShape ;
             sh:minCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 0 ;
-            sh:path sdt:name ],
-        [ sh:datatype xsd:string ;
-            sh:description "Version of the classification scheme." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 2 ;
-            sh:path sdt:version ] ;
+            sh:path sdt:name ] ;
     sh:targetClass sdt:ClassificationSystem .
 
 sdt:ConceptReference a sh:NodeShape ;
@@ -183,18 +183,18 @@ sdt:ConceptReference a sh:NodeShape ;
             sh:order 1 ;
             sh:path sdt:vocabulary ],
         [ sh:datatype xsd:string ;
-            sh:description "Preferred label of the concept in the ontology." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 2 ;
-            sh:path sdt:pref_label ],
-        [ sh:datatype xsd:string ;
             sh:description "URI of the concept (e.g., SKOS URI)." ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 0 ;
-            sh:path sdt:uri ] ;
+            sh:path sdt:uri ],
+        [ sh:datatype xsd:string ;
+            sh:description "Preferred label of the concept in the ontology." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path sdt:pref_label ] ;
     sh:targetClass sdt:ConceptReference .
 
 sdt:DisplayFormat a sh:NodeShape ;
@@ -202,11 +202,11 @@ sdt:DisplayFormat a sh:NodeShape ;
     sh:closed true ;
     sh:ignoredProperties ( rdf:type ) ;
     sh:property [ sh:datatype xsd:string ;
-            sh:description "Mask for input forms (e.g., 999-99-9999)." ;
+            sh:description "Regex used to transform raw data to formatted data." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
-            sh:order 0 ;
-            sh:path sdt:input_mask ],
+            sh:order 2 ;
+            sh:path sdt:formatting_regex ],
         [ sh:datatype xsd:string ;
             sh:description "Output representation template." ;
             sh:maxCount 1 ;
@@ -214,23 +214,24 @@ sdt:DisplayFormat a sh:NodeShape ;
             sh:order 1 ;
             sh:path sdt:display_template ],
         [ sh:datatype xsd:string ;
-            sh:description "Regex used to transform raw data to formatted data." ;
+            sh:description "Mask for input forms (e.g., 999-99-9999)." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
-            sh:order 2 ;
-            sh:path sdt:formatting_regex ] ;
+            sh:order 0 ;
+            sh:path sdt:input_mask ] ;
     sh:targetClass sdt:DisplayFormat .
 
 sdt:Example a sh:NodeShape ;
     rdfs:comment "Concrete instance of values." ;
     sh:closed true ;
     sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:datatype xsd:string ;
-            sh:description "Description of the specific test case this example represents." ;
+    sh:property [ sh:datatype xsd:boolean ;
+            sh:description "Indication of whether the example value is valid under the SDT." ;
             sh:maxCount 1 ;
+            sh:minCount 1 ;
             sh:nodeKind sh:Literal ;
-            sh:order 2 ;
-            sh:path sdt:description ],
+            sh:order 1 ;
+            sh:path sdt:is_valid ],
         [ sh:datatype xsd:string ;
             sh:description "Example value representation." ;
             sh:maxCount 1 ;
@@ -238,31 +239,30 @@ sdt:Example a sh:NodeShape ;
             sh:nodeKind sh:Literal ;
             sh:order 0 ;
             sh:path sdt:value ],
-        [ sh:datatype xsd:boolean ;
-            sh:description "Indication of whether the example value is valid under the SDT." ;
+        [ sh:datatype xsd:string ;
+            sh:description "Description of the specific test case this example represents." ;
             sh:maxCount 1 ;
-            sh:minCount 1 ;
             sh:nodeKind sh:Literal ;
-            sh:order 1 ;
-            sh:path sdt:is_valid ] ;
+            sh:order 2 ;
+            sh:path sdt:description ] ;
     sh:targetClass sdt:Example .
 
 sdt:GenerationRule a sh:NodeShape ;
     rdfs:comment "Directive for synthetic data generation." ;
     sh:closed true ;
     sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:class sdt:CodeSnippet ;
-            sh:description "Environment-specific code snippets or expressions implementing the generator logic." ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 2 ;
-            sh:path sdt:code_snippets ],
-        [ sh:datatype xsd:string ;
+    sh:property [ sh:datatype xsd:string ;
             sh:description "Type of generator (e.g., regex_fuzzer, template, faker_provider, custom)." ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 0 ;
             sh:path sdt:generator_type ],
+        [ sh:class sdt:CodeSnippet ;
+            sh:description "Environment-specific code snippets or expressions implementing the generator logic." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 2 ;
+            sh:path sdt:code_snippets ],
         [ sh:datatype xsd:string ;
             sh:description "Seed template or expression." ;
             sh:maxCount 1 ;
@@ -276,16 +276,16 @@ sdt:GeospatialCoverage a sh:NodeShape ;
     sh:closed true ;
     sh:ignoredProperties ( rdf:type ) ;
     sh:property [ sh:datatype xsd:string ;
+            sh:description "A list of formal codes or URIs (e.g., ISO country/subdivision codes, GeoNames URIs, Wikidata URIs)." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path sdt:codes ],
+        [ sh:datatype xsd:string ;
             sh:description "Human-readable description of the geospatial coverage (e.g., United States, Canada, Global)." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 0 ;
-            sh:path sdt:description ],
-        [ sh:datatype xsd:string ;
-            sh:description "A list of formal codes or URIs (e.g., ISO country/subdivision codes, GeoNames URIs, Wikidata URIs)." ;
-            sh:nodeKind sh:Literal ;
-            sh:order 1 ;
-            sh:path sdt:codes ] ;
+            sh:path sdt:description ] ;
     sh:targetClass sdt:GeospatialCoverage .
 
 sdt:Resource a sh:NodeShape ;
@@ -300,18 +300,6 @@ sdt:Resource a sh:NodeShape ;
             sh:order 0 ;
             sh:path sdt:url ],
         [ sh:datatype xsd:string ;
-            sh:description "A brief summary or account of the resource." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 2 ;
-            sh:path sdt:description ],
-        [ sh:datatype xsd:string ;
-            sh:description "Human-readable name of the resource." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 1 ;
-            sh:path sdt:title ],
-        [ sh:datatype xsd:string ;
             sh:description "The entity or publisher responsible for making the resource available." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
@@ -322,7 +310,19 @@ sdt:Resource a sh:NodeShape ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 3 ;
-            sh:path sdt:citation ] ;
+            sh:path sdt:citation ],
+        [ sh:datatype xsd:string ;
+            sh:description "Human-readable name of the resource." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path sdt:title ],
+        [ sh:datatype xsd:string ;
+            sh:description "A brief summary or account of the resource." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path sdt:description ] ;
     sh:targetClass sdt:Resource .
 
 sdt:ScopeContext a sh:NodeShape ;
@@ -330,29 +330,29 @@ sdt:ScopeContext a sh:NodeShape ;
     sh:closed true ;
     sh:ignoredProperties ( rdf:type ) ;
     sh:property [ sh:datatype xsd:string ;
-            sh:description "Specific field or subject domain (e.g., Healthcare, Finance)." ;
+            sh:description "Governing body (e.g., ISO, W3C, IRS)." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
-            sh:order 2 ;
-            sh:path sdt:domain ],
+            sh:order 3 ;
+            sh:path sdt:governing_institution ],
         [ sh:class sdt:GeospatialCoverage ;
             sh:description "Geospatial region or country coverage details." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:BlankNodeOrIRI ;
             sh:order 0 ;
             sh:path sdt:geospatial_coverage ],
-        [ sh:datatype xsd:string ;
-            sh:description "Governing body (e.g., ISO, W3C, IRS)." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 3 ;
-            sh:path sdt:governing_institution ],
         [ sh:class sdt:TemporalCoverage ;
             sh:description "Temporal coverage details." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:BlankNodeOrIRI ;
             sh:order 1 ;
-            sh:path sdt:temporal_coverage ] ;
+            sh:path sdt:temporal_coverage ],
+        [ sh:datatype xsd:string ;
+            sh:description "Specific field or subject domain (e.g., Healthcare, Finance)." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path sdt:domain ] ;
     sh:targetClass sdt:ScopeContext .
 
 sdt:StorageType a sh:NodeShape ;
@@ -360,19 +360,19 @@ sdt:StorageType a sh:NodeShape ;
     sh:closed true ;
     sh:ignoredProperties ( rdf:type ) ;
     sh:property [ sh:datatype xsd:string ;
-            sh:description "Data type identifier in the target environment (e.g., string, varchar, integer, str)." ;
-            sh:maxCount 1 ;
-            sh:minCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 1 ;
-            sh:path sdt:data_type ],
-        [ sh:datatype xsd:string ;
             sh:description "Target platform, framework, database, or language. Prefer using values from the TargetEnvironmentEnum controlled vocabulary where applicable. Custom values not in the enum are permitted since this slot is of type string." ;
             sh:maxCount 1 ;
             sh:minCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 0 ;
             sh:path sdt:target_environment ],
+        [ sh:datatype xsd:string ;
+            sh:description "Data type identifier in the target environment (e.g., string, varchar, integer, str)." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path sdt:data_type ],
         [ sh:datatype xsd:string ;
             sh:description "Optional modifiers (e.g., length, precision)." ;
             sh:maxCount 1 ;
@@ -386,12 +386,6 @@ sdt:TemporalCoverage a sh:NodeShape ;
     sh:closed true ;
     sh:ignoredProperties ( rdf:type ) ;
     sh:property [ sh:datatype xsd:string ;
-            sh:description "ISO 8601 time interval or period representation (e.g., '2020-01-01/2020-12-31', 'P1Y')." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 3 ;
-            sh:path sdt:iso_period ],
-        [ sh:datatype xsd:string ;
             sh:description "Start date of the coverage formatted strictly according to ISO 8601 (YYYY-MM-DD)." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
@@ -399,18 +393,24 @@ sdt:TemporalCoverage a sh:NodeShape ;
             sh:path sdt:start_date ;
             sh:pattern "^\\d{4}-\\d{2}-\\d{2}$" ],
         [ sh:datatype xsd:string ;
-            sh:description "Human-readable description of the temporal coverage (e.g., '21st Century', '2020 Census')." ;
+            sh:description "ISO 8601 time interval or period representation (e.g., '2020-01-01/2020-12-31', 'P1Y')." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
-            sh:order 0 ;
-            sh:path sdt:description ],
+            sh:order 3 ;
+            sh:path sdt:iso_period ],
         [ sh:datatype xsd:string ;
             sh:description "End date of the coverage formatted strictly according to ISO 8601 (YYYY-MM-DD)." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 2 ;
             sh:path sdt:end_date ;
-            sh:pattern "^\\d{4}-\\d{2}-\\d{2}$" ] ;
+            sh:pattern "^\\d{4}-\\d{2}-\\d{2}$" ],
+        [ sh:datatype xsd:string ;
+            sh:description "Human-readable description of the temporal coverage (e.g., '21st Century', '2020 Census')." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path sdt:description ] ;
     sh:targetClass sdt:TemporalCoverage .
 
 sdt:ValidationRule a sh:NodeShape ;
@@ -423,11 +423,12 @@ sdt:ValidationRule a sh:NodeShape ;
             sh:nodeKind sh:Literal ;
             sh:order 3 ;
             sh:path sdt:message ],
-        [ sh:class sdt:CodeSnippet ;
-            sh:description "Environment-specific code snippets or expressions implementing the validation logic." ;
-            sh:nodeKind sh:BlankNodeOrIRI ;
-            sh:order 4 ;
-            sh:path sdt:code_snippets ],
+        [ sh:datatype xsd:string ;
+            sh:description "Regular expression pattern for validation." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path sdt:pattern ],
         [ sh:datatype xsd:string ;
             sh:description "Type of validation (e.g., regex, checksum, range)." ;
             sh:maxCount 1 ;
@@ -436,17 +437,16 @@ sdt:ValidationRule a sh:NodeShape ;
             sh:order 0 ;
             sh:path sdt:rule_type ],
         [ sh:datatype xsd:string ;
-            sh:description "Regular expression pattern for validation." ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:Literal ;
-            sh:order 1 ;
-            sh:path sdt:pattern ],
-        [ sh:datatype xsd:string ;
             sh:description "Algorithmic checker name (e.g., luhn, modulo-11, isbn13)." ;
             sh:maxCount 1 ;
             sh:nodeKind sh:Literal ;
             sh:order 2 ;
-            sh:path sdt:algorithm ] ;
+            sh:path sdt:algorithm ],
+        [ sh:class sdt:CodeSnippet ;
+            sh:description "Environment-specific code snippets or expressions implementing the validation logic." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 4 ;
+            sh:path sdt:code_snippets ] ;
     sh:targetClass sdt:ValidationRule .
 
 sdt:CodeSnippet a sh:NodeShape ;
