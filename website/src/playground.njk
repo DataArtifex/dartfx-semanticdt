@@ -137,8 +137,15 @@ description: Live in-browser validator and playground for Semantic Data Types. T
     },
 
     // Country Code verification (ISO 3166-1 alpha-2)
-    "global-country_code": function(val) {
-      return countryCodes.has(val.trim().toUpperCase());
+    "global-iso3166-2_codes": function(val) {
+      const clean = val.trim().toUpperCase();
+      if (clean === "AA" || clean === "ZZ") return true;
+      if (clean.length === 2) {
+        const char2 = clean[1];
+        if (clean[0] === 'Q' && char2 >= 'M' && char2 <= 'Z') return true;
+        if (clean[0] === 'X' && char2 >= 'A' && char2 <= 'Z') return true;
+      }
+      return countryCodes.has(clean);
     }
   };
 

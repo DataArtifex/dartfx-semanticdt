@@ -1,8 +1,8 @@
-id: https://w3id.org/dartfx/semanticdt/library/global/country_code
+id: https://w3id.org/dartfx/semanticdt/library/global/iso3166-2_codes
 name: ISO 3166-1 Alpha-2 Country Code
 description: >-
   Two-letter country codes defined in ISO 3166-1, representing countries, dependent territories,
-  and special areas of geographical interest.
+  and special areas of geographical interest. Includes user-assigned private-use code extensions (AA, QM-QZ, XA-XZ, and ZZ).
 version: 0.1.0
 concepts:
   - uri: https://www.wikidata.org/wiki/Q1140221
@@ -28,11 +28,19 @@ validation_rules:
     pattern: ^[A-Z]{2}$
     message: Country Code must consist of exactly 2 uppercase letters.
   - rule_type: custom
-    message: Invalid ISO 3166-1 alpha-2 country code.
+    message: Invalid ISO 3166-1 alpha-2 country code (or private-use code).
     code_snippets:
       - target_environment: python
         code: |
-          def validate_country_code(val: str) -> bool:
+          def validate_iso3166_2_codes(val: str) -> bool:
+              clean = val.strip().upper()
+              if clean in {"AA", "ZZ"}:
+                  return True
+              if len(clean) == 2:
+                  if clean[0] == 'Q' and 'M' <= clean[1] <= 'Z':
+                      return True
+                  if clean[0] == 'X' and 'A' <= clean[1] <= 'Z':
+                      return True
               valid_codes = {
                   "AD", "AE", "AF", "AG", "AI", "AL", "AM", "AO", "AQ", "AR", "AS", "AT", "AU", "AW", "AX", "AZ",
                   "BA", "BB", "BD", "BE", "BF", "BG", "BH", "BI", "BJ", "BL", "BM", "BN", "BO", "BQ", "BR", "BS",
@@ -51,12 +59,13 @@ validation_rules:
                   "TR", "TT", "TV", "TW", "TZ", "UA", "UG", "UM", "US", "UY", "UZ", "VA", "VC", "VE", "VG", "VI",
                   "VN", "VU", "WF", "WS", "YE", "YT", "ZA", "ZM", "ZW"
               }
-              return val.upper() in valid_codes
+              return clean in valid_codes
 agent_instructions:
   guidelines: >-
     Country codes represent geospatial regions. Normalize by converting to uppercase.
+    Note that AA, QM-QZ, XA-XZ, and ZZ are reserved for private use / user assignment, and should be accepted as valid.
   system_prompt_snippet: >-
-    Ensure country codes are valid ISO-3166-1 Alpha-2 uppercase strings.
+    Ensure country codes are valid ISO-3166-1 Alpha-2 uppercase strings (or private-use codes AA, QM-QZ, XA-XZ, ZZ).
 scope:
   geospatial_coverage:
     description: Global
@@ -76,13 +85,32 @@ examples:
   - value: ca
     is_valid: true
     description: Valid country code for Canada (needs conversion to uppercase).
+  - value: AA
+    is_valid: true
+    description: Valid private-use country code (user assignment AA).
+  - value: QX
+    is_valid: true
+    description: Valid private-use country code (user assignment within QM-QZ range).
+  - value: XZ
+    is_valid: true
+    description: Valid private-use country code (user assignment within XA-XZ range).
+  - value: ZZ
+    is_valid: true
+    description: Valid private-use country code (user assignment ZZ).
+  - value: QA
+    is_valid: false
+    description: Invalid because QA is not allocated and falls outside the private-use QM-QZ range.
   - value: XX
     is_valid: false
-    description: Invalid country code.
+    description: Invalid country code (not allocated and outside private-use ranges).
   - value: USA
     is_valid: false
     description: Invalid because ISO 3166-1 alpha-2 codes consist of exactly two letters.
 resources:
+  - url: https://www.iso.org/iso-3166-country-codes.html
+    title: ISO 3166 Country Codes
+    description: Official ISO portal for the country code standard (ISO 3166).
+    publisher: International Organization for Standardization
   - url: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
     title: ISO 3166-1 Alpha-2 (Wikipedia)
     description: Wikipedia article detailing the two-letter country codes defined in the ISO 3166-1 standard.
