@@ -17,7 +17,7 @@ layout: layouts/base.njk
       <span class="badge">Version {{ sdt.version }}</span>
     </div>
     <div style="display: flex; align-items: center; gap: 0.5rem;">
-      <a href="{{ ('/definitions/' + sdt.meta.relativePath) | url }}" target="_blank" class="btn btn-secondary" style="padding: 0.35rem 0.75rem; font-size: 0.8rem; display: inline-flex; align-items: center; gap: 0.25rem;">
+      <a href="#source-yaml-details" onclick="document.getElementById('source-yaml-details').open = true;" class="btn btn-secondary" style="padding: 0.35rem 0.75rem; font-size: 0.8rem; display: inline-flex; align-items: center; gap: 0.25rem;">
         View YAML
       </a>
       <a href="{{ ('/definitions/' + sdt.meta.relativePath) | url }}" download class="btn btn-primary" style="padding: 0.35rem 0.75rem; font-size: 0.8rem; display: inline-flex; align-items: center; gap: 0.25rem;">
@@ -314,7 +314,7 @@ layout: layouts/base.njk
     {% endif %}
 
     <!-- Source YAML Toggle -->
-    <details class="card" style="padding: 1.5rem; background-color: rgba(10, 15, 30, 0.4); border-color: rgba(255, 255, 255, 0.04);">
+    <details id="source-yaml-details" class="card" style="padding: 1.5rem; background-color: rgba(10, 15, 30, 0.4); border-color: rgba(255, 255, 255, 0.04);">
       <summary style="font-weight: 700; color: var(--text-secondary); cursor: pointer; user-select: none;">
         View Raw Source Definition (YAML)
       </summary>
