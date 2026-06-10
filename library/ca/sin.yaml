@@ -5,8 +5,8 @@ description: >-
   It is validated using the Luhn algorithm.
 version: 0.1.0
 concepts:
-  - uri: https://www.wikidata.org/wiki/Q3240093
-    vocabulary: Wikidata
+  - uri: https://en.wikipedia.org/wiki/Social_Insurance_Number
+    vocabulary: Wikipedia
     pref_label: Social Insurance Number
     match_type: exactMatch
 storage_types:

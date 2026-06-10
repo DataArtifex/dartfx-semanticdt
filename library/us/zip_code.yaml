@@ -5,12 +5,12 @@ description: >-
   It can be either the basic 5-digit format or the extended 9-digit ZIP+4 format.
 version: 0.1.0
 concepts:
-  - uri: http://id.loc.gov/authorities/subjects/sh85149887
-    vocabulary: LCSH
-    pref_label: ZIP code
-    match_type: exactMatch
-  - uri: https://www.wikidata.org/wiki/Q3401569
+  - uri: https://www.wikidata.org/wiki/Q136208
     vocabulary: Wikidata
+    pref_label: ZIP Code
+    match_type: exactMatch
+  - uri: https://en.wikipedia.org/wiki/ZIP_Code
+    vocabulary: Wikipedia
     pref_label: ZIP Code
     match_type: exactMatch
 storage_types:

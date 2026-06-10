@@ -9,6 +9,10 @@ concepts:
     vocabulary: Wikidata
     pref_label: International Standard Book Number
     match_type: exactMatch
+  - uri: https://en.wikipedia.org/wiki/ISBN
+    vocabulary: Wikipedia
+    pref_label: International Standard Book Number
+    match_type: exactMatch
 storage_types:
   - target_environment: generic
     data_type: string

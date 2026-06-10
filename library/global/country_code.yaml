@@ -5,8 +5,12 @@ description: >-
   and special areas of geographical interest.
 version: 0.1.0
 concepts:
-  - uri: https://www.wikidata.org/wiki/Q191983
+  - uri: https://www.wikidata.org/wiki/Q1140221
     vocabulary: Wikidata
+    pref_label: ISO 3166-1 alpha-2
+    match_type: exactMatch
+  - uri: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+    vocabulary: Wikipedia
     pref_label: ISO 3166-1 alpha-2
     match_type: exactMatch
 storage_types:

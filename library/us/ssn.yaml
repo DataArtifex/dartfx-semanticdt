@@ -5,13 +5,13 @@ description: >-
   to track individuals for taxation and social security purposes.
 version: 0.1.0
 concepts:
-  - uri: http://id.loc.gov/authorities/subjects/sh85124176
-    vocabulary: LCSH
-    pref_label: Social Security numbers
-    match_type: exactMatch
-  - uri: https://www.wikidata.org/wiki/Q1411516
+  - uri: https://www.wikidata.org/wiki/Q5612679
     vocabulary: Wikidata
     pref_label: Social Security number (United States)
+    match_type: exactMatch
+  - uri: https://en.wikipedia.org/wiki/Social_Security_number
+    vocabulary: Wikipedia
+    pref_label: Social Security number
     match_type: exactMatch
 storage_types:
   - target_environment: generic

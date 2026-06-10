@@ -5,8 +5,12 @@ description: >-
   standardized under ISO 13616. Validated using the Modulo-97 algorithm.
 version: 0.1.0
 concepts:
-  - uri: https://www.wikidata.org/wiki/Q166827
+  - uri: https://www.wikidata.org/wiki/Q144593
     vocabulary: Wikidata
+    pref_label: International Bank Account Number
+    match_type: exactMatch
+  - uri: https://en.wikipedia.org/wiki/International_Bank_Account_Number
+    vocabulary: Wikipedia
     pref_label: International Bank Account Number
     match_type: exactMatch
 storage_types:

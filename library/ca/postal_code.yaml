@@ -5,13 +5,13 @@ description: >-
   It is formatted as A1A 1A1, where A is a letter and 1 is a digit, separated by a space.
 version: 0.1.0
 concepts:
-  - uri: http://id.loc.gov/authorities/subjects/sh85149887
-    vocabulary: LCSH
-    pref_label: ZIP code
-    match_type: closeMatch
   - uri: https://www.wikidata.org/wiki/Q1478124
     vocabulary: Wikidata
     pref_label: postal codes in Canada
+    match_type: exactMatch
+  - uri: https://en.wikipedia.org/wiki/Postal_codes_in_Canada
+    vocabulary: Wikipedia
+    pref_label: Postal codes in Canada
     match_type: exactMatch
 storage_types:
   - target_environment: generic
