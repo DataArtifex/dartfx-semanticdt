@@ -249,6 +249,49 @@
             "title": "GeospatialCoverage",
             "type": "object"
         },
+        "Resource": {
+            "additionalProperties": false,
+            "description": "An external resource, citation, or reference related to the Semantic Data Type (using simple Dublin Core elements).",
+            "properties": {
+                "citation": {
+                    "description": "A formal bibliographic citation for the resource.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "description": {
+                    "description": "A brief summary or account of the resource.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "publisher": {
+                    "description": "The entity or publisher responsible for making the resource available.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "title": {
+                    "description": "Human-readable name of the resource.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "url": {
+                    "description": "The URL/URI of the resource.",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "url"
+            ],
+            "title": "Resource",
+            "type": "object"
+        },
         "ScopeContext": {
             "additionalProperties": false,
             "description": "Contextual boundaries of the data type.",
@@ -381,6 +424,16 @@
                 "name": {
                     "description": "Human-readable name of the Semantic Data Type.",
                     "type": "string"
+                },
+                "resources": {
+                    "description": "External resources and references related to the Semantic Data Type.",
+                    "items": {
+                        "$ref": "#/$defs/Resource"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
                 },
                 "scope": {
                     "anyOf": [

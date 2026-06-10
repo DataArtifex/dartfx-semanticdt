@@ -61,6 +61,7 @@ pub type agent_skills = Vec<AgentSkill>;
 pub type scope = ScopeContext;
 pub type display_format = DisplayFormat;
 pub type examples = Vec<Example>;
+pub type resources = Vec<Resource>;
 pub type uri = String;
 pub type vocabulary = String;
 pub type pref_label = String;
@@ -92,6 +93,10 @@ pub type display_template = String;
 pub type formatting_regex = String;
 pub type value = String;
 pub type is_valid = bool;
+pub type url = String;
+pub type title = String;
+pub type citation = String;
+pub type publisher = String;
 
 // Enums
 
@@ -268,15 +273,17 @@ pub struct SemanticDataType {
     #[cfg_attr(feature = "serde", serde(default))]
     pub display_format: Option<DisplayFormat>,
     #[cfg_attr(feature = "serde", serde(default))]
-    pub examples: Option<Vec<Example>>
+    pub examples: Option<Vec<Example>>,
+    #[cfg_attr(feature = "serde", serde(default))]
+    pub resources: Option<Vec<Resource>>
 }
 #[cfg(feature = "pyo3")]
 #[cfg_attr(feature = "stubgen", gen_stub_pymethods)]
 #[pymethods]
 impl SemanticDataType {
     #[new]
-    #[pyo3(signature = (id, name, description, version, concepts=None, storage_types=None, classification=None, validation_rules=None, generation_rules=None, agent_instructions=None, agent_skills=None, scope=None, display_format=None, examples=None))]
-    pub fn new(id: String, name: String, description: String, version: String, concepts: Option<serde_utils::PyValue<Vec<ConceptReference>>>, storage_types: Option<serde_utils::PyValue<Vec<StorageType>>>, classification: Option<serde_utils::PyValue<ClassificationSystem>>, validation_rules: Option<serde_utils::PyValue<Vec<ValidationRule>>>, generation_rules: Option<serde_utils::PyValue<Vec<GenerationRule>>>, agent_instructions: Option<serde_utils::PyValue<AgentInstruction>>, agent_skills: Option<serde_utils::PyValue<Vec<AgentSkill>>>, scope: Option<serde_utils::PyValue<ScopeContext>>, display_format: Option<serde_utils::PyValue<DisplayFormat>>, examples: Option<serde_utils::PyValue<Vec<Example>>>) -> Self {
+    #[pyo3(signature = (id, name, description, version, concepts=None, storage_types=None, classification=None, validation_rules=None, generation_rules=None, agent_instructions=None, agent_skills=None, scope=None, display_format=None, examples=None, resources=None))]
+    pub fn new(id: String, name: String, description: String, version: String, concepts: Option<serde_utils::PyValue<Vec<ConceptReference>>>, storage_types: Option<serde_utils::PyValue<Vec<StorageType>>>, classification: Option<serde_utils::PyValue<ClassificationSystem>>, validation_rules: Option<serde_utils::PyValue<Vec<ValidationRule>>>, generation_rules: Option<serde_utils::PyValue<Vec<GenerationRule>>>, agent_instructions: Option<serde_utils::PyValue<AgentInstruction>>, agent_skills: Option<serde_utils::PyValue<Vec<AgentSkill>>>, scope: Option<serde_utils::PyValue<ScopeContext>>, display_format: Option<serde_utils::PyValue<DisplayFormat>>, examples: Option<serde_utils::PyValue<Vec<Example>>>, resources: Option<serde_utils::PyValue<Vec<Resource>>>) -> Self {
         let concepts = concepts.map(|v| v.into_inner());
         let storage_types = storage_types.map(|v| v.into_inner());
         let classification = classification.map(|v| v.into_inner());
@@ -287,7 +294,8 @@ impl SemanticDataType {
         let scope = scope.map(|v| v.into_inner());
         let display_format = display_format.map(|v| v.into_inner());
         let examples = examples.map(|v| v.into_inner());
-        SemanticDataType{id, name, description, version, concepts, storage_types, classification, validation_rules, generation_rules, agent_instructions, agent_skills, scope, display_format, examples}
+        let resources = resources.map(|v| v.into_inner());
+        SemanticDataType{id, name, description, version, concepts, storage_types, classification, validation_rules, generation_rules, agent_instructions, agent_skills, scope, display_format, examples, resources}
     }
 }
 
@@ -979,6 +987,57 @@ impl<'py> FromPyObject<'py> for Box<Example> {
         }
         Err(PyErr::new::<pyo3::exceptions::PyTypeError, _>(
             "invalid Example",
+        ))
+    }
+}
+
+
+
+#[derive(Debug, Clone, PartialEq)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "stubgen", gen_stub_pyclass)]
+#[cfg_attr(feature = "pyo3", pyclass(subclass, get_all, set_all))]
+pub struct Resource {
+    pub url: String,
+    #[cfg_attr(feature = "serde", serde(default))]
+    pub title: Option<String>,
+    #[cfg_attr(feature = "serde", serde(default))]
+    pub description: Option<String>,
+    #[cfg_attr(feature = "serde", serde(default))]
+    pub citation: Option<String>,
+    #[cfg_attr(feature = "serde", serde(default))]
+    pub publisher: Option<String>
+}
+#[cfg(feature = "pyo3")]
+#[cfg_attr(feature = "stubgen", gen_stub_pymethods)]
+#[pymethods]
+impl Resource {
+    #[new]
+    #[pyo3(signature = (url, title=None, description=None, citation=None, publisher=None))]
+    pub fn new(url: String, title: Option<String>, description: Option<String>, citation: Option<String>, publisher: Option<String>) -> Self {
+        Resource{url, title, description, citation, publisher}
+    }
+}
+
+#[cfg(feature = "pyo3")]
+impl<'py> IntoPyObject<'py> for Box<Resource>
+{
+    type Target = PyAny;
+    type Output = Bound<'py, Self::Target>;
+    type Error = PyErr;
+    fn into_pyobject(self, py: Python<'py>) -> Result<Self::Output, Self::Error> {
+        (*self).into_pyobject(py).map(move |x| x.into_any())
+    }
+}
+
+#[cfg(feature = "pyo3")]
+impl<'py> FromPyObject<'py> for Box<Resource> {
+    fn extract_bound(ob: &pyo3::Bound<'py, pyo3::types::PyAny>) -> pyo3::PyResult<Self> {
+        if let Ok(val) = ob.extract::<Resource>() {
+            return Ok(Box::new(val));
+        }
+        Err(PyErr::new::<pyo3::exceptions::PyTypeError, _>(
+            "invalid Resource",
         ))
     }
 }

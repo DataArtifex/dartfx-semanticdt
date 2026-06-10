@@ -132,6 +132,7 @@ attributes:
     - GeospatialCoverage
     - TemporalCoverage
     - Example
+    - Resource
 
 ```
 </details>
@@ -175,6 +176,7 @@ attributes:
     - GeospatialCoverage
     - TemporalCoverage
     - Example
+    - Resource
     range: string
 
 ```

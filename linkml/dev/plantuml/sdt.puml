@@ -37,6 +37,13 @@ class "StorageType" [[{Physical or logical storage data type binding.}]] {
     {field} format_modifier : string
 }
 "SemanticDataType" *--> "0..*" "StorageType" : "storage_types"
+class "Resource" [[{An external resource, citation, or reference related to the Semantic Data Type (using simple Dublin Core elements).}]] {
+    {field} url : string
+    {field} title : string
+    {field} description : string
+    {field} citation : string
+    {field} publisher : string
+}
 class "Example" [[{Concrete instance of values.}]] {
     {field} value : string
     {field} is_valid : boolean
@@ -71,6 +78,7 @@ class "ConceptReference" [[{Reference to a concept in an external ontology or vo
     {field} pref_label : string
     {field} match_type : string
 }
+"SemanticDataType" *--> "0..*" "Resource" : "resources"
 "SemanticDataType" *--> "0..*" "Example" : "examples"
 "SemanticDataType" *--> "0..1" "DisplayFormat" : "display_format"
 "SemanticDataType" *--> "0..1" "ScopeContext" : "scope"

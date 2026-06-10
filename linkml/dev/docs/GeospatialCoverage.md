@@ -114,6 +114,7 @@ attributes:
     - GeospatialCoverage
     - TemporalCoverage
     - Example
+    - Resource
   codes:
     name: codes
     description: A list of formal codes or URIs (e.g., ISO country/subdivision codes,
@@ -149,6 +150,7 @@ attributes:
     - GeospatialCoverage
     - TemporalCoverage
     - Example
+    - Resource
     range: string
   codes:
     name: codes

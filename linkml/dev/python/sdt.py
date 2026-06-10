@@ -190,7 +190,14 @@ class SemanticDataType(ConfiguredBaseModel):
         description="""A human-readable description of the Semantic Data Type.""",
         json_schema_extra={
             "linkml_meta": {
-                "domain_of": ["SemanticDataType", "AgentSkill", "GeospatialCoverage", "TemporalCoverage", "Example"]
+                "domain_of": [
+                    "SemanticDataType",
+                    "AgentSkill",
+                    "GeospatialCoverage",
+                    "TemporalCoverage",
+                    "Example",
+                    "Resource",
+                ]
             }
         },
     )
@@ -201,21 +208,12 @@ class SemanticDataType(ConfiguredBaseModel):
     )
     concepts: list[ConceptReference] | None = Field(
         default=None,
-        description=(
-            "A list of conceptual ontology alignments or mapping references representing"
-            " this data type in external systems (e.g., SKOS concepts, Wikidata items,"
-            " or vocabularies like DDI-CDI and schema.org). This should list multiple"
-            " representations of the same underlying semantic concept, not distinct concepts."
-        ),
+        description="""A list of conceptual ontology alignments or mapping references representing this data type in external systems (e.g., SKOS concepts, Wikidata items, or vocabularies like DDI-CDI and schema.org). This should list multiple representations of the same underlying semantic concept, not distinct concepts.""",
         json_schema_extra={"linkml_meta": {"domain_of": ["SemanticDataType"]}},
     )
     storage_types: list[StorageType] | None = Field(
         default=None,
-        description=(
-            "Mappings to physical storage types across different environments."
-            " A mapping for the 'generic' environment is required to define"
-            " the platform-independent base type."
-        ),
+        description="""Mappings to physical storage types across different environments. A mapping for the 'generic' environment is required to define the platform-independent base type.""",
         json_schema_extra={"linkml_meta": {"domain_of": ["SemanticDataType"]}},
     )
     classification: ClassificationSystem | None = Field(
@@ -258,6 +256,11 @@ class SemanticDataType(ConfiguredBaseModel):
         description="""Curated valid and invalid examples for documentation and testing.""",
         json_schema_extra={"linkml_meta": {"domain_of": ["SemanticDataType"]}},
     )
+    resources: list[Resource] | None = Field(
+        default=None,
+        description="""External resources and references related to the Semantic Data Type.""",
+        json_schema_extra={"linkml_meta": {"domain_of": ["SemanticDataType"]}},
+    )
 
 
 class ConceptReference(ConfiguredBaseModel):
@@ -298,11 +301,7 @@ class StorageType(ConfiguredBaseModel):
 
     target_environment: str = Field(
         default=...,
-        description=(
-            "Target platform, framework, database, or language. Prefer using values from"
-            " the TargetEnvironmentEnum controlled vocabulary where applicable. Custom"
-            " values not in the enum are permitted since this slot is of type string."
-        ),
+        description="""Target platform, framework, database, or language. Prefer using values from the TargetEnvironmentEnum controlled vocabulary where applicable. Custom values not in the enum are permitted since this slot is of type string.""",
         json_schema_extra={"linkml_meta": {"domain_of": ["StorageType", "CodeSnippet"]}},
     )
     data_type: str = Field(
@@ -384,11 +383,7 @@ class CodeSnippet(ConfiguredBaseModel):
 
     target_environment: str = Field(
         default=...,
-        description=(
-            "Target platform, framework, database, or language. Prefer using values from"
-            " the TargetEnvironmentEnum controlled vocabulary where applicable. Custom"
-            " values not in the enum are permitted since this slot is of type string."
-        ),
+        description="""Target platform, framework, database, or language. Prefer using values from the TargetEnvironmentEnum controlled vocabulary where applicable. Custom values not in the enum are permitted since this slot is of type string.""",
         json_schema_extra={"linkml_meta": {"domain_of": ["StorageType", "CodeSnippet"]}},
     )
     code: str = Field(
@@ -458,7 +453,14 @@ class AgentSkill(ConfiguredBaseModel):
         description="""What this skill does.""",
         json_schema_extra={
             "linkml_meta": {
-                "domain_of": ["SemanticDataType", "AgentSkill", "GeospatialCoverage", "TemporalCoverage", "Example"]
+                "domain_of": [
+                    "SemanticDataType",
+                    "AgentSkill",
+                    "GeospatialCoverage",
+                    "TemporalCoverage",
+                    "Example",
+                    "Resource",
+                ]
             }
         },
     )
@@ -510,15 +512,20 @@ class GeospatialCoverage(ConfiguredBaseModel):
         description="""Human-readable description of the geospatial coverage (e.g., United States, Canada, Global).""",
         json_schema_extra={
             "linkml_meta": {
-                "domain_of": ["SemanticDataType", "AgentSkill", "GeospatialCoverage", "TemporalCoverage", "Example"]
+                "domain_of": [
+                    "SemanticDataType",
+                    "AgentSkill",
+                    "GeospatialCoverage",
+                    "TemporalCoverage",
+                    "Example",
+                    "Resource",
+                ]
             }
         },
     )
     codes: list[str] | None = Field(
         default=None,
-        description=(
-            "A list of formal codes or URIs (e.g., ISO country/subdivision codes, GeoNames URIs, Wikidata URIs)."
-        ),
+        description="""A list of formal codes or URIs (e.g., ISO country/subdivision codes, GeoNames URIs, Wikidata URIs).""",
         json_schema_extra={"linkml_meta": {"domain_of": ["GeospatialCoverage"]}},
     )
 
@@ -535,7 +542,14 @@ class TemporalCoverage(ConfiguredBaseModel):
         description="""Human-readable description of the temporal coverage (e.g., '21st Century', '2020 Census').""",
         json_schema_extra={
             "linkml_meta": {
-                "domain_of": ["SemanticDataType", "AgentSkill", "GeospatialCoverage", "TemporalCoverage", "Example"]
+                "domain_of": [
+                    "SemanticDataType",
+                    "AgentSkill",
+                    "GeospatialCoverage",
+                    "TemporalCoverage",
+                    "Example",
+                    "Resource",
+                ]
             }
         },
     )
@@ -628,9 +642,61 @@ class Example(ConfiguredBaseModel):
         description="""Description of the specific test case this example represents.""",
         json_schema_extra={
             "linkml_meta": {
-                "domain_of": ["SemanticDataType", "AgentSkill", "GeospatialCoverage", "TemporalCoverage", "Example"]
+                "domain_of": [
+                    "SemanticDataType",
+                    "AgentSkill",
+                    "GeospatialCoverage",
+                    "TemporalCoverage",
+                    "Example",
+                    "Resource",
+                ]
             }
         },
+    )
+
+
+class Resource(ConfiguredBaseModel):
+    """
+    An external resource, citation, or reference related to the Semantic Data Type (using simple Dublin Core elements).
+    """
+
+    linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({"from_schema": "https://w3id.org/dartfx/semanticdt"})
+
+    url: str = Field(
+        default=...,
+        description="""The URL/URI of the resource.""",
+        json_schema_extra={"linkml_meta": {"domain_of": ["Resource"]}},
+    )
+    title: str | None = Field(
+        default=None,
+        description="""Human-readable name of the resource.""",
+        json_schema_extra={"linkml_meta": {"domain_of": ["Resource"]}},
+    )
+    description: str | None = Field(
+        default=None,
+        description="""A brief summary or account of the resource.""",
+        json_schema_extra={
+            "linkml_meta": {
+                "domain_of": [
+                    "SemanticDataType",
+                    "AgentSkill",
+                    "GeospatialCoverage",
+                    "TemporalCoverage",
+                    "Example",
+                    "Resource",
+                ]
+            }
+        },
+    )
+    citation: str | None = Field(
+        default=None,
+        description="""A formal bibliographic citation for the resource.""",
+        json_schema_extra={"linkml_meta": {"domain_of": ["Resource"]}},
+    )
+    publisher: str | None = Field(
+        default=None,
+        description="""The entity or publisher responsible for making the resource available.""",
+        json_schema_extra={"linkml_meta": {"domain_of": ["Resource"]}},
     )
 
 
@@ -650,3 +716,4 @@ GeospatialCoverage.model_rebuild()
 TemporalCoverage.model_rebuild()
 DisplayFormat.model_rebuild()
 Example.model_rebuild()
+Resource.model_rebuild()

@@ -107,6 +107,17 @@ URI: [sdt:SemanticDataType](https://w3id.org/dartfx/semanticdt/SemanticDataType)
 
       SemanticDataType : name
 
+      SemanticDataType : resources
+
+
+
+
+
+        SemanticDataType --> "*" Resource : resources
+        click Resource href "../Resource/"
+
+
+
       SemanticDataType : scope
 
 
@@ -168,6 +179,7 @@ URI: [sdt:SemanticDataType](https://w3id.org/dartfx/semanticdt/SemanticDataType)
 | [scope](scope.md) | 0..1 <br/> [ScopeContext](ScopeContext.md) | Contextual scope of the data type (temporal, geographic, etc | direct |
 | [display_format](display_format.md) | 0..1 <br/> [DisplayFormat](DisplayFormat.md) | Formatting rules for displaying values of this type | direct |
 | [examples](examples.md) | * <br/> [Example](Example.md) | Curated valid and invalid examples for documentation and testing | direct |
+| [resources](resources.md) | * <br/> [Resource](Resource.md) | External resources and references related to the Semantic Data Type | direct |
 
 
 
@@ -251,6 +263,7 @@ attributes:
     - GeospatialCoverage
     - TemporalCoverage
     - Example
+    - Resource
     required: true
   version:
     name: version
@@ -353,6 +366,15 @@ attributes:
     domain_of:
     - SemanticDataType
     range: Example
+    multivalued: true
+  resources:
+    name: resources
+    description: External resources and references related to the Semantic Data Type.
+    from_schema: https://w3id.org/dartfx/semanticdt
+    rank: 1000
+    domain_of:
+    - SemanticDataType
+    range: Resource
     multivalued: true
 
 ```
@@ -401,6 +423,7 @@ attributes:
     - GeospatialCoverage
     - TemporalCoverage
     - Example
+    - Resource
     range: string
     required: true
   version:
@@ -516,6 +539,16 @@ attributes:
     domain_of:
     - SemanticDataType
     range: Example
+    multivalued: true
+  resources:
+    name: resources
+    description: External resources and references related to the Semantic Data Type.
+    from_schema: https://w3id.org/dartfx/semanticdt
+    rank: 1000
+    owner: SemanticDataType
+    domain_of:
+    - SemanticDataType
+    range: Resource
     multivalued: true
 
 ```

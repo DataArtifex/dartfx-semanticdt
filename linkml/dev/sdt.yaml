@@ -89,6 +89,10 @@ classes:
         description: Curated valid and invalid examples for documentation and testing.
         multivalued: true
         range: Example
+      resources:
+        description: External resources and references related to the Semantic Data Type.
+        multivalued: true
+        range: Resource
 
   ConceptReference:
     description: Reference to a concept in an external ontology or vocabulary.
@@ -248,6 +252,21 @@ classes:
         range: boolean
       description:
         description: Description of the specific test case this example represents.
+
+  Resource:
+    description: An external resource, citation, or reference related to the Semantic Data Type (using simple Dublin Core elements).
+    attributes:
+      url:
+        description: The URL/URI of the resource.
+        required: true
+      title:
+        description: Human-readable name of the resource.
+      description:
+        description: A brief summary or account of the resource.
+      citation:
+        description: A formal bibliographic citation for the resource.
+      publisher:
+        description: The entity or publisher responsible for making the resource available.
 
 enums:
   TargetEnvironmentEnum:

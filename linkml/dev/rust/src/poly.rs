@@ -62,6 +62,10 @@ pub trait SemanticDataType   {
     // fn examples_mut(&mut self) -> &mut Option<impl poly_containers::SeqRef<'a, crate::Example>>;
     // fn set_examples<E>(&mut self, value: Option<&Vec<E>>) where E: Into<Example>;
 
+    fn resources<'a>(&'a self) -> Option<impl poly_containers::SeqRef<'a, crate::Resource>>;
+    // fn resources_mut(&mut self) -> &mut Option<impl poly_containers::SeqRef<'a, crate::Resource>>;
+    // fn set_resources<E>(&mut self, value: Option<&Vec<E>>) where E: Into<Resource>;
+
 
 }
 
@@ -107,6 +111,9 @@ impl SemanticDataType for crate::SemanticDataType {
     }
         fn examples<'a>(&'a self) -> Option<impl poly_containers::SeqRef<'a, crate::Example>> {
         return self.examples.as_ref();
+    }
+        fn resources<'a>(&'a self) -> Option<impl poly_containers::SeqRef<'a, crate::Resource>> {
+        return self.resources.as_ref();
     }
 }
 
@@ -511,5 +518,49 @@ impl Example for crate::Example {
     }
         fn description<'a>(&'a self) -> Option<&'a str> {
         return self.description.as_deref();
+    }
+}
+
+
+pub trait Resource   {
+
+    fn url<'a>(&'a self) -> &'a str;
+    // fn url_mut(&mut self) -> &mut &'a str;
+    // fn set_url(&mut self, value: String);
+
+    fn title<'a>(&'a self) -> Option<&'a str>;
+    // fn title_mut(&mut self) -> &mut Option<&'a str>;
+    // fn set_title(&mut self, value: Option<&'a str>);
+
+    fn description<'a>(&'a self) -> Option<&'a str>;
+    // fn description_mut(&mut self) -> &mut Option<&'a str>;
+    // fn set_description(&mut self, value: Option<&'a str>);
+
+    fn citation<'a>(&'a self) -> Option<&'a str>;
+    // fn citation_mut(&mut self) -> &mut Option<&'a str>;
+    // fn set_citation(&mut self, value: Option<&'a str>);
+
+    fn publisher<'a>(&'a self) -> Option<&'a str>;
+    // fn publisher_mut(&mut self) -> &mut Option<&'a str>;
+    // fn set_publisher(&mut self, value: Option<&'a str>);
+
+
+}
+
+impl Resource for crate::Resource {
+        fn url<'a>(&'a self) -> &'a str {
+        return &self.url[..];
+    }
+        fn title<'a>(&'a self) -> Option<&'a str> {
+        return self.title.as_deref();
+    }
+        fn description<'a>(&'a self) -> Option<&'a str> {
+        return self.description.as_deref();
+    }
+        fn citation<'a>(&'a self) -> Option<&'a str> {
+        return self.citation.as_deref();
+    }
+        fn publisher<'a>(&'a self) -> Option<&'a str> {
+        return self.publisher.as_deref();
     }
 }

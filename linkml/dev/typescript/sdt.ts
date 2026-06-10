@@ -85,6 +85,8 @@ export interface SemanticDataType {
     display_format?: DisplayFormat,
     /** Curated valid and invalid examples for documentation and testing. */
     examples?: Example[],
+    /** External resources and references related to the Semantic Data Type. */
+    resources?: Resource[],
 }
 
 
@@ -258,4 +260,21 @@ export interface Example {
     is_valid: boolean,
     /** Description of the specific test case this example represents. */
     description?: string,
+}
+
+
+/**
+ * An external resource, citation, or reference related to the Semantic Data Type (using simple Dublin Core elements).
+ */
+export interface Resource {
+    /** The URL/URI of the resource. */
+    url: string,
+    /** Human-readable name of the resource. */
+    title?: string,
+    /** A brief summary or account of the resource. */
+    description?: string,
+    /** A formal bibliographic citation for the resource. */
+    citation?: string,
+    /** The entity or publisher responsible for making the resource available. */
+    publisher?: string,
 }

@@ -25,6 +25,7 @@ URI: [sdt:description](https://w3id.org/dartfx/semanticdt/description)
 | [GeospatialCoverage](GeospatialCoverage.md) | Geospatial coverage boundaries represented by description and/or formal codes... |  no  |
 | [TemporalCoverage](TemporalCoverage.md) | Temporal coverage boundaries represented by description, start/end dates, or ... |  no  |
 | [Example](Example.md) | Concrete instance of values |  no  |
+| [Resource](Resource.md) | An external resource, citation, or reference related to the Semantic Data Typ... |  no  |
 
 
 
@@ -38,7 +39,7 @@ URI: [sdt:description](https://w3id.org/dartfx/semanticdt/description)
 | Property | Value |
 | --- | --- |
 | Range | [String](String.md) |
-| Domain Of | [SemanticDataType](SemanticDataType.md), [AgentSkill](AgentSkill.md), [GeospatialCoverage](GeospatialCoverage.md), [TemporalCoverage](TemporalCoverage.md), [Example](Example.md) |
+| Domain Of | [SemanticDataType](SemanticDataType.md), [AgentSkill](AgentSkill.md), [GeospatialCoverage](GeospatialCoverage.md), [TemporalCoverage](TemporalCoverage.md), [Example](Example.md), [Resource](Resource.md) |
 
 ### Cardinality and Requirements
 
@@ -82,6 +83,7 @@ domain_of:
 - GeospatialCoverage
 - TemporalCoverage
 - Example
+- Resource
 range: string
 
 ```

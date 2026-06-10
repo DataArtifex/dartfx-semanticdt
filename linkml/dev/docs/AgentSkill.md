@@ -123,6 +123,7 @@ attributes:
     - GeospatialCoverage
     - TemporalCoverage
     - Example
+    - Resource
   api_definition:
     name: api_definition
     description: API endpoint or function signature.
@@ -163,6 +164,7 @@ attributes:
     - GeospatialCoverage
     - TemporalCoverage
     - Example
+    - Resource
     range: string
   api_definition:
     name: api_definition

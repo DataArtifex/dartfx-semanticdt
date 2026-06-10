@@ -120,6 +120,7 @@ attributes:
     - GeospatialCoverage
     - TemporalCoverage
     - Example
+    - Resource
   start_date:
     name: start_date
     description: Start date of the coverage formatted strictly according to ISO 8601
@@ -174,6 +175,7 @@ attributes:
     - GeospatialCoverage
     - TemporalCoverage
     - Example
+    - Resource
     range: string
   start_date:
     name: start_date

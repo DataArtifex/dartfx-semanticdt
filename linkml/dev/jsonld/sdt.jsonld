@@ -680,6 +680,22 @@
       "@type": "SlotDefinition"
     },
     {
+      "name": "semanticDataType__resources",
+      "description": "External resources and references related to the Semantic Data Type.",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slot_uri": "https://w3id.org/dartfx/semanticdt/resources",
+      "alias": "resources",
+      "owner": "SemanticDataType",
+      "domain_of": [
+        "SemanticDataType"
+      ],
+      "range": "Resource",
+      "multivalued": true,
+      "inlined": true,
+      "inlined_as_list": true,
+      "@type": "SlotDefinition"
+    },
+    {
       "name": "conceptReference__uri",
       "description": "URI of the concept (e.g., SKOS URI).",
       "from_schema": "https://w3id.org/dartfx/semanticdt",
@@ -1211,6 +1227,72 @@
       ],
       "range": "string",
       "@type": "SlotDefinition"
+    },
+    {
+      "name": "resource__url",
+      "description": "The URL/URI of the resource.",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slot_uri": "https://w3id.org/dartfx/semanticdt/url",
+      "alias": "url",
+      "owner": "Resource",
+      "domain_of": [
+        "Resource"
+      ],
+      "range": "string",
+      "required": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "resource__title",
+      "description": "Human-readable name of the resource.",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slot_uri": "https://w3id.org/dartfx/semanticdt/title",
+      "alias": "title",
+      "owner": "Resource",
+      "domain_of": [
+        "Resource"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "resource__description",
+      "description": "A brief summary or account of the resource.",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slot_uri": "https://w3id.org/dartfx/semanticdt/description",
+      "alias": "description",
+      "owner": "Resource",
+      "domain_of": [
+        "Resource"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "resource__citation",
+      "description": "A formal bibliographic citation for the resource.",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slot_uri": "https://w3id.org/dartfx/semanticdt/citation",
+      "alias": "citation",
+      "owner": "Resource",
+      "domain_of": [
+        "Resource"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "resource__publisher",
+      "description": "The entity or publisher responsible for making the resource available.",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slot_uri": "https://w3id.org/dartfx/semanticdt/publisher",
+      "alias": "publisher",
+      "owner": "Resource",
+      "domain_of": [
+        "Resource"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
     }
   ],
   "classes": [
@@ -1233,7 +1315,8 @@
         "semanticDataType__agent_skills",
         "semanticDataType__scope",
         "semanticDataType__display_format",
-        "semanticDataType__examples"
+        "semanticDataType__examples",
+        "semanticDataType__resources"
       ],
       "slot_usage": {},
       "attributes": [
@@ -1325,6 +1408,13 @@
           "name": "examples",
           "description": "Curated valid and invalid examples for documentation and testing.",
           "range": "Example",
+          "multivalued": true,
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "resources",
+          "description": "External resources and references related to the Semantic Data Type.",
+          "range": "Resource",
           "multivalued": true,
           "@type": "SlotDefinition"
         }
@@ -1761,13 +1851,57 @@
       ],
       "class_uri": "https://w3id.org/dartfx/semanticdt/Example",
       "@type": "ClassDefinition"
+    },
+    {
+      "name": "Resource",
+      "definition_uri": "https://w3id.org/dartfx/semanticdt/Resource",
+      "description": "An external resource, citation, or reference related to the Semantic Data Type (using simple Dublin Core elements).",
+      "from_schema": "https://w3id.org/dartfx/semanticdt",
+      "slots": [
+        "resource__url",
+        "resource__title",
+        "resource__description",
+        "resource__citation",
+        "resource__publisher"
+      ],
+      "slot_usage": {},
+      "attributes": [
+        {
+          "name": "url",
+          "description": "The URL/URI of the resource.",
+          "required": true,
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "title",
+          "description": "Human-readable name of the resource.",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "description",
+          "description": "A brief summary or account of the resource.",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "citation",
+          "description": "A formal bibliographic citation for the resource.",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "publisher",
+          "description": "The entity or publisher responsible for making the resource available.",
+          "@type": "SlotDefinition"
+        }
+      ],
+      "class_uri": "https://w3id.org/dartfx/semanticdt/Resource",
+      "@type": "ClassDefinition"
     }
   ],
   "metamodel_version": "1.11.0",
   "source_file": "sdt.yaml",
-  "source_file_date": "2026-06-09T13:43:27",
-  "source_file_size": 11421,
-  "generation_date": "2026-06-09T14:42:25",
+  "source_file_date": "2026-06-09T18:16:32",
+  "source_file_size": 12175,
+  "generation_date": "2026-06-09T18:16:51",
   "@type": "SchemaDefinition",
   "@context": [
     "https://w3id.org/linkml/meta.context.jsonld",

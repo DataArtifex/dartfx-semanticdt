@@ -30,6 +30,7 @@ public class SemanticDataType  {
   private ScopeContext scope;
   private DisplayFormat displayFormat;
   private List<Example> examples;
+  private List<Resource> resources;
 
 
 }

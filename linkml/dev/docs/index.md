@@ -21,6 +21,7 @@ Name: semantic-data-type
 | [Example](Example.md) | Concrete instance of values |
 | [GenerationRule](GenerationRule.md) | Directive for synthetic data generation |
 | [GeospatialCoverage](GeospatialCoverage.md) | Geospatial coverage boundaries represented by description and/or formal codes... |
+| [Resource](Resource.md) | An external resource, citation, or reference related to the Semantic Data Typ... |
 | [ScopeContext](ScopeContext.md) | Contextual boundaries of the data type |
 | [SemanticDataType](SemanticDataType.md) | A high-level data type associated with a distinct concept, validation/generat... |
 | [StorageType](StorageType.md) | Physical or logical storage data type binding |
@@ -37,6 +38,7 @@ Name: semantic-data-type
 | [agent_skills](agent_skills.md) | Tools, functions, or prompts associated with this data type |
 | [algorithm](algorithm.md) | Algorithmic checker name (e |
 | [api_definition](api_definition.md) | API endpoint or function signature |
+| [citation](citation.md) | A formal bibliographic citation for the resource |
 | [classification](classification.md) | Code lists or classification schemes that categorize this variable |
 | [code](code.md) | The actual code snippet or expression (e |
 | [code_snippets](code_snippets.md) | Environment-specific code snippets or expressions implementing the validation... |
@@ -66,6 +68,8 @@ Name: semantic-data-type
 | [name](name.md) | Human-readable name of the Semantic Data Type |
 | [pattern](pattern.md) | Regular expression pattern for validation |
 | [pref_label](pref_label.md) | Preferred label of the concept in the ontology |
+| [publisher](publisher.md) | The entity or publisher responsible for making the resource available |
+| [resources](resources.md) | External resources and references related to the Semantic Data Type |
 | [rule_type](rule_type.md) | Type of validation (e |
 | [scope](scope.md) | Contextual scope of the data type (temporal, geographic, etc |
 | [start_date](start_date.md) | Start date of the coverage formatted strictly according to ISO 8601 (YYYY-MM-... |
@@ -74,8 +78,10 @@ Name: semantic-data-type
 | [target_environment](target_environment.md) | Target platform, framework, database, or language |
 | [template](template.md) | Seed template or expression |
 | [temporal_coverage](temporal_coverage.md) | Temporal coverage details |
+| [title](title.md) | Human-readable name of the resource |
 | [tool_name](tool_name.md) | Name of the tool or function |
 | [uri](uri.md) | URI of the concept (e |
+| [url](url.md) | The URL/URI of the resource |
 | [validation_rules](validation_rules.md) | Rules to validate physical representations of the data type |
 | [value](value.md) | Example value representation |
 | [version](version.md) | The version of the Semantic Data Type instance definition (e |

@@ -78,3 +78,8 @@ examples:
   - value: "abcde"
     is_valid: false
     description: Invalid because it contains alphabetic characters.
+resources:
+  - url: https://pe.usps.com/
+    title: USPS Postal Explorer
+    description: Official United States Postal Service domestic mail manual and addressing standards.
+    citation: "United States Postal Service. (2026). Postal Explorer. Retrieved from https://pe.usps.com/"

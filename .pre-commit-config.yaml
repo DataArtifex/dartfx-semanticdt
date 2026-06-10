@@ -7,12 +7,14 @@ repos:
         entry: scripts/precommit_uv_run.sh ruff check --fix
         language: system
         types: [python]
+        exclude: ^linkml/
 
       - id: ruff-format
         name: ruff-format
         entry: scripts/precommit_uv_run.sh ruff format
         language: system
         types: [python]
+        exclude: ^linkml/
 
       - id: pyrefly
         name: pyrefly
