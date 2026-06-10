@@ -9,10 +9,6 @@ concepts:
     vocabulary: Wikidata
     pref_label: postal codes in Canada
     match_type: exactMatch
-  - uri: https://en.wikipedia.org/wiki/Postal_codes_in_Canada
-    vocabulary: Wikipedia
-    pref_label: Postal codes in Canada
-    match_type: exactMatch
 storage_types:
   - target_environment: generic
     data_type: string
@@ -84,3 +80,11 @@ examples:
   - value: 1A1 A1A
     is_valid: false
     description: Invalid because the character positions are reversed.
+resources:
+  - url: https://www.canadapost-postescanada.ca/cpc/en/tools/find-a-postal-code.page
+    title: Canada Post Find a Postal Code
+    description: Official Canada Post tool to look up and verify postal codes.
+    publisher: Canada Post
+  - url: https://en.wikipedia.org/wiki/Postal_codes_in_Canada
+    title: Postal Codes in Canada (Wikipedia)
+    description: Wikipedia article detailing the history, FSA, LDU, and routing of Canadian postal codes.

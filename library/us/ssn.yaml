@@ -9,10 +9,6 @@ concepts:
     vocabulary: Wikidata
     pref_label: Social Security number (United States)
     match_type: exactMatch
-  - uri: https://en.wikipedia.org/wiki/Social_Security_number
-    vocabulary: Wikipedia
-    pref_label: Social Security number
-    match_type: exactMatch
 storage_types:
   - target_environment: generic
     data_type: string
@@ -95,3 +91,7 @@ examples:
   - value: 123456789
     is_valid: false
     description: Invalid because it lacks the required hyphen formatting.
+resources:
+  - url: https://en.wikipedia.org/wiki/Social_Security_number
+    title: Social Security Number (Wikipedia)
+    description: Wikipedia article detailing the history, issuance, structure, and security concerns of United States Social Security Numbers.

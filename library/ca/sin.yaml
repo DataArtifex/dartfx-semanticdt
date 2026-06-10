@@ -5,8 +5,8 @@ description: >-
   It is validated using the Luhn algorithm.
 version: 0.1.0
 concepts:
-  - uri: https://en.wikipedia.org/wiki/Social_Insurance_Number
-    vocabulary: Wikipedia
+  - uri: https://www.wikidata.org/wiki/Q3240093
+    vocabulary: Wikidata
     pref_label: Social Insurance Number
     match_type: exactMatch
 storage_types:
@@ -97,3 +97,7 @@ examples:
   - value: 123-456-78
     is_valid: false
     description: Invalid because it is too short.
+resources:
+  - url: https://en.wikipedia.org/wiki/Social_Insurance_Number
+    title: Social Insurance Number (Wikipedia)
+    description: Wikipedia article detailing the history, issuance, and usage of the Canadian Social Insurance Number (SIN).

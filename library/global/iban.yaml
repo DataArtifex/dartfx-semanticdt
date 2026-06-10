@@ -9,10 +9,6 @@ concepts:
     vocabulary: Wikidata
     pref_label: International Bank Account Number
     match_type: exactMatch
-  - uri: https://en.wikipedia.org/wiki/International_Bank_Account_Number
-    vocabulary: Wikipedia
-    pref_label: International Bank Account Number
-    match_type: exactMatch
 storage_types:
   - target_environment: generic
     data_type: string
@@ -80,3 +76,7 @@ examples:
   - value: FR76 3000
     is_valid: false
     description: Invalid because it is too short.
+resources:
+  - url: https://en.wikipedia.org/wiki/International_Bank_Account_Number
+    title: International Bank Account Number (Wikipedia)
+    description: Wikipedia article detailing the structure, country formats, and check digits of IBANs.

@@ -9,10 +9,6 @@ concepts:
     vocabulary: Wikidata
     pref_label: ZIP Code
     match_type: exactMatch
-  - uri: https://en.wikipedia.org/wiki/ZIP_Code
-    vocabulary: Wikipedia
-    pref_label: ZIP Code
-    match_type: exactMatch
 storage_types:
   - target_environment: generic
     data_type: string
@@ -83,3 +79,6 @@ resources:
     title: USPS Postal Explorer
     description: Official United States Postal Service domestic mail manual and addressing standards.
     citation: "United States Postal Service. (2026). Postal Explorer. Retrieved from https://pe.usps.com/"
+  - url: https://en.wikipedia.org/wiki/ZIP_Code
+    title: ZIP Code (Wikipedia)
+    description: Wikipedia article detailing the history, structure, and usage of United States ZIP codes.
