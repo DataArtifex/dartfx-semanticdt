@@ -9,6 +9,9 @@
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](code_of_conduct.md)
 [![DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/DataArtifex/dartfx-semanticdt)
 
+> [!WARNING]
+> **Early Release**: This project is in an early preview stage and is intended solely for development and testing purposes. It is not ready for production use.
+
 **dartfx-semanticdt** is a LinkML based model designed to define, validate, generate, and document **Semantic Data Types (SDTs)**.
 
 An SDT establishes a formal bridge between conceptual representations and physical storage or programming data types (such as `varchar` or `int`). By capturing key aspects—including meaning and purpose, usage, formatting, and validation rules—it enables both humans and machines to gain a deep, actionable understanding of the associated data.

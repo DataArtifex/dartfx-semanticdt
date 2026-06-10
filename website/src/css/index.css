@@ -27,6 +27,8 @@
   --status-success-bg: rgba(16, 185, 129, 0.1);
   --status-error: #ef4444; /* Red */
   --status-error-bg: rgba(239, 68, 68, 0.1);
+  --status-warning: #f59e0b; /* Amber */
+  --status-warning-bg: rgba(245, 158, 11, 0.15);
 
   --glass-blur: blur(12px);
   --shadow-sm: 0 2px 8px -2px rgba(0, 0, 0, 0.5);
@@ -854,4 +856,40 @@ footer {
   border-top: none;
   padding-top: 0.25rem;
   margin-top: auto;
+}
+
+/* Warning Banner */
+.warning-banner {
+  background-color: var(--status-warning-bg);
+  border-bottom: 1px solid rgba(245, 158, 11, 0.25);
+  padding: 0.5rem 1rem;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--text-primary);
+  position: relative;
+  z-index: 101;
+}
+
+.warning-banner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.warning-icon {
+  flex-shrink: 0;
+  font-size: 0.95rem;
+}
+
+.warning-text {
+  line-height: 1.4;
+  font-weight: 400;
+}
+
+.warning-text strong {
+  color: var(--status-warning);
+  font-weight: 600;
 }
